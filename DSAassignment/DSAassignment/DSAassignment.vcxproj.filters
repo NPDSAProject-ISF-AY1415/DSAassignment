@@ -18,13 +18,31 @@
     <ClInclude Include="Music.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="parse.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ListArray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ListPointer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="concol.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Lyric.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LyricA.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ptrArr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Graph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="plotGraph.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -36,6 +54,30 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ListArray.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="concol.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Lyric.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LyricA.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Graph.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ptrArr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="plotGraph.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,7 +1,9 @@
 #include"Music.h"
 #include<iostream>
 #include<string>
+#include"concol.h"
 using namespace std;
+using namespace eku;
 //constructor
 Music::Music(string id, string art, string title, string mid, string mart, string mtitl)
 {
@@ -13,25 +15,25 @@ Music::Music(string id, string art, string title, string mid, string mart, strin
 	this->mTitle = mtitl;
 }
 //implement the class functions e.g get, set
-void Music::setTid(string id){ tid = id; }
-string Music::getTid(){ return tid; }
-void Music::setTartist(string art){ tArtist = art; }
-string Music::getTartist(){ return tArtist; }
-void Music::setTtitle(string title){ tTitle = title; }
-string Music::getTtitle(){ return tTitle; }
-void Music::setMxmid(string mart){ mxmid = mart; }
-string Music::getMxmid(){ return mxmid; }
-void Music::setMArtist(string mart){ mArtist = mart; }
-string Music::getMartist(){ return mArtist; }
-void Music::setMTitle(string mtitl){ mTitle = mtitl; }
-string Music::getMTitle(){ return mTitle; }
+void Music::setTid(string id){ this->tid = id; }
+string Music::getTid(){ return this->tid; }
+void Music::setTArtist(string art){ this->tArtist = art; }
+string Music::getTArtist(){ return this->tArtist; }
+void Music::setTTitle(string title){ this->tTitle = title; }
+string Music::getTTitle(){ return this->tTitle; }
+void Music::setMid(string mid){ this->mxmid = mid; }
+string Music::getMid(){ return this->mxmid; }
+void Music::setMArtist(string mart){ this->mArtist = mart; }
+string Music::getMArtist(){ return this->mArtist; }
+void Music::setMTitle(string mtitl){ this->mTitle = mtitl; }
+string Music::getMTitle(){ return this->mTitle; }
 void Music::printMusicInfo(){
-	cout <<  "Million Song Track DB ID: "  << this->tid << endl;
-	cout <<  "Million Song Track Artist: " << this->tArtist << endl;
-	cout <<  "Million Song Track Title: "  << this->tTitle << endl;
-	cout <<  "musicXmatch Track DB ID: "   << this->mxmid << endl;
-	cout <<  "musicXmatch Track Artist: "  << this->mArtist << endl;
-	cout <<  "musicXmatch Track Title: "   << this->mTitle << endl;
+	cout << white<< "Million Song Track DB ID: " <<blue << this->tid << endl;
+	cout << white<< "Million Song Track Artist: " <<blue<< this->tArtist << endl;
+	cout << white<< "Million Song Track Title: "  <<blue<< this->tTitle << endl;
+	cout << white<<"musicXmatch Track DB ID: "   <<blue<< this->mxmid << endl;
+	cout << white<< "musicXmatch Track Artist: "  <<blue<< this->mArtist << endl;
+	cout << white<< "musicXmatch Track Title: "   <<blue<< this->mTitle << endl;
 }
 
 
