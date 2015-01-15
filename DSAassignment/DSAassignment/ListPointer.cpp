@@ -89,6 +89,7 @@ void ListPointer::remove(int index){
 			Node *removedNode = tmpNode->next;
 			//Set node to point to node after removed node
 			tmpNode->next = removedNode->next;
+			delete removedNode;
 		}
 		size--;
 	}
@@ -116,6 +117,7 @@ bool ListPointer::isEmpty(){
 int ListPointer::getLength(){
 	return size;
 }
+
 void ListPointer::print(){
 	//Set tmp pointer to first Node
 	Node *tmpPointer = firstNode;
