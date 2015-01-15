@@ -84,6 +84,7 @@
     <ClInclude Include="ListPointer.h" />
     <ClInclude Include="Lyric.h" />
     <ClInclude Include="LyricA.h" />
+    <ClInclude Include="Memory.h" />
     <ClInclude Include="Music.h" />
     <ClInclude Include="plotGraph.h" />
     <ClInclude Include="ptrArr.h" />
