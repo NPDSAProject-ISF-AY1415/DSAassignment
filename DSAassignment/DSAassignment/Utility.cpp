@@ -35,7 +35,7 @@ namespace utility {
 
 	void printMenuTitle(string title){
 		printSeperator();
-		cout << centerString(title.c_str(), CONSOLE_WINDOW_SIZE) << endl;
+		cout << red << centerString(title.c_str(), CONSOLE_WINDOW_SIZE) << white << endl;
 		printSeperator();
 	}
 

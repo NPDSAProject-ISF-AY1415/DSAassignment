@@ -21,11 +21,6 @@ static inline void initFilesLoadbar(unsigned int x, unsigned int n, clock_t begi
 {
 	if ((x != n) && (x % (n / 100 + 1) != 0) && n >= 2000) return;
 
-	//Get Elapsed Time and memory used
-	double elapsedSec = calculateElapsed(beginClock, clock());
-	SIZE_T pMem = (getPMUsed() - beginPMem);
-	SIZE_T vMem = (getVMUsed() - beginVMem);
-
 	float ratio = x / (float)n;
 	int   c = ratio * w;
 
@@ -33,8 +28,8 @@ static inline void initFilesLoadbar(unsigned int x, unsigned int n, clock_t begi
 	cout << setw(3) << white << "Parsed: " << cyan << x << white << "/" << green << n << yellow << " [" << red;
 	for (int x = 0; x < c; x++) cout << "=";
 	for (int x = c; x < w; x++) cout << " ";
-	cout << yellow << "] " << (int)(ratio * 100) << "%" << white << " Time: " << cyan << setprecision(2) << fixed << elapsedSec << " sec";
-	cout << white << " Mem: " << gray << convertMemoryToHumanReadableSht(pMem) << white << "/" << dark_white << convertMemoryToHumanReadableSht(vMem);
+	cout << yellow << "] " << (int)(ratio * 100) << "%" << white << " Time: " << cyan << setprecision(2) << fixed << calculateElapsed(beginClock, clock()) << " sec";
+	cout << white << " Mem: " << gray << convertMemoryToHumanReadableSht(getPMUsed() - beginPMem) << white << "/" << dark_white << convertMemoryToHumanReadableSht(getVMUsed() - beginVMem);
 	//Get Console Cursor Pos
 	CONSOLE_SCREEN_BUFFER_INFO SBInfo;
 	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &SBInfo);
@@ -46,6 +41,10 @@ static inline void initFilesLoadbar(unsigned int x, unsigned int n, clock_t begi
 	settextcolor(white);
 }
 
+/*
+Stores the Lyrics Dataset into a vector
+Estimated Time: ~82.19 secs (~1 min 22.19 secs)
+*/
 void parseLyrics(){
 	bool verboseMode = false; //Enable Verbose Mode
 	string str;
@@ -67,8 +66,13 @@ void parseLyrics(){
 	}
 
 	initFilesLoadbar(progressCounter, progressCounter, beginClock, bPMem, bVMem);
+	cout << endl;
 }
 
+/*
+Stores the Song Dataset into a vector
+Estimated Time: ~73.80 secs (~1 min 13.80 secs)
+*/
 void parseSong(){
 	bool verboseMode = false; //Enable Verbose Mode
 	string str;
@@ -91,14 +95,19 @@ void parseSong(){
 		internalCounter++;
 	}
 	initFilesLoadbar(progressCounter, progressCounter, beginClock, bPMem, bVMem);
+	cout << endl;
 }
 
+/*
+Stores the Words Dataset into a vector
+Estimated Time: ~0.34 secs
+*/
 void parseWords(){
 	bool verboseMode = false; //Enable Verbose Mode
 	string str;
 	int internalCounter = 0, progressCounter = WORD_DATASET_LENGTH;
 	ifstream file("mxm_dataset_train.txt");
-	printMenuTitle("Initializing Lyric Word Count...");
+	printMenuTitle("Initializing Words in Lyric...");
 
 	//Get Start Memory (Virtual, Physical) and Clock for prog bar
 	clock_t beginClock = clock();
@@ -124,13 +133,18 @@ void parseWords(){
 		}
 	}
 	initFilesLoadbar(progressCounter, progressCounter, beginClock, bPMem, bVMem);
+	cout << endl;
 }
 
+/*
+Calls all the 3 methods to load the dataset into the vectors
+Estimated Time: ~156.33 secs (~2 mins 36.33 secs)
+*/
 void initFileParse(){
 	printMemoryInfo();
 	printMenuTitle("Initializing and loading text files to temp buffer");
-	parseLyrics();
 	parseSong();
+	parseLyrics();
 	parseWords();
 	printMenuTitle("Load Completed");
 	cout << endl;

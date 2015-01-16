@@ -19,11 +19,11 @@
     <Filter Include="Header Files\Objects">
       <UniqueIdentifier>{b82b292f-1d8b-4d2a-9b64-9e0433105155}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Objects">
-      <UniqueIdentifier>{60dcc1db-ccb6-4cc2-b31a-bfd84216f2f0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Utilities">
       <UniqueIdentifier>{4a9fe9e6-1aef-460a-9dc2-3a898d7d2c64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects">
+      <UniqueIdentifier>{60dcc1db-ccb6-4cc2-b31a-bfd84216f2f0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
