@@ -1,12 +1,13 @@
 #ifndef MUSIC
 #define MUSIC
 
-#include<iostream>
-#include<string> 
+#include <string>
+#include <iostream>
+#include "concol.h"
+
 using namespace std;
 
-class Music
-{
+class Music{
 private:
 	//initialize private variables for the music
 	string tid;
@@ -16,7 +17,7 @@ private:
 	string mArtist;
 	string mTitle;
 public:
-	Music::Music(string id, string art, string title, string mid, string mart, string mtitl);
+	Music(string id, string art, string title, string mid, string mart, string mtitl);
 	void setTid(string id);
 	string getTid();
 	void setTArtist(string art);

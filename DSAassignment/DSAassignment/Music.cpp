@@ -1,12 +1,9 @@
-#include"Music.h"
-#include<iostream>
-#include<string>
-#include"concol.h"
+#include "Music.h"
 using namespace std;
 using namespace eku;
 //constructor
-Music::Music(string id, string art, string title, string mid, string mart, string mtitl)
-{
+
+Music::Music(string id, string art, string title, string mid, string mart, string mtitl){
 	this->tid = id;
 	this->tArtist = art;
 	this->tTitle = title;
@@ -27,13 +24,15 @@ void Music::setMArtist(string mart){ this->mArtist = mart; }
 string Music::getMArtist(){ return this->mArtist; }
 void Music::setMTitle(string mtitl){ this->mTitle = mtitl; }
 string Music::getMTitle(){ return this->mTitle; }
+
+/*
+Prints out a song's information
+*/
 void Music::printMusicInfo(){
-	cout << white<< "Million Song Track DB ID: " <<blue << this->tid << endl;
-	cout << white<< "Million Song Track Artist: " <<blue<< this->tArtist << endl;
-	cout << white<< "Million Song Track Title: "  <<blue<< this->tTitle << endl;
-	cout << white<<"musicXmatch Track DB ID: "   <<blue<< this->mxmid << endl;
-	cout << white<< "musicXmatch Track Artist: "  <<blue<< this->mArtist << endl;
-	cout << white<< "musicXmatch Track Title: "   <<blue<< this->mTitle << endl;
+	cout << white << "Million Song Track DB ID: " << blue << this->tid << endl;
+	cout << white << "Million Song Track Artist: " << blue << this->tArtist << endl;
+	cout << white << "Million Song Track Title: " << blue << this->tTitle << endl;
+	cout << white << "musicXmatch Track DB ID: " << blue << this->mxmid << endl;
+	cout << white << "musicXmatch Track Artist: " << blue << this->mArtist << endl;
+	cout << white << "musicXmatch Track Title: " << blue << this->mTitle << endl;
 }
-
-
