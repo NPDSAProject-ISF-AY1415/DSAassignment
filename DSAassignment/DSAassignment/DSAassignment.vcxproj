@@ -98,6 +98,7 @@
     <ClCompile Include="Lyric.cpp" />
     <ClCompile Include="LyricA.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Memory.cpp" />
     <ClCompile Include="Music.cpp" />
     <ClCompile Include="plotGraph.cpp" />
     <ClCompile Include="ptrArr.cpp" />
