@@ -66,6 +66,9 @@
     <ClInclude Include="GlobalIdentifiers.h">
       <Filter>Header Files\Utilities</Filter>
     </ClInclude>
+    <ClInclude Include="sortedArr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -102,6 +105,9 @@
       <Filter>Source Files\Utilities</Filter>
     </ClCompile>
     <ClCompile Include="UnsortedPtr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sortedArr.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

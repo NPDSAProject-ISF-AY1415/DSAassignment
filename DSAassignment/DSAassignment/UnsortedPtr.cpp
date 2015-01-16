@@ -52,7 +52,7 @@ namespace unsortedptr {
 	@param beginVMem Start of VMem
 	@param w Width of the bar
 	*/
-	static inline void loadbar(unsigned int x, unsigned int n, clock_t beginClock, SIZE_T beginPMem, SIZE_T beginVMem, unsigned int w)
+	static inline void loadbar(unsigned int x, unsigned int n, clock_t beginClock, SIZE_T beginPMem, SIZE_T beginVMem, unsigned int w = 10)
 	{
 		if ((x != n) && (x % (n / 100 + 1) != 0) && n >= 2000) return;
 

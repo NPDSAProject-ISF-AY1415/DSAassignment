@@ -49,7 +49,7 @@ namespace unsortedptr {
 	extern vector<double> memoryVRemoveMCounter;
 	extern vector<double> memoryVDisplayWCounter;
 
-	static inline void loadbar(unsigned int x, unsigned int n, clock_t beginClock, SIZE_T beginPMem, SIZE_T beginVMem, unsigned int w = 10);
+	static inline void loadbar(unsigned int x, unsigned int n, clock_t beginClock, SIZE_T beginPMem, SIZE_T beginVMem, unsigned int w);
 	Lyric parseLyricData(string lyricStr);
 	void parseFiles(ListPointer &musInfoList, ListPointer &wordList, ListPointer &lyricList);
 	void readTopWords(ListPointer &list);
