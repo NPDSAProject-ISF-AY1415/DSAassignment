@@ -646,77 +646,77 @@ namespace unsortedptr {
 	Make a Graph with x axis being the length of the list and the y axis being time taken
 	*/
 	void makeAddTimeGraph(){
-		ListPointer ptrArrList;
+		vector<string> ptrArrList(0);
 		//Make Graph for Lyric and get string
 		if (addLElapsed == -1)	cout << dark_red << "There is no data for adding Lyrics. Please run the add operation before doing this." << endl;
 		else{
 			Graph lycG("Lyrics", timingAddLCounter.size(), timingAddLCounter);
 			string lycGStr = lycG.createGraphString();
-			ptrArrList.add(lycGStr);
+			ptrArrList.push_back(lycGStr);
 		}
 		//Make Graph for Songs
 		if (addMElapsed == -1)	cout << dark_red << "There is no data for adding Song Data. Please run the add operation before doing this." << endl;
 		else {
 			Graph sonG("Song Data", timingAddMCounter.size(), timingAddMCounter);
 			string sonGStr = sonG.createGraphString();
-			ptrArrList.add(sonGStr);
+			ptrArrList.push_back(sonGStr);
 		}
 		//Make Graph for Words
 		if (addWElapsed == -1)	cout << dark_red << "There is no data for adding top words. Please run the add operation before doing this." << endl;
 		else {
 			Graph wrdG("Top Lyric Words", timingAddWCounter.size(), timingAddWCounter);
 			string wrdGStr = wrdG.createGraphString();
-			ptrArrList.add(wrdGStr);
+			ptrArrList.push_back(wrdGStr);
 		}
-		if (ptrArrList.getLength() > 0 && ptrArrList.getLength() <= 3)	plotGraph(ptrArrList, "Unsorted Pointer-Based List Timings Graph (ADD)");
+		if (ptrArrList.size() > 0 && ptrArrList.size() <= 3)	plotGraph(ptrArrList, "Unsorted Pointer-Based List Timings Graph (ADD)");
 	}
 
 	/*
 	Make a Graph with x axis being the length of the list and the y axis being time taken
 	*/
 	void makeDisplayTimeGraph(){
-		ListPointer ptrArrList;
+		vector<string> ptrArrList;
 		if (displayMElapsed == -1)	cout << dark_red << "There is no data for displaying song data. Please run the display operation before doing this." << endl;
 		else{
 			Graph sonG("Song Data", timingDisplayMCounter.size(), timingDisplayMCounter);
 			string sonGStr = sonG.createGraphString();
-			ptrArrList.add(sonGStr);
+			ptrArrList.push_back(sonGStr);
 		}
 		if (displayWElapsed == -1)	cout << dark_red << "There is no data for displaying top words. Please run the display operation before doing this." << endl;
 		else{
 			Graph wrdG("Top Lyric Words", timingDisplayWCounter.size(), timingDisplayWCounter);
 			string wrdGStr = wrdG.createGraphString();
-			ptrArrList.add(wrdGStr);
+			ptrArrList.push_back(wrdGStr);
 		}
-		if (ptrArrList.getLength() > 0 && ptrArrList.getLength() <= 2)	plotGraph(ptrArrList, "Unsorted Pointer-Based List Timings Graph (DISPLAY)");
+		if (ptrArrList.size() > 0 && ptrArrList.size() <= 2)	plotGraph(ptrArrList, "Unsorted Pointer-Based List Timings Graph (DISPLAY)");
 	}
 
 	/*
 	Make a Graph with x axis being the length of the list and the y axis being time taken
 	*/
 	void makeRemoveTimeGraph(){
-		ListPointer ptrArrList;
+		vector<string> ptrArrList;
 		if (removeElapsed == -1)	cout << dark_red << "There is no data for removing song data. Please run the remove operation before doing this." << endl;
 		else {
 			Graph sonG("Song Data", timingRemoveMCounter.size(), timingRemoveMCounter);
 			string sonGStr = sonG.createGraphString();
-			ptrArrList.add(sonGStr);
+			ptrArrList.push_back(sonGStr);
 		}
-		if (ptrArrList.getLength() == 1)	plotGraph(ptrArrList, "Unsorted Pointer-Based List Timings Graph (REMOVE)");
+		if (ptrArrList.size() == 1)	plotGraph(ptrArrList, "Unsorted Pointer-Based List Timings Graph (REMOVE)");
 	}
 
 	/*
 	Make a Graph with x axis being the length of the list and the y axis being time taken
 	*/
 	void makeSeqSearchTimeGraph(){
-		ListPointer ptrArrList;
+		vector<string> ptrArrList;
 		if (sequSearchElapsed == -1)	cout << dark_red << "There is no data for searching song data sequentially. Please run the seq. search operation before doing this." << endl;
 		else {
 			Graph sonG("Song Data", timingSeqSearchMCounter.size(), timingSeqSearchMCounter);
 			string sonGStr = sonG.createGraphString();
-			ptrArrList.add(sonGStr);
+			ptrArrList.push_back(sonGStr);
 		}
-		if (ptrArrList.getLength() == 1)	plotGraph(ptrArrList, "Unsorted Pointer-Based List Timings Graph (SEQUENTIAL SEARCH)");
+		if (ptrArrList.size() == 1)	plotGraph(ptrArrList, "Unsorted Pointer-Based List Timings Graph (SEQUENTIAL SEARCH)");
 	}
 
 	/*

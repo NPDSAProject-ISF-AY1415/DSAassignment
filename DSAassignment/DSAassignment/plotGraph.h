@@ -1,10 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "ListPointer.h"
 #include "Graph.h"
 #include "concol.h"
 #include <iostream>
+#include <vector>
 
-//DEPRECRATED. USE SECOND
-int plotGraph(ListPointer &graphList);
-int plotGraph(ListPointer &graphList, string title);
+int plotGraph(vector<string> &graphList, string title);
