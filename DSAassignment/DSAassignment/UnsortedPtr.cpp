@@ -1,10 +1,10 @@
-#include "ptrArr.h"
+#include "UnsortedPtr.h"
 
 using namespace std;
 using namespace eku;
 using namespace utility;
 
-namespace ptrarr {
+namespace unsortedptr {
 	int musicInfoFileLength = 779074;
 	//All the counters
 	double addMElapsed = -1, addWElapsed = -1, addLElapsed = -1, displayMElapsed = -1, displayWElapsed = -1, sequSearchElapsed = -1;

@@ -88,7 +88,7 @@
     <ClInclude Include="Memory.h" />
     <ClInclude Include="Music.h" />
     <ClInclude Include="plotGraph.h" />
-    <ClInclude Include="ptrArr.h" />
+    <ClInclude Include="UnsortedPtr.h" />
     <ClInclude Include="Utility.h" />
   </ItemGroup>
   <ItemGroup>
@@ -102,7 +102,7 @@
     <ClCompile Include="Memory.cpp" />
     <ClCompile Include="Music.cpp" />
     <ClCompile Include="plotGraph.cpp" />
-    <ClCompile Include="ptrArr.cpp" />
+    <ClCompile Include="UnsortedPtr.cpp" />
     <ClCompile Include="Utility.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

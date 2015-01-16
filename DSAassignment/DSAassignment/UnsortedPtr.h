@@ -1,5 +1,5 @@
-#ifndef UNSORT_PTR_ARR
-#define UNSORT_PTR_ARR
+#ifndef UNSORT_PTR_LIST
+#define UNSORT_PTR_LIST
 
 #include <iostream>		//String
 #include <fstream>		//File reading
@@ -21,7 +21,7 @@
 #define LYRIC_FILE_LENGTH 210519
 #define WORD_LENGTH 5000
 
-namespace ptrarr {
+namespace unsortedptr {
 	extern int musicInfoFileLength;
 	extern double addMElapsed, addWElapsed, addLElapsed, displayMElapsed, displayWElapsed, sequSearchElapsed;
 	extern double removeElapsed;

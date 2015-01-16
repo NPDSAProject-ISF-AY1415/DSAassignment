@@ -44,12 +44,12 @@ int main(){
 		if (is_number(selection)){
 			switch (stoi(selection))
 			{
-			case 1: menErr = ptrarr::mainLoop(); break;
+			case 1: menErr = unsortedptr::mainLoop(); break;
 			case 2: cout << dark_red << "Soon to be implemented" << endl; break;	//TODO Replace with main loop for sorted pointer
 			case 3: cout << dark_red << "Soon to be implemented" << endl; break;	//TODO Replace with main loop for unsorted array
 			case 4: cout << dark_red << "Soon to be implemented" << endl; break;	//TODO Replace with main loop for sorted array
-			case 5: ptrarr::performanceMenu(); break;		//Temp, soon will be a menu specifically for main menu
-			case 6: ptrarr::plotGraphMenu(); break;			//Temp, soon will be a menu designed for main menu
+			case 5: unsortedptr::performanceMenu(); break;		//Temp, soon will be a menu specifically for main menu
+			case 6: unsortedptr::plotGraphMenu(); break;			//Temp, soon will be a menu designed for main menu
 			case 0: return 0;
 				//case 4: mainList.print(); break;
 			default: cout << dark_red << "Invalid Selection." << endl; break;
