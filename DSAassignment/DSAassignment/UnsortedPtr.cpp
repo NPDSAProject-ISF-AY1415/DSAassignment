@@ -675,7 +675,7 @@ namespace unsortedptr {
 	Make a Graph with x axis being the length of the list and the y axis being time taken
 	*/
 	void makeDisplayTimeGraph(){
-		vector<string> ptrArrList;
+		vector<string> ptrArrList(0);
 		if (displayMElapsed == -1)	cout << dark_red << "There is no data for displaying song data. Please run the display operation before doing this." << endl;
 		else{
 			Graph sonG("Song Data", timingDisplayMCounter.size(), timingDisplayMCounter);
@@ -695,7 +695,7 @@ namespace unsortedptr {
 	Make a Graph with x axis being the length of the list and the y axis being time taken
 	*/
 	void makeRemoveTimeGraph(){
-		vector<string> ptrArrList;
+		vector<string> ptrArrList(0);
 		if (removeElapsed == -1)	cout << dark_red << "There is no data for removing song data. Please run the remove operation before doing this." << endl;
 		else {
 			Graph sonG("Song Data", timingRemoveMCounter.size(), timingRemoveMCounter);
@@ -709,7 +709,7 @@ namespace unsortedptr {
 	Make a Graph with x axis being the length of the list and the y axis being time taken
 	*/
 	void makeSeqSearchTimeGraph(){
-		vector<string> ptrArrList;
+		vector<string> ptrArrList(0);
 		if (sequSearchElapsed == -1)	cout << dark_red << "There is no data for searching song data sequentially. Please run the seq. search operation before doing this." << endl;
 		else {
 			Graph sonG("Song Data", timingSeqSearchMCounter.size(), timingSeqSearchMCounter);
