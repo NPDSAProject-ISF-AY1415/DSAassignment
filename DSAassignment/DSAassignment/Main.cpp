@@ -37,6 +37,8 @@ int main(){
 
 	printAscii();
 	cout << endl;
+	//This will be used to check if the array pointers returned an error or not
+	//-1 means no error but continue looping, 0 means no error but exit program, anything else = error
 	int menErr = -1;
 	while (menErr == -1){
 		mainMenu();
@@ -46,9 +48,12 @@ int main(){
 		if (is_number(selection)){
 			switch (stoi(selection))
 			{
-			case 1:
-			case 2:
-			case 3:
+			case 1: menErr = ptrarr::mainLoop(); break;
+			case 2: cout << dark_red << "Soon to be implemented" << endl; break;	//TODO Replace with main loop for sorted pointer
+			case 3: cout << dark_red << "Soon to be implemented" << endl; break;	//TODO Replace with main loop for unsorted array
+			case 4: cout << dark_red << "Soon to be implemented" << endl; break;	//TODO Replace with main loop for sorted array
+			case 5: ptrarr::performanceMenu(); break;		//Temp, soon will be a menu specifically for main menu
+			case 6: ptrarr::plotGraphMenu(); break;			//Temp, soon will be a menu designed for main menu
 			case 0: return 0;
 				//case 4: mainList.print(); break;
 			default: cout << dark_red << "Invalid Selection." << endl; break;
