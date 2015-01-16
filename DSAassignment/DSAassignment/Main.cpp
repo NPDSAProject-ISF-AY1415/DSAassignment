@@ -32,7 +32,7 @@ Main Method
 */
 int main(){
 	//Initialization
-	SetConsoleTitle(TEXT("DSA Read File Test Project"));
+	SetConsoleTitle(TEXT("Data Structure Performance Analysis (DSA Assignment)"));
 	concolinit();
 
 	printAscii();
