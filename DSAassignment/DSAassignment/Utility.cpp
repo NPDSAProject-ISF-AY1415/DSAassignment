@@ -33,6 +33,12 @@ namespace utility {
 		cout << yellow << "===============================================================================" << white << endl;
 	}
 
+	void printMenuTitle(string title){
+		printSeperator();
+		cout << centerString(title.c_str(), CONSOLE_WINDOW_SIZE) << endl;
+		printSeperator();
+	}
+
 	/*
 	Calculate Elapsed Time in Seconds
 	@param start Start of the clock

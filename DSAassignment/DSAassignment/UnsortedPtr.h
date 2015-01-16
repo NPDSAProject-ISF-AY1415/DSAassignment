@@ -17,9 +17,7 @@
 #include <iomanip>		//std::setw
 #include <sstream>		//String Stream
 #include <vector>		//Vector
-#define SONG_FILE_LENGTH 779088
-#define LYRIC_FILE_LENGTH 210519
-#define WORD_LENGTH 5000
+#include "GlobalIdentifiers.h"
 
 namespace unsortedptr {
 	extern int musicInfoFileLength;

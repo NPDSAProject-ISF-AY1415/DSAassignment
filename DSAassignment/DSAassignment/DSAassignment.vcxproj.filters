@@ -63,6 +63,9 @@
     <ClInclude Include="UnsortedPtr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GlobalIdentifiers.h">
+      <Filter>Header Files\Utilities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">

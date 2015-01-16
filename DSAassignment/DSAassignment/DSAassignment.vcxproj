@@ -79,6 +79,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="concol.h" />
+    <ClInclude Include="GlobalIdentifiers.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="ListArray.h" />
     <ClInclude Include="ListPointer.h" />
