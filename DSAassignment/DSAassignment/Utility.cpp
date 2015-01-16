@@ -6,6 +6,16 @@ using namespace eku;
 namespace utility {
 
 	/*
+	Color Legend
+	Yellow - Progress Bar/Status Message
+	Pink - Input Message
+	Cyan - Input/Numbers
+	White - Progress Message
+	Blue - String Message
+	Red - Title
+	*/
+
+	/*
 	Check if string is a positive number
 	@param s String to check
 	@return Whether it is a number or not

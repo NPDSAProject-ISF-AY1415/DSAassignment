@@ -13,10 +13,10 @@
 #include "Graph.h"
 #include "plotGraph.h"
 #include "Memory.h"
+#include "Main.h"
 #include <iomanip>		//std::setw
 #include <sstream>		//String Stream
 #include <vector>		//Vector
-#define CONSOLE_WINDOW_SIZE 78
 #define SONG_FILE_LENGTH 779088
 #define LYRIC_FILE_LENGTH 210519
 #define WORD_LENGTH 5000

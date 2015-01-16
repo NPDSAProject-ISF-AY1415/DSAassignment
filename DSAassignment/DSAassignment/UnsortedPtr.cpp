@@ -42,23 +42,15 @@ namespace unsortedptr {
 	vector<double> memoryPRemoveMCounter(3);
 	vector<double> memoryVRemoveMCounter(3);
 
-	/*
-	Color Legend
-	Yellow - Progress Bar/Status Message
-	Pink - Input Message
-	Cyan - Input/Numbers
-	White - Progress Message
-	Blue - String Message
-	Red - Title
-	*/
-
 	//START OF UTILITY
 
 	/* An Inline Progress Bar
 	@param x Current Index
 	@param n Total Number of Progress
-	@param w Width of the bar
 	@param beginClock Start of elapsed time
+	@param beginPMem Start of PMem
+	@param beginVMem Start of VMem
+	@param w Width of the bar
 	*/
 	static inline void loadbar(unsigned int x, unsigned int n, clock_t beginClock, SIZE_T beginPMem, SIZE_T beginVMem, unsigned int w)
 	{
