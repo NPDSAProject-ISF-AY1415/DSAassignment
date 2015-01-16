@@ -3,6 +3,7 @@
 #include <vector>
 #include "Utility.h"
 #include "UnsortedPtr.h"
+#include "sortedArr.h"
 #include "Memory.h"
 #include "GlobalIdentifiers.h"
 

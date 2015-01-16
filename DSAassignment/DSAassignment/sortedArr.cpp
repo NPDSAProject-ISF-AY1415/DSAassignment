@@ -4,12 +4,14 @@ using namespace std;
 using namespace eku;
 using namespace utility;
 
-namespace unsortedptr {
+namespace sortedArr {
 	int musicInfoFileLength = 779074;
 	//All the counters
 	double addMElapsed = -1, addWElapsed = -1, addLElapsed = -1, displayMElapsed = -1, displayWElapsed = -1, sequSearchElapsed = -1;
 	double removeElapsed = -1;
-
+	void readTopWords(ListArray &list);
+	void readSongLyricCount(ListArray &list, int count);
+	void readMatchFile(ListArray &list, int count);
 	//Memory Counters
 	SIZE_T addMVTime = -1, addWVTime = -1, addLVTime = -1, displayMVTime = -1, displayWVTime = -1, sequSearchVTime = -1, removeVTime = -1;	//Virtual Mem
 	SIZE_T addMPTime = -1, addWPTime = -1, addLPTime = -1, displayMPTime = -1, displayWPTime = -1, sequSearchPTime = -1, removePTime = -1;	//Physical Mem
@@ -92,25 +94,18 @@ namespace unsortedptr {
 	@param lyricStr String of the Lyric
 	@return Created Lyric File
 	*/
-	LyricA parseLyricData(string lyricStr){
+	Lyric parseLyricData(string lyricStr){
 		istringstream lyrStream(lyricStr);
 		string token;
+		Lyric l;
 		int ct = 0;	//0 - Track ID, 1 - MusicXMatch ID, >2 Word Count
-		LyricA l;
 		while (getline(lyrStream, token, ',')){
-			if (ct == 0){
-				l.setTrackID(token);
-				ct++;
+			switch (ct){
+			case 0: l.setTrackID(token); ct++; break;
+			case 1: l.setMusicXMatchID(token); ct++; break;
+			default: l.addWordAndCount(token); break;	//Parse Word and Count
 			}
-			else if (ct == 1){
-				l.setMusicXMatchID(token);
-				ct++;
-			}
-
-			//Parse Words
-			l.addWordAndCount(token);
 		}
-
 		return l;
 	}
 
@@ -129,24 +124,24 @@ namespace unsortedptr {
 		settextcolor(cyan);
 		int count;
 		cin >> count;
-		timingAddMCounter.resize(count);
-		memoryPAddMCounter.resize(count);
-		memoryVAddMCounter.resize(count);
-		printSeperator();
-		cout << red << "                             Parsing Text Files..." << endl;
-		printSeperator();
+		if (count != -1){
+			timingAddMCounter.resize(count);
+			memoryPAddMCounter.resize(count);
+			memoryVAddMCounter.resize(count);
+		}
+		printMenuTitle("Parsing Text Files...");
 		readMatchFile(musInfoList, count);
 		readTopWords(wordList);
 		cout << pink << "How many lines to read in Lyric Count File? (-1 to read all): ";
 		settextcolor(cyan);
 		cin >> count;
-		timingAddLCounter.resize(count);
-		memoryPAddLCounter.resize(count);
-		memoryVAddLCounter.resize(count);
+		if (count != -1){
+			timingAddLCounter.resize(count);
+			memoryPAddLCounter.resize(count);
+			memoryVAddLCounter.resize(count);
+		}
 		readSongLyricCount(lyricList, count);
-		printSeperator();
-		cout << red << "                                Parse Completed" << endl;
-		printSeperator();
+		printMenuTitle("Parse Completed");
 		cout << endl;
 		printMemoryInfo();
 	}
@@ -308,6 +303,8 @@ namespace unsortedptr {
 		ifstream file("mxm_779k_matches.txt");
 		string str;
 		string str2;
+		bool isBig = false;
+		bool isSmall = false;
 		int internalCounter = 0;
 		int progressCounter = count;
 		settextcolor(white);
@@ -342,8 +339,6 @@ namespace unsortedptr {
 			else {
 				//Parse Music Details Line
 				//list.add(str);
-				bool isBig = false;
-				bool isSmall = false;
 				for(int i = 0; i< count;i++)
 				  {
 						if (i==0)

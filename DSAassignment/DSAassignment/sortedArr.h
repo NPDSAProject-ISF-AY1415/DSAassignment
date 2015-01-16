@@ -9,7 +9,7 @@
 #include "ListArray.h"
 #include "Music.h"
 #include "Utility.h"
-#include "LyricA.h"
+#include "Lyric.h"
 #include "Graph.h"
 #include "plotGraph.h"
 #include "Memory.h"
@@ -19,7 +19,7 @@
 #include <vector>		//Vector
 #include "GlobalIdentifiers.h"
 
-namespace unsortedptr {
+namespace sortedArr {
 	extern int musicInfoFileLength;
 	extern double addMElapsed, addWElapsed, addLElapsed, displayMElapsed, displayWElapsed, sequSearchElapsed;
 	extern double removeElapsed;
@@ -50,7 +50,7 @@ namespace unsortedptr {
 	extern vector<double> memoryVDisplayWCounter;
 
 	static inline void loadbar(unsigned int x, unsigned int n, clock_t beginClock, SIZE_T beginPMem, SIZE_T beginVMem, unsigned int);
-	LyricA parseLyricData(string lyricStr);
+	Lyric parseLyricData(string lyricStr);
 	void parseFiles(ListArray &musInfoList, ListArray &wordList, ListArray &lyricList);
 	void readTopWords(ListArray &list);
 	void readMatchFile(ListArray &list, int count);
