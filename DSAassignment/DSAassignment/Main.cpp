@@ -1,8 +1,4 @@
-#include <Windows.h>	//Console Utility
-#include <iostream>
-#include "Utility.h"
-#include "PtrArr.h"
-#include "Memory.h"
+#include "Main.h"
 
 using namespace std;
 using namespace utility;
