@@ -206,8 +206,8 @@ int main(){
 			case 5: unsortedptr::performanceMenu(); break;		//Temp, soon will be a menu specifically for main menu
 			case 6: unsortedptr::plotGraphMenu(); break;			//Temp, soon will be a menu designed for main menu
 			case 9: initFileParse(); break;		//Test Vectors speed as per LCY suggestion
-			case 0: return 0;
-				//case 4: mainList.print(); break;
+			case 0: cout << green << "Freeing Memory taken by variables and containers. This may take a while..." << white << endl; 
+				return 0;
 			default: cout << dark_red << "Invalid Selection." << endl; break;
 			}
 		}

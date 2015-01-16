@@ -55,6 +55,10 @@ namespace unsortedptr {
 	void readTopWords(ListPointer &list);
 	void readMatchFile(ListPointer &list, int count);
 	void readSongLyricCount(ListPointer &list, int count);
+	void parseNewFiles(ListPointer &musInfoList, ListPointer &wordList, ListPointer &lyricList);
+	void readNewTopWords(ListPointer &list);
+	void readNewMatchFile(ListPointer &list, int count);
+	void readNewSongLyricCount(ListPointer &list, int count);
 	void mainPtrArrMenu();
 	void searchSong(ListPointer &list);
 	void listAllSongs(ListPointer &list);
