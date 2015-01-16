@@ -56,17 +56,6 @@ namespace unsortedptr {
 	{
 		if ((x != n) && (x % (n / 100 + 1) != 0) && n >= 2000) return;
 
-		//Get Elapsed Time
-		clock_t endClock = clock();
-		double elapsedSec = calculateElapsed(beginClock, endClock);
-
-		//Get Finish Memory (Virtual, Physical)
-		SIZE_T eVMem = getVMUsed();
-		SIZE_T ePMem = getPMUsed();
-		//Calculate Memory Used (Virtual, Physical)
-		SIZE_T pMem = (ePMem - beginPMem);
-		SIZE_T vMem = (eVMem - beginVMem);
-
 		float ratio = x / (float)n;
 		int   c = ratio * w;
 
@@ -74,8 +63,8 @@ namespace unsortedptr {
 		cout << setw(3) << white << "Parsed: " << cyan << x << white << "/" << green << n << yellow << " [" << red;
 		for (int x = 0; x < c; x++) cout << "=";
 		for (int x = c; x < w; x++) cout << " ";
-		cout << yellow << "] " << (int)(ratio * 100) << "%" << white << " Time: " << cyan << setprecision(2) << fixed << elapsedSec << " sec";
-		cout << white << " Mem: " << gray << convertMemoryToHumanReadableSht(pMem) << white << "/" << dark_white << convertMemoryToHumanReadableSht(vMem);
+		cout << yellow << "] " << (int)(ratio * 100) << "%" << white << " Time: " << cyan << setprecision(2) << fixed << calculateElapsed(beginClock, clock()) << " sec";
+		cout << white << " Mem: " << gray << convertMemoryToHumanReadableSht((getPMUsed() - beginPMem)) << white << "/" << dark_white << convertMemoryToHumanReadableSht((getVMUsed() - beginVMem));
 		//Get Console Cursor Pos
 		CONSOLE_SCREEN_BUFFER_INFO SBInfo;
 		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &SBInfo);
@@ -95,22 +84,15 @@ namespace unsortedptr {
 	Lyric parseLyricData(string lyricStr){
 		istringstream lyrStream(lyricStr);
 		string token;
-		int ct = 0;	//0 - Track ID, 1 - MusicXMatch ID, >2 Word Count
 		Lyric l;
+		int ct = 0;	//0 - Track ID, 1 - MusicXMatch ID, >2 Word Count
 		while (getline(lyrStream, token, ',')){
-			if (ct == 0){
-				l.setTrackID(token);
-				ct++;
+			switch (ct){
+			case 0: l.setTrackID(token); ct++; break;
+			case 1: l.setMusicXMatchID(token); ct++; break;
+			default: l.addWordAndCount(token); break;	//Parse Word and Count
 			}
-			else if (ct == 1){
-				l.setMusicXMatchID(token);
-				ct++;
-			}
-
-			//Parse Words
-			l.addWordAndCount(token);
 		}
-
 		return l;
 	}
 
@@ -129,48 +111,44 @@ namespace unsortedptr {
 		settextcolor(cyan);
 		int count;
 		cin >> count;
-		timingAddMCounter.resize(count);
-		memoryPAddMCounter.resize(count);
-		memoryVAddMCounter.resize(count);
-		printSeperator();
-		cout << red << "                             Parsing Text Files..." << endl;
-		printSeperator();
+		if (count != -1){
+			timingAddMCounter.resize(count);
+			memoryPAddMCounter.resize(count);
+			memoryVAddMCounter.resize(count);
+		}
+		printMenuTitle("Parsing Text Files...");
 		readMatchFile(musInfoList, count);
 		readTopWords(wordList);
 		cout << pink << "How many lines to read in Lyric Count File? (-1 to read all): ";
 		settextcolor(cyan);
 		cin >> count;
-		timingAddLCounter.resize(count);
-		memoryPAddLCounter.resize(count);
-		memoryVAddLCounter.resize(count);
+		if (count != -1){
+			timingAddLCounter.resize(count);
+			memoryPAddLCounter.resize(count);
+			memoryVAddLCounter.resize(count);
+		}
 		readSongLyricCount(lyricList, count);
-		printSeperator();
-		cout << red << "                                Parse Completed" << endl;
-		printSeperator();
+		printMenuTitle("Parse Completed");
 		cout << endl;
 		printMemoryInfo();
 	}
 
 	/*
 	Reads the dataset train Text File for top words
+	Estimated Time: ~?
 	@param &list Linked list to store the music data lines in
 	*/
 	void readTopWords(ListPointer &list){
 		bool verboseMode = false; //Enable Verbose Mode
 
-		ifstream file("mxm_dataset_train.txt");
 		string str;
-		int internalCounter = 0;
-		int progressCounter = 5000;	//Hardcoded
-		printSeperator();
-		//cout << red << "                        Reading and Parsing file..." << endl;
-		cout << red << "                          Parsing Songs Lyrics..." << endl;
-		printSeperator();
+		int internalCounter = 0, progressCounter = WORD_DATASET_LENGTH;
+		ifstream file("mxm_dataset_train.txt");
+		printMenuTitle("Parsing Song Lyrics...");
+		
+		//Get Start Memory (Virtual, Physical) and CPU Time
 		clock_t beginClock = clock();
-
-		//Get Start Memory (Virtual, Physical)
-		SIZE_T bVMem = getVMUsed();
-		SIZE_T bPMem = getPMUsed();
+		SIZE_T bVMem = getVMUsed(), bPMem = getPMUsed();
 
 		while (getline(file, str)){
 
@@ -186,7 +164,6 @@ namespace unsortedptr {
 				while (getline(ss, topwrd, ',')){
 					if (verboseMode)
 						cout << topwrd << endl;
-
 					list.add(topwrd);
 
 					//Log Memory and CPU Time
@@ -195,25 +172,19 @@ namespace unsortedptr {
 					memoryVAddWCounter[internalCounter] = (double)(getVMUsed() - bVMem);
 
 					loadbar(internalCounter, progressCounter, beginClock, bPMem, bVMem);
-					//Increment counter
-					internalCounter++;
+					internalCounter++; //Increment counter
 				}
 				break;
 			}
 		}
-
 		loadbar(progressCounter, progressCounter, beginClock, bPMem, bVMem);
-		clock_t finalEndClock = clock();
 
-		//Get Finish Memory (Virtual, Physical)
-		SIZE_T eVMem = getVMUsed();
-		SIZE_T ePMem = getPMUsed();
 		//Calculate Memory Used (Virtual, Physical)
-		addWPTime = (ePMem - bPMem);
-		addWVTime = (eVMem - bVMem);
+		addWPTime = (getPMUsed() - bPMem);
+		addWVTime = (getVMUsed() - bVMem);
 
 		settextcolor(yellow);
-		addWElapsed = calculateElapsed(beginClock, finalEndClock);
+		addWElapsed = calculateElapsed(beginClock, clock());
 		cout << endl << "Finished Parsing Song Lyrics." << endl;
 		cout << yellow << "Elapsed Time to add: " << cyan << setprecision(2) << fixed << addWElapsed << " seconds" << endl;
 		cout << yellow << "Total Words Read: " << cyan << internalCounter << endl;
@@ -224,6 +195,7 @@ namespace unsortedptr {
 
 	/*
 	Reads the dataset train Text File for song lyrics count
+	Estimated Time: ~?
 	@param &list Linked list to store the music data lines in
 	*/
 	void readSongLyricCount(ListPointer &list, int count){
@@ -231,9 +203,7 @@ namespace unsortedptr {
 
 		ifstream file("mxm_dataset_train.txt");
 		string str;
-		int internalCounter = 0;
-		int fullCounter = 210519;		//Hardcoded
-		int progressCounter = count;	//Hardcoded
+		int internalCounter = 0, fullCounter = 210519, progressCounter = count;	//Latter 2 are hardcoded
 
 		settextcolor(white);
 		if (count > musicInfoFileLength){
@@ -246,49 +216,35 @@ namespace unsortedptr {
 		}
 		settextcolor(yellow);
 
-		printSeperator();
-		//cout << red << "                        Reading and Parsing file..." << endl;
-		cout << red << "                       Parsing Songs Lyrics Count..." << endl;
-		printSeperator();
-		clock_t beginClock = clock();
+		printMenuTitle("Parsing Songs Lyrics Count...");
+		
 
-		//Get Start Memory (Virtual, Physical)
-		SIZE_T bVMem = getVMUsed();
-		SIZE_T bPMem = getPMUsed();
+		//Get Start Memory (Virtual, Physical) and CPU Time
+		clock_t beginClock = clock();
+		SIZE_T bVMem = getVMUsed(), bPMem = getPMUsed();
 
 		while (getline(file, str)){
+			if (str[0] == '#' || str[0] == '%') continue;	//Skip Comments and Words
+			if (internalCounter >= progressCounter) break;	//Reach/Exceed amount to process
 
-			//Skip Comments
-			if (str[0] == '#' || str[0] == '%') continue;
+			list.add(str);
 
-			else{
-				if (internalCounter >= progressCounter) break;
+			//Log Memory and CPU Time
+			timingAddLCounter[internalCounter] = calculateElapsed(beginClock, clock());
+			memoryPAddLCounter[internalCounter] = (double)(getPMUsed() - bPMem);
+			memoryVAddLCounter[internalCounter] = (double)(getVMUsed() - bVMem);
 
-				list.add(str);
-
-				timingAddLCounter[internalCounter] = calculateElapsed(beginClock, clock());
-				//Log Memory and CPU Time
-				memoryPAddLCounter[internalCounter] = (double)(getPMUsed() - bPMem);
-				memoryVAddLCounter[internalCounter] = (double)(getVMUsed() - bVMem);
-
-				loadbar(internalCounter, progressCounter, beginClock, bPMem, bVMem);
-				//Increment counter
-				internalCounter++;
-			}
+			loadbar(internalCounter, progressCounter, beginClock, bPMem, bVMem);
+			internalCounter++;	//Increment counter
 		}
-
 		loadbar(progressCounter, progressCounter, beginClock, bPMem, bVMem);
-		clock_t finalEndClock = clock();
 
-		//Get Finish Memory (Virtual, Physical)
-		SIZE_T eVMem = getVMUsed();
-		SIZE_T ePMem = getPMUsed();
-		//Calculate Memory Used (Virtual, Physical)
-		addLPTime = (ePMem - bPMem);
-		addLVTime = (eVMem - bVMem);
+		//Calculate Memory Used (Virtual, Physical) and CPU Time
+		addLPTime = (getPMUsed() - bPMem);
+		addLVTime = (getVMUsed() - bVMem);
+		addLElapsed = calculateElapsed(beginClock, clock());
 
 		settextcolor(yellow);
-		addLElapsed = calculateElapsed(beginClock, finalEndClock);
 		cout << endl << "Finished Parsing Song Lyrics Count." << endl;
 		cout << yellow << "Elapsed Time to add: " << cyan << setprecision(2) << fixed << addLElapsed << " seconds" << endl;
 		cout << yellow << "Total Lyric Lines Read: " << cyan << internalCounter << endl;
@@ -299,6 +255,7 @@ namespace unsortedptr {
 
 	/*
 	Reads the 779k Match Text File
+	Estimated Time: ~?
 	@param &list Linked list to store the music data lines in
 	@param count How many lines in the text file to process
 	*/
@@ -307,8 +264,7 @@ namespace unsortedptr {
 
 		ifstream file("mxm_779k_matches.txt");
 		string str;
-		int internalCounter = 0;
-		int progressCounter = count;
+		int internalCounter = 0, progressCounter = count;
 		settextcolor(white);
 		if (count > musicInfoFileLength){
 			cout << "Lines to read specified exceeds lines in file. Defaulting to read all" << endl;
@@ -318,53 +274,36 @@ namespace unsortedptr {
 			progressCounter = musicInfoFileLength;
 			cout << "As the file is extremely large, this may take a couple of minutes..." << endl;
 		}
-		settextcolor(yellow);
-		printSeperator();
-		cout << red << "                          Parsing Song Information..." << endl;
-		printSeperator();
+		printMenuTitle("Parsing Song Information...");
+		
+		//Get Start Memory (Virtual, Physical) and CPU Time
 		clock_t beginClock = clock();
-
-		//Get Start Memory (Virtual, Physical)
-		SIZE_T bVMem = getVMUsed();
-		SIZE_T bPMem = getPMUsed();
+		SIZE_T bVMem = getVMUsed(), bPMem = getPMUsed();
 
 		while (getline(file, str)){
-			if (internalCounter >= progressCounter)
-				break;
-			if (verboseMode)
-				cout << str << endl;
+			if (internalCounter >= progressCounter)	break;
+			if (verboseMode) cout << str << endl;
+			if (str[0] == '#')	{ internalCounter++; continue; }	//Check if string is a comment
 
-			//Check if string is a comment
-			if (str[0] == '#'){
-				//cout << "DEBUG: IS COMMENT" << endl;
-			}
-			else {
-				//Parse Music Details Line
-				list.add(str);
-			}
+			list.add(str);	//Parse Music Details Line
 
-			timingAddMCounter[internalCounter] = calculateElapsed(beginClock, clock());
 			//Log Memory and CPU Time
+			timingAddMCounter[internalCounter] = calculateElapsed(beginClock, clock());
 			memoryPAddMCounter[internalCounter] = (double)(getPMUsed() - bPMem);
 			memoryVAddMCounter[internalCounter] = (double)(getVMUsed() - bVMem);
 
 			loadbar(internalCounter, progressCounter, beginClock, bPMem, bVMem);
-			//Increment counter
-			internalCounter++;
+			internalCounter++;	//Increment counter
 		}
 
 		loadbar(progressCounter, progressCounter, beginClock, bPMem, bVMem);
-		clock_t finalEndClock = clock();
 
-		//Get Finish Memory (Virtual, Physical)
-		SIZE_T eVMem = getVMUsed();
-		SIZE_T ePMem = getPMUsed();
-		//Calculate Memory Used (Virtual, Physical)
-		addMPTime = (ePMem - bPMem);
-		addMVTime = (eVMem - bVMem);
+		//Calculate Memory Used (Virtual, Physical) and CPU Time
+		addMPTime = (getPMUsed() - bPMem);
+		addMVTime = (getVMUsed() - bVMem);
+		addMElapsed = calculateElapsed(beginClock, clock());
 
 		settextcolor(yellow);
-		addMElapsed = calculateElapsed(beginClock, finalEndClock);
 		cout << endl << "Finished Parsing and Adding Song Information." << endl;
 		cout << yellow << "Elapsed Time to add: " << cyan << setprecision(2) << fixed << addMElapsed << " seconds" << endl;
 		cout << yellow << "Total Lines Read: " << cyan << internalCounter << endl;
@@ -377,10 +316,7 @@ namespace unsortedptr {
 	Prints out the main pointer-based list menu
 	*/
 	void mainPtrArrMenu(){
-		printSeperator();
-		cout << red << "                        Main Pointer-based List Menu" << endl;
-		printSeperator();
-		settextcolor(white);
+		printMenuTitle("Main Pointer-based List Menu");
 		cout << "1) " << yellow << "View Songs in Database" << white << endl;
 		cout << "2) " << yellow << "View All the Top Words found in Lyrics" << white << endl;
 		cout << "3) " << yellow << "Search for a song in database with name" << white << endl;
@@ -396,11 +332,8 @@ namespace unsortedptr {
 	@param &list Linked List of the songs
 	*/
 	void searchSong(ListPointer &list){
-		printSeperator();
-		cout << yellow << "                                 Search Songs" << endl;
-		printSeperator();
-		string target;
-		string empty;
+		printMenuTitle("Search Songs");
+		string target, empty;
 		getline(cin, empty);
 		cout << pink << "Enter Exact Song Name: " << cyan;
 		getline(cin, target);
@@ -410,15 +343,14 @@ namespace unsortedptr {
 		memoryPSeqSearchMCounter.resize(list.getLength());
 		memoryVSeqSearchMCounter.resize(list.getLength());
 
+		
+		//Get Start Memory (Virtual, Physical) and CPU Time
 		clock_t start = clock();
-		//Get Start Memory (Virtual, Physical)
-		SIZE_T bVMem = getVMUsed();
-		SIZE_T bPMem = getPMUsed();
+		SIZE_T bVMem = getVMUsed(), bPMem = getPMUsed();
 
 		bool found = false;
 		for (int i = 1; i <= list.getLength(); i++){
-			string res = list.get(i);
-			Music musIfo = parseMusicItem(res);
+			Music musIfo = parseMusicItem(list.get(i));
 
 			//Log Memory and CPU Time
 			timingSeqSearchMCounter[i - 1] = calculateElapsed(start, clock());
@@ -440,16 +372,12 @@ namespace unsortedptr {
 		if (!found){
 			cout << endl << dark_red << "Unable to find a music file matching the search term" << endl;
 		}
-		clock_t end = clock();
 
-		//Get Finish Memory (Virtual, Physical)
-		SIZE_T eVMem = getVMUsed();
-		SIZE_T ePMem = getPMUsed();
-		//Calculate Memory Used (Virtual, Physical)
-		sequSearchPTime = (ePMem - bPMem);
-		sequSearchVTime = (eVMem - bVMem);
+		//Calculate Memory Used (Virtual, Physical) and CPU Time
+		sequSearchPTime = (getPMUsed() - bPMem);
+		sequSearchVTime = (getVMUsed() - bVMem);
+		sequSearchElapsed = calculateElapsed(start, clock());
 
-		sequSearchElapsed = calculateElapsed(start, end);
 		cout << yellow << "Elapsed Time for Sequential Search: " << cyan << setprecision(2) << fixed << sequSearchElapsed << " seconds." << endl;
 		cout << yellow << "Page Memory Use Changes: " << cyan << convertMemoryToHumanReadable(sequSearchVTime) << endl;
 		cout << yellow << "RAM Use Changes: " << cyan << convertMemoryToHumanReadable(sequSearchPTime) << endl << endl;
@@ -460,23 +388,18 @@ namespace unsortedptr {
 	@param &list Linked List of the songs
 	*/
 	void listAllSongs(ListPointer &list){
-		printSeperator();
-		cout << red << "                                List All Songs" << endl;
-		printSeperator();
-
-		clock_t start = clock();
+		printMenuTitle("List All Songs");
 
 		timingDisplayMCounter.resize(list.getLength());
 		memoryPDisplayMCounter.resize(list.getLength());
 		memoryVDisplayMCounter.resize(list.getLength());
 
-		//Get Start Memory (Virtual, Physical)
-		SIZE_T bVMem = getVMUsed();
-		SIZE_T bPMem = getPMUsed();
+		//Get Start Memory (Virtual, Physical) and CPU Time
+		SIZE_T bVMem = getVMUsed(), bPMem = getPMUsed();
+		clock_t start = clock();
 
 		for (int i = 1; i <= list.getLength(); i++){
-			string res = list.get(i);
-			Music musIfo = parseMusicItem(res);
+			Music musIfo = parseMusicItem(list.get(i));
 			cout << yellow << "=========================================================" << endl;
 			cout << red << "                 Song " << i << endl;
 			cout << yellow << "=========================================================" << endl;
@@ -487,16 +410,12 @@ namespace unsortedptr {
 			memoryPDisplayMCounter[i - 1] = (double)(getPMUsed() - bPMem);
 			memoryVDisplayMCounter[i - 1] = (double)(getVMUsed() - bVMem);
 		}
-		clock_t end = clock();
 
-		//Get Finish Memory (Virtual, Physical)
-		SIZE_T eVMem = getVMUsed();
-		SIZE_T ePMem = getPMUsed();
 		//Calculate Memory Used (Virtual, Physical)
-		displayMPTime = (ePMem - bPMem);
-		displayMVTime = (eVMem - bVMem);
+		displayMPTime = (getPMUsed() - bPMem);
+		displayMVTime = (getVMUsed() - bVMem);
 
-		displayMElapsed = calculateElapsed(start, end);
+		displayMElapsed = calculateElapsed(start, clock());
 		cout << yellow << "Elapsed Time for displaying songs: " << cyan << setprecision(2) << fixed << displayMElapsed << " seconds." << endl;
 		cout << yellow << "Page Memory Use Changes: " << cyan << convertMemoryToHumanReadable(displayMVTime) << endl;
 		cout << yellow << "RAM Use Changes: " << cyan << convertMemoryToHumanReadable(displayMPTime) << endl << endl;
@@ -506,21 +425,15 @@ namespace unsortedptr {
 	@param list List of Top Words
 	*/
 	void listTopWords(ListPointer &list){
-		printSeperator();
-		cout << red << "                           List Top Words in Lyrics" << endl;
-		printSeperator();
+		printMenuTitle("List Top Words in Lyrics");
 		int modder = 1;		//To split print every 6 lines
 
 		clock_t start = clock();
 		//Get Start Memory (Virtual, Physical)
-		SIZE_T bVMem = getVMUsed();
-		SIZE_T bPMem = getPMUsed();
+		SIZE_T bVMem = getVMUsed(), bPMem = getPMUsed();
 
 		for (int i = 1; i <= list.getLength(); i++){
-			if (modder % 6 == 0){
-				cout << endl;
-				modder = 1;
-			}
+			if (modder % 6 == 0){ cout << endl;	modder = 1; }
 			string wordString = list.get(i);
 			cout << "  " << white << wordString << yellow << "  |";
 
@@ -532,16 +445,12 @@ namespace unsortedptr {
 			modder++;
 		}
 		cout << endl;
-		clock_t end = clock();
 
-		//Get Finish Memory (Virtual, Physical)
-		SIZE_T eVMem = getVMUsed();
-		SIZE_T ePMem = getPMUsed();
 		//Calculate Memory Used (Virtual, Physical)
-		displayWPTime = (ePMem - bPMem);
-		displayWVTime = (eVMem - bVMem);
+		displayWPTime = (getPMUsed() - bPMem);
+		displayWVTime = (getVMUsed() - bVMem);
+		displayWElapsed = calculateElapsed(start, clock());
 
-		displayWElapsed = calculateElapsed(start, end);
 		cout << yellow << "Elapsed Time for displaying top words in lyrics: " << cyan << setprecision(2) << fixed << displayWElapsed << " seconds." << endl;
 		cout << yellow << "Page Memory Use Changes: " << cyan << convertMemoryToHumanReadable(displayWVTime) << endl;
 		cout << yellow << "RAM Use Changes: " << cyan << convertMemoryToHumanReadable(displayWPTime) << endl << endl;
@@ -552,9 +461,7 @@ namespace unsortedptr {
 	@param list List of Music File
 	*/
 	void removeMusicInfo(ListPointer &list){
-		printSeperator();
-		cout << red << "                              Remove Music Data" << endl;
-		printSeperator();
+		printMenuTitle("Remove Music Data");
 		int size = list.getLength();
 		string indexToRemove;
 		cout << pink << "Enter index to remove (1 - " << size << "): ";
@@ -570,7 +477,10 @@ namespace unsortedptr {
 			return;
 		}
 
+		//TODO Start the clock here
 		Music toRemove = parseMusicItem(list.get(stoi(indexToRemove)));
+		//TODO Pause the clock here
+
 		cout << red << "Are you sure you wish to remove the following music data from the list? " << endl;
 		toRemove.printMusicInfo();
 		cout << red << "To remove, Enter y or Y (default N): ";
@@ -578,35 +488,34 @@ namespace unsortedptr {
 		getStringInput(confirm);			//Check if user confirm
 		cout << endl;
 		if (confirm[0] == 'y' || confirm[0] == 'Y'){
+
+			//TODO Resume clock here
 			//Confirmed Remove
 			clock_t start = clock();
 			//Get Start Memory (Virtual, Physical)
-			SIZE_T bVMem = getVMUsed();
-			SIZE_T bPMem = getPMUsed();
+			SIZE_T bVMem = getVMUsed(), bPMem = getPMUsed();
 
 			list.remove(stoi(indexToRemove));
 			cout << green << "Music Data (" << toRemove.getMTitle() << ") has been removed from the list!" << endl;
-			clock_t end = clock();
+			
 
-			//Get Finish Memory (Virtual, Physical)
-			SIZE_T eVMem = getVMUsed();
-			SIZE_T ePMem = getPMUsed();
-			//Calculate Memory Used (Virtual, Physical)
-			removePTime = (ePMem - bPMem);
-			removeVTime = (eVMem - bVMem);
+			//Calculate Memory Used (Virtual, Physical) and CPU Time
+			clock_t end = clock();
+			removePTime = (getPMUsed() - bPMem);
+			removeVTime = (getVMUsed() - bVMem);
 
 			//Log Memory and CPU Time
 			timingRemoveMCounter[0] = 0;
 			memoryPRemoveMCounter[0] = 0;
 			memoryVRemoveMCounter[0] = 0;
-			timingRemoveMCounter[1] = calculateElapsed(start, clock());
+			timingRemoveMCounter[1] = calculateElapsed(start, end);
 			memoryPRemoveMCounter[1] = (double)(getPMUsed() - bPMem);
 			memoryVRemoveMCounter[1] = (double)(getVMUsed() - bVMem);
-			timingRemoveMCounter[2] = calculateElapsed(start, clock());
+			timingRemoveMCounter[2] = calculateElapsed(start, end);
 			memoryPRemoveMCounter[2] = (double)(getPMUsed() - bPMem);
 			memoryVRemoveMCounter[2] = (double)(getVMUsed() - bVMem);
-
 			removeElapsed = calculateElapsed(start, end);
+
 			cout << yellow << "Elapsed Time for removing music: " << cyan << setprecision(2) << fixed << removeElapsed << " seconds." << endl;
 			cout << yellow << "Page Memory Use Changes: " << cyan << convertMemoryToHumanReadable(removeVTime) << endl;
 			cout << yellow << "RAM Use Changes: " << cyan << convertMemoryToHumanReadable(removePTime) << endl << endl;
@@ -621,161 +530,114 @@ namespace unsortedptr {
 	*/
 	void printStats(){
 		//Timings (Sequence 40 | 37)
-		printSeperator();
-		cout << red << "                     Pointer-based List Statistic (Timings)" << endl;
-		printSeperator();
+		printMenuTitle("Pointer-based List Statistic (Timings)");
 		//Add Music
-		cout << red << "               Add (Music)              " << yellow << "|        " << cyan;
-		if (addMElapsed != -1)
-			cout << setprecision(2) << fixed << addMElapsed << " Seconds ";
-		else
-			cout << "  Untested ";
+		cout << red << centerString("Add (Music)", 40) << yellow << "|        " << cyan;
+		if (addMElapsed != -1)	cout << setprecision(2) << fixed << addMElapsed << " Seconds ";
+		else cout << "  Untested ";
 		cout << endl;
 
 		//Add Music
-		cout << red << "               Add (Words)              " << yellow << "|        " << cyan;
-		if (addWElapsed != -1)
-			cout << setprecision(2) << fixed << addWElapsed << " Seconds ";
-		else
-			cout << "  Untested ";
+		cout << red << centerString("Add (Words)", 40) << yellow << "|        " << cyan;
+		if (addWElapsed != -1)	cout << setprecision(2) << fixed << addWElapsed << " Seconds ";
+		else cout << "  Untested ";
 		cout << endl;
 
 		//Add Lyric
-		cout << red << "               Add (Lyric)              " << yellow << "|        " << cyan;
-		if (addLElapsed != -1)
-			cout << setprecision(2) << fixed << addLElapsed << " Seconds ";
-		else
-			cout << "  Untested ";
+		cout << red << centerString("Add (Lyric)", 40) << yellow << "|        " << cyan;
+		if (addLElapsed != -1)	cout << setprecision(2) << fixed << addLElapsed << " Seconds ";
+		else cout << "  Untested ";
 		cout << endl;
 
 		//Display Music
-		cout << red << "             Display (Music)            " << yellow << "|        " << cyan;
-		if (displayMElapsed != -1)
-			cout << setprecision(2) << fixed << displayMElapsed << " Seconds ";
-		else
-			cout << "  Untested ";
+		cout << red << centerString("Display (Music)", 40) << yellow << "|        " << cyan;
+		if (displayMElapsed != -1)	cout << setprecision(2) << fixed << displayMElapsed << " Seconds ";
+		else cout << "  Untested ";
 		cout << endl;
 
 		//Display Top Words
-		cout << red << "           Display (Top Words)          " << yellow << "|        " << cyan;
-		if (displayWElapsed != -1)
-			cout << setprecision(2) << fixed << displayWElapsed << " Seconds ";
-		else
-			cout << "  Untested ";
+		cout << red << centerString("Display (Top Words)", 40) << yellow << "|        " << cyan;
+		if (displayWElapsed != -1)	cout << setprecision(2) << fixed << displayWElapsed << " Seconds ";
+		else cout << "  Untested ";
 		cout << endl;
 
 		//Remove
-		cout << red << "               Remove Item              " << yellow << "|        " << cyan;
-		if (removeElapsed != -1)
-			cout << setprecision(2) << fixed << removeElapsed << " Seconds ";
-		else
-			cout << "  Untested ";
+		cout << red << centerString("Remove Item", 40) << yellow << "|        " << cyan;
+		if (removeElapsed != -1) cout << setprecision(2) << fixed << removeElapsed << " Seconds ";
+		else cout << "  Untested ";
 		cout << endl;
 
 		//Seq Search
-		cout << red << "            Sequential Search           " << yellow << "|        " << cyan;
-		if (sequSearchElapsed != -1)
-			cout << setprecision(2) << fixed << sequSearchElapsed << " Seconds ";
-		else
-			cout << "  Untested ";
+		cout << red << centerString("Sequential Search", 40) << yellow << "|        " << cyan;
+		if (sequSearchElapsed != -1) cout << setprecision(2) << fixed << sequSearchElapsed << " Seconds ";
+		else cout << "  Untested ";
 		cout << endl;
 
-		printSeperator();
 		//Memory (Sequence 26 | 25 | 25)
-		cout << red << "              Pointer-based List Statistics (Memory Usage Changes)" << endl;
-		printSeperator();
-		cout << red << "        Operation         " << yellow << "|" << red << "         RAM Use         " << yellow << "|" << red << "  V.Mem Use (Page File)  " << endl;
+		printMenuTitle("Pointer-based List Statistics (Memory Usage Changes)");
+		cout << red << centerString("Operation", 26) << yellow << "|" << red << centerString("RAM Use", 25) << yellow << "|" << red << centerString("V.Mem Use (Page File)", 25) << endl;
 		printSeperator();
 		//Add Music
-		cout << red << "       Add (Music)        " << yellow << "|" << cyan;
-		if (addMPTime != -1)
-			//cout << "   " << convertMemoryToHumanReadable(addMPTime) << "    ";
-			cout << centerString(convertMemoryToHumanReadable(addMPTime).c_str(), 25);
-		else
-			cout << "        Untested         ";
+		cout << red << centerString("Add (Music)", 26) << yellow << "|" << cyan;
+		if (addMPTime != -1) cout << centerString(convertMemoryToHumanReadable(addMPTime).c_str(), 25);
+		else cout << centerString("Untested", 25);
 		cout << yellow << "|" << cyan;
-		if (addMVTime != -1)
-			cout << centerString(convertMemoryToHumanReadable(addMVTime).c_str(), 25);
-		else
-			cout << "        Untested";
+		if (addMVTime != -1) cout << centerString(convertMemoryToHumanReadable(addMVTime).c_str(), 25);
+		else cout << centerString("Untested", 25);
 		cout << endl;
 
 		//Add Words
-		cout << red << "       Add (Words)        " << yellow << "|" << cyan;
-		if (addWPTime != -1)
-			cout << centerString(convertMemoryToHumanReadable(addWPTime).c_str(), 25);
-		else
-			cout << "        Untested         ";
+		cout << red << centerString("Add (Words)", 26) << yellow << "|" << cyan;
+		if (addWPTime != -1) cout << centerString(convertMemoryToHumanReadable(addWPTime).c_str(), 25);
+		else cout << centerString("Untested", 25);
 		cout << yellow << "|" << cyan;
-		if (addWVTime != -1)
-			cout << centerString(convertMemoryToHumanReadable(addWVTime).c_str(), 25);
-		else
-			cout << "        Untested";
+		if (addWVTime != -1) cout << centerString(convertMemoryToHumanReadable(addWVTime).c_str(), 25);
+		else cout << centerString("Untested", 25);
 		cout << endl;
 
 		//Add Lyric
-		cout << red << "       Add (Lyric)        " << yellow << "|" << cyan;
-		if (addLPTime != -1)
-			cout << centerString(convertMemoryToHumanReadable(addLPTime).c_str(), 25);
-		else
-			cout << "        Untested         ";
+		cout << red << centerString("Add (Lyric)", 26) << yellow << "|" << cyan;
+		if (addLPTime != -1) cout << centerString(convertMemoryToHumanReadable(addLPTime).c_str(), 25);
+		else cout << centerString("Untested", 25);
 		cout << yellow << "|" << cyan;
-		if (addLVTime != -1)
-			cout << centerString(convertMemoryToHumanReadable(addLVTime).c_str(), 25);
-		else
-			cout << "        Untested";
+		if (addLVTime != -1) cout << centerString(convertMemoryToHumanReadable(addLVTime).c_str(), 25);
+		else cout << centerString("Untested", 25);
 		cout << endl;
 
 		//Display Music
-		cout << red << "     Display (Music)      " << yellow << "|" << cyan;
-		if (displayMPTime != -1)
-			cout << centerString(convertMemoryToHumanReadable(displayMPTime).c_str(), 25);
-		else
-			cout << "        Untested         ";
+		cout << red << centerString("Display (Music)", 26) << yellow << "|" << cyan;
+		if (displayMPTime != -1) cout << centerString(convertMemoryToHumanReadable(displayMPTime).c_str(), 25);
+		else cout << centerString("Untested", 25);
 		cout << yellow << "|" << cyan;
-		if (displayMVTime != -1)
-			cout << centerString(convertMemoryToHumanReadable(displayMVTime).c_str(), 25);
-		else
-			cout << "        Untested";
+		if (displayMVTime != -1) cout << centerString(convertMemoryToHumanReadable(displayMVTime).c_str(), 25);
+		else cout << centerString("Untested", 25);
 		cout << endl;
 
 		//Display Top Words
-		cout << red << "   Display (Top Words)    " << yellow << "|" << cyan;
-		if (displayWPTime != -1)
-			cout << centerString(convertMemoryToHumanReadable(displayWPTime).c_str(), 25);
-		else
-			cout << "        Untested         ";
+		cout << red << centerString("Display (Top Words)", 26) << yellow << "|" << cyan;
+		if (displayWPTime != -1) cout << centerString(convertMemoryToHumanReadable(displayWPTime).c_str(), 25);
+		else cout << centerString("Untested", 25);
 		cout << yellow << "|" << cyan;
-		if (displayWVTime != -1)
-			cout << centerString(convertMemoryToHumanReadable(displayWVTime).c_str(), 25);
-		else
-			cout << "        Untested";
+		if (displayWVTime != -1) cout << centerString(convertMemoryToHumanReadable(displayWVTime).c_str(), 25);
+		else cout << centerString("Untested", 25);
 		cout << endl;
 
 		//Remove
-		cout << red << "       Remove Item        " << yellow << "|" << cyan;
-		if (removePTime != -1)
-			cout << centerString(convertMemoryToHumanReadable(removePTime).c_str(), 25);
-		else
-			cout << "        Untested         ";
+		cout << red << centerString("Remove Item", 26) << yellow << "|" << cyan;
+		if (removePTime != -1) cout << centerString(convertMemoryToHumanReadable(removePTime).c_str(), 25);
+		else cout << centerString("Untested", 25);
 		cout << yellow << "|" << cyan;
-		if (removeVTime != -1)
-			cout << centerString(convertMemoryToHumanReadable(removeVTime).c_str(), 25);
-		else
-			cout << "        Untested";
+		if (removeVTime != -1) cout << centerString(convertMemoryToHumanReadable(removeVTime).c_str(), 25);
+		else cout << centerString("Untested", 25);
 		cout << endl;
 
 		//Seq Search
-		cout << red << "    Sequential Search     " << yellow << "|" << cyan;
-		if (sequSearchPTime != -1)
-			cout << centerString(convertMemoryToHumanReadable(sequSearchPTime).c_str(), 25);
-		else
-			cout << "        Untested         ";
+		cout << red << centerString("Sequential Search", 26) << yellow << "|" << cyan;
+		if (sequSearchPTime != -1) cout << centerString(convertMemoryToHumanReadable(sequSearchPTime).c_str(), 25);
+		else cout << centerString("Untested", 25);
 		cout << yellow << "|" << cyan;
-		if (sequSearchVTime != -1)
-			cout << centerString(convertMemoryToHumanReadable(sequSearchVTime).c_str(), 25);
-		else
-			cout << "        Untested";
+		if (sequSearchVTime != -1) cout << centerString(convertMemoryToHumanReadable(sequSearchVTime).c_str(), 25);
+		else cout << centerString("Untested", 25);
 		cout << endl;
 		printSeperator();
 	}
@@ -786,31 +648,27 @@ namespace unsortedptr {
 	void makeAddTimeGraph(){
 		ListPointer ptrArrList;
 		//Make Graph for Lyric and get string
-		if (addLElapsed == -1)
-			cout << dark_red << "There is no data for adding Lyrics. Please run the add operation before doing this." << endl;
+		if (addLElapsed == -1)	cout << dark_red << "There is no data for adding Lyrics. Please run the add operation before doing this." << endl;
 		else{
 			Graph lycG("Lyrics", timingAddLCounter.size(), timingAddLCounter);
 			string lycGStr = lycG.createGraphString();
 			ptrArrList.add(lycGStr);
 		}
 		//Make Graph for Songs
-		if (addMElapsed == -1)
-			cout << dark_red << "There is no data for adding Song Data. Please run the add operation before doing this." << endl;
+		if (addMElapsed == -1)	cout << dark_red << "There is no data for adding Song Data. Please run the add operation before doing this." << endl;
 		else {
 			Graph sonG("Song Data", timingAddMCounter.size(), timingAddMCounter);
 			string sonGStr = sonG.createGraphString();
 			ptrArrList.add(sonGStr);
 		}
 		//Make Graph for Words
-		if (addWElapsed == -1)
-			cout << dark_red << "There is no data for adding top words. Please run the add operation before doing this." << endl;
+		if (addWElapsed == -1)	cout << dark_red << "There is no data for adding top words. Please run the add operation before doing this." << endl;
 		else {
 			Graph wrdG("Top Lyric Words", timingAddWCounter.size(), timingAddWCounter);
 			string wrdGStr = wrdG.createGraphString();
 			ptrArrList.add(wrdGStr);
 		}
-		if (ptrArrList.getLength() > 0 && ptrArrList.getLength() <= 3)
-			plotGraph(ptrArrList, "Unsorted Pointer-Based List Timings Graph (ADD)");
+		if (ptrArrList.getLength() > 0 && ptrArrList.getLength() <= 3)	plotGraph(ptrArrList, "Unsorted Pointer-Based List Timings Graph (ADD)");
 	}
 
 	/*
@@ -818,22 +676,19 @@ namespace unsortedptr {
 	*/
 	void makeDisplayTimeGraph(){
 		ListPointer ptrArrList;
-		if (displayMElapsed == -1)
-			cout << dark_red << "There is no data for displaying song data. Please run the display operation before doing this." << endl;
+		if (displayMElapsed == -1)	cout << dark_red << "There is no data for displaying song data. Please run the display operation before doing this." << endl;
 		else{
 			Graph sonG("Song Data", timingDisplayMCounter.size(), timingDisplayMCounter);
 			string sonGStr = sonG.createGraphString();
 			ptrArrList.add(sonGStr);
 		}
-		if (displayWElapsed == -1)
-			cout << dark_red << "There is no data for displaying top words. Please run the display operation before doing this." << endl;
+		if (displayWElapsed == -1)	cout << dark_red << "There is no data for displaying top words. Please run the display operation before doing this." << endl;
 		else{
 			Graph wrdG("Top Lyric Words", timingDisplayWCounter.size(), timingDisplayWCounter);
 			string wrdGStr = wrdG.createGraphString();
 			ptrArrList.add(wrdGStr);
 		}
-		if (ptrArrList.getLength() > 0 && ptrArrList.getLength() <= 2)
-			plotGraph(ptrArrList, "Unsorted Pointer-Based List Timings Graph (DISPLAY)");
+		if (ptrArrList.getLength() > 0 && ptrArrList.getLength() <= 2)	plotGraph(ptrArrList, "Unsorted Pointer-Based List Timings Graph (DISPLAY)");
 	}
 
 	/*
@@ -841,15 +696,13 @@ namespace unsortedptr {
 	*/
 	void makeRemoveTimeGraph(){
 		ListPointer ptrArrList;
-		if (removeElapsed == -1)
-			cout << dark_red << "There is no data for removing song data. Please run the remove operation before doing this." << endl;
+		if (removeElapsed == -1)	cout << dark_red << "There is no data for removing song data. Please run the remove operation before doing this." << endl;
 		else {
 			Graph sonG("Song Data", timingRemoveMCounter.size(), timingRemoveMCounter);
 			string sonGStr = sonG.createGraphString();
 			ptrArrList.add(sonGStr);
 		}
-		if (ptrArrList.getLength() == 1)
-			plotGraph(ptrArrList, "Unsorted Pointer-Based List Timings Graph (REMOVE)");
+		if (ptrArrList.getLength() == 1)	plotGraph(ptrArrList, "Unsorted Pointer-Based List Timings Graph (REMOVE)");
 	}
 
 	/*
@@ -857,25 +710,20 @@ namespace unsortedptr {
 	*/
 	void makeSeqSearchTimeGraph(){
 		ListPointer ptrArrList;
-		if (sequSearchElapsed == -1)
-			cout << dark_red << "There is no data for searching song data sequentially. Please run the seq. search operation before doing this." << endl;
+		if (sequSearchElapsed == -1)	cout << dark_red << "There is no data for searching song data sequentially. Please run the seq. search operation before doing this." << endl;
 		else {
 			Graph sonG("Song Data", timingSeqSearchMCounter.size(), timingSeqSearchMCounter);
 			string sonGStr = sonG.createGraphString();
 			ptrArrList.add(sonGStr);
 		}
-		if (ptrArrList.getLength() == 1)
-			plotGraph(ptrArrList, "Unsorted Pointer-Based List Timings Graph (SEQUENTIAL SEARCH)");
+		if (ptrArrList.getLength() == 1)	plotGraph(ptrArrList, "Unsorted Pointer-Based List Timings Graph (SEQUENTIAL SEARCH)");
 	}
 
 	/*
 	Plot Graph Menu
 	*/
 	void plotGraphMenu(){
-		printSeperator();
-		cout << red << "                     Select a graph to view" << endl;
-		printSeperator();
-		settextcolor(white);
+		printMenuTitle("Select a graph to view");
 		cout << "1) " << yellow << "Add Items (Timings)" << white << endl;
 		cout << "2) " << yellow << "Add Items (Memory)" << white << endl;
 		cout << "3) " << yellow << "Display Items (Timings)" << white << endl;
@@ -903,19 +751,14 @@ namespace unsortedptr {
 			default: cout << dark_red << "Invalid Selection." << endl; break;
 			}
 		}
-		else {
-			cout << dark_red << "Selection must be an integer" << endl;
-		}
+		else { cout << dark_red << "Selection must be an integer" << endl; }
 	}
 
 	/*
 	Performance Menu
 	*/
 	void performanceMenu(){
-		printSeperator();
-		cout << red << "                        Select a Performance Option" << endl;
-		printSeperator();
-		settextcolor(white);
+		printMenuTitle("Select a Performance Option");
 		cout << "1) " << yellow << "View Performance Statistics" << white << endl;
 		cout << "2) " << yellow << "View Program Memory Usage" << white << endl;
 		cout << "0) " << yellow << "Go Back" << white << endl;
@@ -931,9 +774,7 @@ namespace unsortedptr {
 			default: cout << dark_red << "Invalid Selection." << endl; break;
 			}
 		}
-		else {
-			cout << dark_red << "Selection must be an integer" << endl;
-		}
+		else { cout << dark_red << "Selection must be an integer" << endl; }
 	}
 
 	/*
@@ -967,13 +808,10 @@ namespace unsortedptr {
 				case 8: performanceMenu(); break;
 				case 9: return -1;
 				case 0: return 0;
-					//case 4: mainList.print(); break;
 				default: cout << dark_red << "Invalid Selection." << endl; break;
 				}
 			}
-			else {
-				cout << dark_red << "Selection must be an integer" << endl;
-			}
+			else { cout << dark_red << "Selection must be an integer" << endl; }
 		}
 		return 0;
 	}

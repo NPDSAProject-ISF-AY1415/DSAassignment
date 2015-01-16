@@ -5,9 +5,9 @@ using namespace utility;
 using namespace eku;
 
 //Init Vector of Datasets
-vector<string> wordDataset(WORD_DATASET_LENGTH);
-vector<string> songDataset(SONG_DATASET_LENGTH);
-vector<string> lyricDataset(LYRIC_DATASET_LENGTH);
+vector<string> wordDataset(0);
+vector<string> songDataset(0);
+vector<string> lyricDataset(0);
 
 /* An Inline Progress Bar
 @param x Current Index
@@ -43,7 +43,8 @@ static inline void initFilesLoadbar(unsigned int x, unsigned int n, clock_t begi
 
 /*
 Stores the Lyrics Dataset into a vector
-Estimated Time: ~82.19 secs (~1 min 22.19 secs)
+PUSH_BACK Estimated Time: ~82.19 secs (~1 min 22.19 secs)
+RESERVE Estimated Time: ~81.66 secs (~1 min 21.66 secs)
 */
 void parseLyrics(){
 	bool verboseMode = false; //Enable Verbose Mode
@@ -51,6 +52,7 @@ void parseLyrics(){
 	int internalCounter = 0, progressCounter = LYRIC_DATASET_LENGTH;
 	ifstream file("mxm_dataset_train.txt");
 	printMenuTitle("Initializing Song Lyrics...");
+	lyricDataset.reserve(LYRIC_DATASET_LENGTH);
 	
 	//Get Start Memory (Virtual, Physical) and CPU Clock
 	clock_t beginClock = clock();
@@ -67,11 +69,13 @@ void parseLyrics(){
 
 	initFilesLoadbar(progressCounter, progressCounter, beginClock, bPMem, bVMem);
 	cout << endl;
+	cout << "Length of Vector: " << lyricDataset.size() << endl;	//DEBUG Code
 }
 
 /*
 Stores the Song Dataset into a vector
-Estimated Time: ~73.80 secs (~1 min 13.80 secs)
+PUSH_BACK Estimated Time: ~73.80 secs (~1 min 13.80 secs)
+RESERVE Estimated Time: ~71.06 secs (~1 min 11.06 secs)
 */
 void parseSong(){
 	bool verboseMode = false; //Enable Verbose Mode
@@ -79,6 +83,7 @@ void parseSong(){
 	int internalCounter = 0, progressCounter = SONG_DATASET_LENGTH;
 	ifstream file("mxm_779k_matches.txt");
 	printMenuTitle("Initializing Song Data...");
+	songDataset.reserve(SONG_DATASET_LENGTH);
 
 	//Get Start Memory (Virtual, Physical)
 	clock_t beginClock = clock();
@@ -96,11 +101,13 @@ void parseSong(){
 	}
 	initFilesLoadbar(progressCounter, progressCounter, beginClock, bPMem, bVMem);
 	cout << endl;
+	cout << "Length of Vector: " << songDataset.size() << endl;	//DEBUG Code
 }
 
 /*
 Stores the Words Dataset into a vector
-Estimated Time: ~0.34 secs
+PUSH_BACK Estimated Time: ~0.34 secs
+RESERVE Estimated Time: ~0.32 secs
 */
 void parseWords(){
 	bool verboseMode = false; //Enable Verbose Mode
@@ -108,6 +115,7 @@ void parseWords(){
 	int internalCounter = 0, progressCounter = WORD_DATASET_LENGTH;
 	ifstream file("mxm_dataset_train.txt");
 	printMenuTitle("Initializing Words in Lyric...");
+	wordDataset.reserve(WORD_DATASET_LENGTH);
 
 	//Get Start Memory (Virtual, Physical) and Clock for prog bar
 	clock_t beginClock = clock();
@@ -134,11 +142,13 @@ void parseWords(){
 	}
 	initFilesLoadbar(progressCounter, progressCounter, beginClock, bPMem, bVMem);
 	cout << endl;
+	cout << "Length of Vector: " << wordDataset.size() << endl;	//DEBUG Code
 }
 
 /*
 Calls all the 3 methods to load the dataset into the vectors
-Estimated Time: ~156.33 secs (~2 mins 36.33 secs)
+PUSH_BACK Estimated Time: ~156.33 secs (~2 mins 36.33 secs)
+RESERVE Estimated Time: ~153.04 secs (~2 mins 33.04 secs)
 */
 void initFileParse(){
 	printMemoryInfo();
@@ -156,7 +166,6 @@ Prints out the main menu
 */
 void mainMenu(){
 	printMenuTitle("Main Menu (Select a storage type)");
-	settextcolor(white);
 	cout << "1) " << yellow << "Unsorted Pointer-Based List" << white << endl;
 	cout << "2) " << yellow << "Sorted Pointer-Based List" << white << endl;
 	cout << "3) " << yellow << "Unsorted Array-Based List" << white << endl;
@@ -202,9 +211,7 @@ int main(){
 			default: cout << dark_red << "Invalid Selection." << endl; break;
 			}
 		}
-		else {
-			cout << dark_red << "Selection must be an integer" << endl;
-		}
+		else { cout << dark_red << "Selection must be an integer" << endl; }
 	}
 
 	return menErr;
