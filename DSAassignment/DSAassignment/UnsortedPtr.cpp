@@ -15,20 +15,20 @@ namespace unsortedptr {
 	SIZE_T addMPTime = -1, addWPTime = -1, addLPTime = -1, displayMPTime = -1, displayWPTime = -1, sequSearchPTime = -1, removePTime = -1;	//Physical Mem
 
 	//Array Logger
-	vector<double> timingAddWCounter(WORD_LENGTH);
-	vector<double> memoryPAddWCounter(WORD_LENGTH);
-	vector<double> memoryVAddWCounter(WORD_LENGTH);
-	vector<double> timingDisplayWCounter(WORD_LENGTH);
-	vector<double> memoryPDisplayWCounter(WORD_LENGTH);
-	vector<double> memoryVDisplayWCounter(WORD_LENGTH);
+	vector<double> timingAddWCounter(0);
+	vector<double> memoryPAddWCounter(0);
+	vector<double> memoryVAddWCounter(0);
+	vector<double> timingDisplayWCounter(WORD_DATASET_LENGTH);
+	vector<double> memoryPDisplayWCounter(WORD_DATASET_LENGTH);
+	vector<double> memoryVDisplayWCounter(WORD_DATASET_LENGTH);
 
-	vector<double> timingAddMCounter(SONG_FILE_LENGTH);
-	vector<double> memoryPAddMCounter(SONG_FILE_LENGTH);
-	vector<double> memoryVAddMCounter(SONG_FILE_LENGTH);
+	vector<double> timingAddMCounter(0);
+	vector<double> memoryPAddMCounter(0);
+	vector<double> memoryVAddMCounter(0);
 
-	vector<double> timingAddLCounter(LYRIC_FILE_LENGTH);
-	vector<double> memoryPAddLCounter(LYRIC_FILE_LENGTH);
-	vector<double> memoryVAddLCounter(LYRIC_FILE_LENGTH);
+	vector<double> timingAddLCounter(0);
+	vector<double> memoryPAddLCounter(0);
+	vector<double> memoryVAddLCounter(0);
 
 	vector<double> timingDisplayMCounter(SONG_FILE_LENGTH);
 	vector<double> memoryPDisplayMCounter(SONG_FILE_LENGTH);
@@ -102,7 +102,7 @@ namespace unsortedptr {
 	/*
 	Method that calls the other file parsing methods
 	READ+ADD Estimated Total Time: ~8286.34 secs (~2 hrs 18 minutes 6.34 secs)
-	VECTORADD Estimated Total Time: ~? secs
+	VECTORADD Estimated Total Time: ~8615.29 secs (~2hrs 23 minutes 35.29 secs)
 	@param musInfoList List for Music Information
 	@param wordList List for Top Words in Lyrics
 	@param lyricList List for lyrics in Songs
@@ -113,10 +113,15 @@ namespace unsortedptr {
 		settextcolor(cyan);
 		int count;
 		cin >> count;
-		if (count != -1){
-			timingAddMCounter.resize(count);
-			memoryPAddMCounter.resize(count);
-			memoryVAddMCounter.resize(count);
+		if (count != -1 && count >=0){
+			timingAddMCounter.reserve(count);
+			memoryPAddMCounter.reserve(count);
+			memoryVAddMCounter.reserve(count);
+		}
+		else {
+			timingAddMCounter.reserve(SONG_DATASET_LENGTH);
+			memoryPAddMCounter.reserve(SONG_DATASET_LENGTH);
+			memoryVAddMCounter.reserve(SONG_DATASET_LENGTH);
 		}
 		printMenuTitle("Parsing Text Files...");
 		readMatchFile(musInfoList, count);
@@ -124,10 +129,15 @@ namespace unsortedptr {
 		cout << pink << "How many lines to read in Lyric Count File? (-1 to read all): ";
 		settextcolor(cyan);
 		cin >> count;
-		if (count != -1){
-			timingAddLCounter.resize(count);
-			memoryPAddLCounter.resize(count);
-			memoryVAddLCounter.resize(count);
+		if (count != -1 && count >= 0){
+			timingAddLCounter.reserve(count);
+			memoryPAddLCounter.reserve(count);
+			memoryVAddLCounter.reserve(count);
+		}
+		else {
+			timingAddLCounter.reserve(LYRIC_DATASET_LENGTH);
+			memoryPAddLCounter.reserve(LYRIC_DATASET_LENGTH);
+			memoryVAddLCounter.reserve(LYRIC_DATASET_LENGTH);
 		}
 		readSongLyricCount(lyricList, count);
 		printMenuTitle("Parse Completed");
@@ -138,25 +148,25 @@ namespace unsortedptr {
 	/*
 	Reads the dataset train Text File for top words
 	READ+ADD Estimated Time: ~0.48 secs
-	VECTORADD Estimated Time: ~? secs
+	VECTORADD Estimated Time: ~0.01 secs
 	@param &list Linked list to store the music data lines in
 	*/
 	void readTopWords(ListPointer &list){
 		bool verboseMode = false; //Enable Verbose Mode
 
-		string str;
+		timingAddWCounter.reserve(WORD_DATASET_LENGTH);
+		memoryPAddWCounter.reserve(WORD_DATASET_LENGTH);
+		memoryVAddWCounter.reserve(WORD_DATASET_LENGTH);
+
 		int internalCounter = 0, progressCounter = WORD_DATASET_LENGTH;
-		ifstream file("mxm_dataset_train.txt");
 		printMenuTitle("Parsing Song Lyrics...");
-		
+
 		//Get Start Memory (Virtual, Physical) and CPU Time
 		clock_t beginClock = clock();
 		SIZE_T bVMem = getVMUsed(), bPMem = getPMUsed();
 
-		while (getline(file, str)){
-
-			//Skip Comments
-			if (str[0] == '#') continue;
+		for (string &str : wordDataset){
+			if (str[0] == '#') continue;	//Skip Comments
 
 			//Check if its top words
 			if (str[0] == '%'){
@@ -170,9 +180,9 @@ namespace unsortedptr {
 					list.add(topwrd);
 
 					//Log Memory and CPU Time
-					timingAddWCounter[internalCounter] = calculateElapsed(beginClock, clock());
-					memoryPAddWCounter[internalCounter] = (double)(getPMUsed() - bPMem);
-					memoryVAddWCounter[internalCounter] = (double)(getVMUsed() - bVMem);
+					timingAddWCounter.push_back(calculateElapsed(beginClock, clock()));
+					memoryPAddWCounter.push_back((double)(getPMUsed() - bPMem));
+					memoryVAddWCounter.push_back((double)(getVMUsed() - bVMem));
 
 					loadbar(internalCounter, progressCounter, beginClock, bPMem, bVMem);
 					internalCounter++; //Increment counter
@@ -199,211 +209,16 @@ namespace unsortedptr {
 	/*
 	Reads the dataset train Text File for song lyrics count
 	READ+ADD Estimated Time: ~696.34 secs (~11 mins 36.34 secs)
-	VECTORADD Estimated Time: ~? secs
+	VECTORADD Estimated Time: ~568.51 secs
 	@param &list Linked list to store the music data lines in
 	*/
 	void readSongLyricCount(ListPointer &list, int count){
 		bool verboseMode = false; //Enable Verbose Mode
 
-		ifstream file("mxm_dataset_train.txt");
-		string str;
 		int internalCounter = 0, fullCounter = 210519, progressCounter = count;	//Latter 2 are hardcoded
 
 		settextcolor(white);
-		if (count > musicInfoFileLength){
-			cout << "Lines to read specified exceeds lines in file. Defaulting to read all" << endl;
-			count = -1;
-		}
-		if (count == -1){
-			progressCounter = fullCounter;
-			cout << "As the file is extremely large, this may take a couple of minutes..." << endl;
-		}
-		settextcolor(yellow);
-
-		printMenuTitle("Parsing Songs Lyrics Count...");
-		
-
-		//Get Start Memory (Virtual, Physical) and CPU Time
-		clock_t beginClock = clock();
-		SIZE_T bVMem = getVMUsed(), bPMem = getPMUsed();
-
-		while (getline(file, str)){
-			if (str[0] == '#' || str[0] == '%') continue;	//Skip Comments and Words
-			if (internalCounter >= progressCounter) break;	//Reach/Exceed amount to process
-
-			list.add(str);
-
-			//Log Memory and CPU Time
-			timingAddLCounter[internalCounter] = calculateElapsed(beginClock, clock());
-			memoryPAddLCounter[internalCounter] = (double)(getPMUsed() - bPMem);
-			memoryVAddLCounter[internalCounter] = (double)(getVMUsed() - bVMem);
-
-			loadbar(internalCounter, progressCounter, beginClock, bPMem, bVMem);
-			internalCounter++;	//Increment counter
-		}
-		loadbar(progressCounter, progressCounter, beginClock, bPMem, bVMem);
-
-		//Calculate Memory Used (Virtual, Physical) and CPU Time
-		addLPTime = (getPMUsed() - bPMem);
-		addLVTime = (getVMUsed() - bVMem);
-		addLElapsed = calculateElapsed(beginClock, clock());
-
-		settextcolor(yellow);
-		cout << endl << "Finished Parsing Song Lyrics Count." << endl;
-		cout << yellow << "Elapsed Time to add: " << cyan << setprecision(2) << fixed << addLElapsed << " seconds" << endl;
-		cout << yellow << "Total Lyric Lines Read: " << cyan << internalCounter << endl;
-		cout << yellow << "Total Lyric List Length: " << cyan << list.getLength() << endl;
-		cout << yellow << "Page Memory Use: " << cyan << convertMemoryToHumanReadable(addLPTime) << endl;
-		cout << yellow << "RAM Use: " << cyan << convertMemoryToHumanReadable(addLVTime) << endl << endl;
-	}
-
-	/*
-	Reads the 779k Match Text File
-	READ+ADD Estimated Time: ~7589.52 secs (~2 hrs 6 mins 29.52 secs)
-	VECTORADD Estimated Time: ~? secs
-	@param &list Linked list to store the music data lines in
-	@param count How many lines in the text file to process
-	*/
-	void readMatchFile(ListPointer &list, int count){
-		bool verboseMode = false; //Enable Verbose Mode
-
-		ifstream file("mxm_779k_matches.txt");
-		string str;
-		int internalCounter = 0, progressCounter = count;
-		settextcolor(white);
-		if (count > musicInfoFileLength){
-			cout << "Lines to read specified exceeds lines in file. Defaulting to read all" << endl;
-			count = -1;
-		}
-		if (count == -1){
-			progressCounter = musicInfoFileLength;
-			cout << "As the file is extremely large, this may take a couple of minutes..." << endl;
-		}
-		printMenuTitle("Parsing Song Information...");
-		
-		//Get Start Memory (Virtual, Physical) and CPU Time
-		clock_t beginClock = clock();
-		SIZE_T bVMem = getVMUsed(), bPMem = getPMUsed();
-
-		while (getline(file, str)){
-			if (internalCounter >= progressCounter)	break;
-			if (verboseMode) cout << str << endl;
-			if (str[0] == '#')	{ internalCounter++; continue; }	//Check if string is a comment
-
-			list.add(str);	//Parse Music Details Line
-
-			//Log Memory and CPU Time
-			timingAddMCounter[internalCounter] = calculateElapsed(beginClock, clock());
-			memoryPAddMCounter[internalCounter] = (double)(getPMUsed() - bPMem);
-			memoryVAddMCounter[internalCounter] = (double)(getVMUsed() - bVMem);
-
-			loadbar(internalCounter, progressCounter, beginClock, bPMem, bVMem);
-			internalCounter++;	//Increment counter
-		}
-
-		loadbar(progressCounter, progressCounter, beginClock, bPMem, bVMem);
-
-		//Calculate Memory Used (Virtual, Physical) and CPU Time
-		addMPTime = (getPMUsed() - bPMem);
-		addMVTime = (getVMUsed() - bVMem);
-		addMElapsed = calculateElapsed(beginClock, clock());
-
-		settextcolor(yellow);
-		cout << endl << "Finished Parsing and Adding Song Information." << endl;
-		cout << yellow << "Elapsed Time to add: " << cyan << setprecision(2) << fixed << addMElapsed << " seconds" << endl;
-		cout << yellow << "Total Lines Read: " << cyan << internalCounter << endl;
-		cout << yellow << "Total Music List Length: " << cyan << list.getLength() << endl;
-		cout << yellow << "Page Memory Use: " << cyan << convertMemoryToHumanReadable(addMPTime) << endl;
-		cout << yellow << "RAM Use: " << cyan << convertMemoryToHumanReadable(addMVTime) << endl << endl;
-	}
-
-	void parseNewFiles(ListPointer &musInfoList, ListPointer &wordList, ListPointer &lyricList){
-		printMemoryInfo();
-		cout << "DEBUG TEST" << endl;
-		cout << pink << "How many lines to read in Music File? (-1 to read all): ";
-		settextcolor(cyan);
-		int count;
-		cin >> count;
-		if (count != -1){
-			timingAddMCounter.resize(count);
-			memoryPAddMCounter.resize(count);
-			memoryVAddMCounter.resize(count);
-		}
-		printMenuTitle("Parsing Text Files...");
-		readNewMatchFile(musInfoList, count);
-		readNewTopWords(wordList);
-		cout << pink << "How many lines to read in Lyric Count File? (-1 to read all): ";
-		settextcolor(cyan);
-		cin >> count;
-		if (count != -1){
-			timingAddLCounter.resize(count);
-			memoryPAddLCounter.resize(count);
-			memoryVAddLCounter.resize(count);
-		}
-		readNewSongLyricCount(lyricList, count);
-		printMenuTitle("Parse Completed");
-		cout << endl;
-		printMemoryInfo();
-	}
-
-	void readNewTopWords(ListPointer &list){
-		bool verboseMode = false; //Enable Verbose Mode
-
-		int internalCounter = 0, progressCounter = WORD_DATASET_LENGTH;
-		printMenuTitle("Parsing Song Lyrics...");
-
-		//Get Start Memory (Virtual, Physical) and CPU Time
-		clock_t beginClock = clock();
-		SIZE_T bVMem = getVMUsed(), bPMem = getPMUsed();
-
-		for (string &str : wordDataset){
-			if (str[0] == '#') continue;	//Skip Comments
-
-			//Check if its top words
-			if (str[0] == '%'){
-				//Parse Top words based on comma
-				str.erase(0, 1);
-				istringstream ss(str);
-				string topwrd;
-				while (getline(ss, topwrd, ',')){
-					if (verboseMode)
-						cout << topwrd << endl;
-					list.add(topwrd);
-
-					//Log Memory and CPU Time
-					timingAddWCounter[internalCounter] = calculateElapsed(beginClock, clock());
-					memoryPAddWCounter[internalCounter] = (double)(getPMUsed() - bPMem);
-					memoryVAddWCounter[internalCounter] = (double)(getVMUsed() - bVMem);
-
-					loadbar(internalCounter, progressCounter, beginClock, bPMem, bVMem);
-					internalCounter++; //Increment counter
-				}
-				break;
-			}
-		}
-		loadbar(progressCounter, progressCounter, beginClock, bPMem, bVMem);
-
-		//Calculate Memory Used (Virtual, Physical)
-		addWPTime = (getPMUsed() - bPMem);
-		addWVTime = (getVMUsed() - bVMem);
-
-		settextcolor(yellow);
-		addWElapsed = calculateElapsed(beginClock, clock());
-		cout << endl << "Finished Parsing Song Lyrics." << endl;
-		cout << yellow << "Elapsed Time to add: " << cyan << setprecision(2) << fixed << addWElapsed << " seconds" << endl;
-		cout << yellow << "Total Words Read: " << cyan << internalCounter << endl;
-		cout << yellow << "Total Word List Length: " << cyan << list.getLength() << endl;
-		cout << yellow << "Page Memory Use: " << cyan << convertMemoryToHumanReadable(addWPTime) << endl;
-		cout << yellow << "RAM Use: " << cyan << convertMemoryToHumanReadable(addWVTime) << endl << endl;
-	}
-
-	void readNewSongLyricCount(ListPointer &list, int count){
-		bool verboseMode = false; //Enable Verbose Mode
-
-		int internalCounter = 0, fullCounter = 210519, progressCounter = count;	//Latter 2 are hardcoded
-
-		settextcolor(white);
-		if (count > musicInfoFileLength){
+		if (count > LYRIC_DATASET_LENGTH || count <= -1){
 			cout << "Lines to read specified exceeds lines in file. Defaulting to read all" << endl;
 			count = -1;
 		}
@@ -427,9 +242,9 @@ namespace unsortedptr {
 			list.add(str);
 
 			//Log Memory and CPU Time
-			timingAddLCounter[internalCounter] = calculateElapsed(beginClock, clock());
-			memoryPAddLCounter[internalCounter] = (double)(getPMUsed() - bPMem);
-			memoryVAddLCounter[internalCounter] = (double)(getVMUsed() - bVMem);
+			timingAddLCounter.push_back(calculateElapsed(beginClock, clock()));
+			memoryPAddLCounter.push_back((double)(getPMUsed() - bPMem));
+			memoryVAddLCounter.push_back((double)(getVMUsed() - bVMem));
 
 			loadbar(internalCounter, progressCounter, beginClock, bPMem, bVMem);
 			internalCounter++;	//Increment counter
@@ -450,18 +265,25 @@ namespace unsortedptr {
 		cout << yellow << "RAM Use: " << cyan << convertMemoryToHumanReadable(addLVTime) << endl << endl;
 	}
 
-	void readNewMatchFile(ListPointer &list, int count){
+	/*
+	Reads the 779k Match Text File
+	READ+ADD Estimated Time: ~7589.52 secs (~2 hrs 6 mins 29.52 secs)
+	VECTORADD Estimated Time: ~8046.77 secs
+	@param &list Linked list to store the music data lines in
+	@param count How many lines in the text file to process
+	*/
+	void readMatchFile(ListPointer &list, int count){
 		bool verboseMode = false; //Enable Verbose Mode
 
 		int internalCounter = 0, progressCounter = count;
 		settextcolor(white);
-		if (count > musicInfoFileLength){
+		if (count > SONG_DATASET_LENGTH || count <= -1){
 			cout << "Lines to read specified exceeds lines in file. Defaulting to read all" << endl;
 			count = -1;
 		}
 		if (count == -1){
-			progressCounter = musicInfoFileLength;
-			cout << "As the file is extremely large, this may take a couple of minutes..." << endl;
+			progressCounter = SONG_DATASET_LENGTH;
+			cout << "As the file is extremely large, this may take a while..." << endl;
 		}
 		printMenuTitle("Parsing Song Information...");
 
@@ -472,14 +294,14 @@ namespace unsortedptr {
 		for (string &str : songDataset){
 			if (internalCounter >= progressCounter)	break;
 			if (verboseMode) cout << str << endl;
-			if (str[0] == '#')	{ internalCounter++; continue; }	//Check if string is a comment
+			if (str[0] == '#') continue; 	//Check if string is a comment
 
 			list.add(str);	//Parse Music Details Line
 
 			//Log Memory and CPU Time
-			timingAddMCounter[internalCounter] = calculateElapsed(beginClock, clock());
-			memoryPAddMCounter[internalCounter] = (double)(getPMUsed() - bPMem);
-			memoryVAddMCounter[internalCounter] = (double)(getVMUsed() - bVMem);
+			timingAddMCounter.push_back(calculateElapsed(beginClock, clock()));
+			memoryPAddMCounter.push_back((double)(getPMUsed() - bPMem));
+			memoryVAddMCounter.push_back((double)(getVMUsed() - bVMem));
 
 			loadbar(internalCounter, progressCounter, beginClock, bPMem, bVMem);
 			internalCounter++;	//Increment counter
@@ -976,7 +798,7 @@ namespace unsortedptr {
 			cout << dark_red << "Make sure you load the dataset into the vectors before continuing" << endl;
 			return -1;
 		}
-		parseNewFiles(mainMusicList, mainWordList, mainLyricList);
+		parseFiles(mainMusicList, mainWordList, mainLyricList);
 
 		if (mainMusicList.getLength() == 0){
 			settextcolor(red);

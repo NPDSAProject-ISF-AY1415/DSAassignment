@@ -12,7 +12,7 @@ int plotGraph(vector<string> &graphList, string title){
 	//Set The Display, Add, Remove, Binary Search, Sequential Search
 	//fprintf(gnuplotPipe, "set xtics offset character 0,0,0 norangelimit (\"Add\" 1, \"Remove\" 2, \"Display\" 3, \"Binary Search\" 4, \"Sequential Search\" 5) \n");
 	bool first_line = true;
-	for (int j = 1; j <= graphList.size(); j++){
+	for (int j = 0; j < graphList.size(); j++){
 		Graph g = Graph::createGraphObjFromString(graphList[j]);
 		if (first_line)
 			fprintf(gnuplotPipe, "plot '-' t \"");
