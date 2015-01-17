@@ -152,7 +152,8 @@ RESERVE Estimated Time: ~153.04 secs (~2 mins 33.04 secs)
 */
 void initFileParse(){
 	printMemoryInfo();
-	printMenuTitle("Initializing and loading text files to temp buffer");
+	printMenuTitle("Initializing and loading text files to temp vector buffer");
+	cout << magenta << "It will take about 2.5 minutes to load the data into the vectors..." << endl << "Please wait..." << endl;
 	parseSong();
 	parseLyrics();
 	parseWords();
@@ -172,7 +173,7 @@ void mainMenu(){
 	cout << "4) " << yellow << "Sorted Array-Based List" << white << endl;
 	cout << "5) " << yellow << "Performance Utilities" << white << endl;
 	cout << "6) " << yellow << "Plot Performance Graphs" << white << endl;
-	cout << "9) " << yellow << "(Test) Initialize data into vector datasets" << white << endl;
+	//cout << "9) " << yellow << "(Test) Initialize data into vector datasets" << white << endl;
 	cout << "0) " << yellow << "Quit" << white << endl;
 }
 
@@ -185,6 +186,7 @@ int main(){
 	//Initialization
 	SetConsoleTitle(TEXT("Data Structures Performance Analysis (DSA Assignment)"));
 	concolinit();
+	initFileParse();
 
 	printAscii();
 	cout << endl;
@@ -205,7 +207,7 @@ int main(){
 			case 4: menErr =  sortedArr::mainLoop(false); break;	
 			case 5: unsortedptr::performanceMenu(); break;		//Temp, soon will be a menu specifically for main menu
 			case 6: unsortedptr::plotGraphMenu(); break;			//Temp, soon will be a menu designed for main menu
-			case 9: initFileParse(); break;		//Test Vectors speed as per LCY suggestion
+			//case 9: initFileParse(); break;		//Test Vectors speed as per LCY suggestion
 			case 0: cout << green << "Freeing Memory taken by variables and containers. This may take a while..." << white << endl; 
 				return 0;
 			default: cout << dark_red << "Invalid Selection." << endl; break;
