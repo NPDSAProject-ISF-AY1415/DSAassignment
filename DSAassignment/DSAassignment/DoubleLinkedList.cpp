@@ -115,6 +115,11 @@ void DoubleLinkedList::remove(int index){
 			firstNode = firstNode->next;
 		}
 	}
+	else if (index == size){
+		//It is the back node
+		lastNode->previous->next = NULL;	//Set next of last 2nd node to NULL as its the last node now
+		lastNode = lastNode->previous;
+	}
 	else {
 		//Traverse to node to remove
 		Node *tmpNode = firstNode;
