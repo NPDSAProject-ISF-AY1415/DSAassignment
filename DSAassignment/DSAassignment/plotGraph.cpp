@@ -23,7 +23,7 @@ int plotGraph(vector<string> &graphList, string title){
 		fprintf(gnuplotPipe, "\" w linesp,");
 	}
 	fprintf(gnuplotPipe, "\n");
-	for (int j = 1; j <= graphList.size(); j++){
+	for (int j = 0; j < graphList.size(); j++){
 		Graph g = Graph::createGraphObjFromString(graphList[j]);
 		//cout << g.getValues(1) << "lol" << endl; 
 		for (int k = 0; k < g.getXValueArr().size(); k++)

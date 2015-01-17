@@ -30,11 +30,8 @@ void Graph::setValues(vector<double> x, vector<double> y){
 }
 
 void Graph::addValues(double x, double y){
-	int newSize = this->xValues.size() + 1;
-	this->xValues.resize(newSize);
-	this->xValues.resize(newSize);
-	this->xValues[newSize - 1] = x;
-	this->yValues[newSize - 1] = y;
+	this->xValues.push_back(x);
+	this->yValues.push_back(y);
 }
 
 vector<double> Graph::getXValueArr(){
