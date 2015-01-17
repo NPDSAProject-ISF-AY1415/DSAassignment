@@ -201,8 +201,8 @@ int main(){
 			{
 			case 1: menErr = unsortedptr::mainLoop(); break;
 			case 2: cout << dark_red << "Soon to be implemented" << endl; break;	//TODO Replace with main loop for sorted pointer
-			case 3: cout << dark_red << "Soon to be implemented" << endl; break;	//TODO Replace with main loop for unsorted array
-			case 4: menErr =  sortedArr::mainLoop(); break;	
+			case 3: menErr = sortedArr::mainLoop(true); break;	//TODO Replace with main loop for unsorted array
+			case 4: menErr =  sortedArr::mainLoop(false); break;	
 			case 5: unsortedptr::performanceMenu(); break;		//Temp, soon will be a menu specifically for main menu
 			case 6: unsortedptr::plotGraphMenu(); break;			//Temp, soon will be a menu designed for main menu
 			case 9: initFileParse(); break;		//Test Vectors speed as per LCY suggestion

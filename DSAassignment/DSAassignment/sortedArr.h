@@ -51,12 +51,13 @@ namespace sortedArr {
 
 	static inline void loadbar(unsigned int x, unsigned int n, clock_t beginClock, SIZE_T beginPMem, SIZE_T beginVMem, unsigned int);
 	Lyric parseLyricData(string lyricStr);
-	void parseFiles(ListArray &musInfoList, ListArray &wordList, ListArray &lyricList);
+	void parseFiles(ListArray &musInfoList, ListArray &wordList, ListArray &lyricList, bool soUn);
 	void readTopWords(ListArray &list);
 	void readMatchFile(ListArray &list, int count);
 	void readSongLyricCount(ListArray &list, int count);
 	void mainPtrArrMenu();
 	void searchSong(ListArray &list);
+	void searchSongBinary(ListArray &list);
 	void listAllSongs(ListArray &list);
 	void listTopWords(ListArray &list);
 	void removeMusicInfo(ListArray &list);
@@ -67,7 +68,7 @@ namespace sortedArr {
 	void makeSeqSearchTimeGraph();
 	void plotGraphMenu();
 	void performanceMenu();
-	int mainLoop();
+	int mainLoop(bool sortUnsort);
 }
 
 #endif
