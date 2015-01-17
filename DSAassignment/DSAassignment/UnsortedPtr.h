@@ -69,6 +69,10 @@ namespace unsortedptr {
 	void makeDisplayTimeGraph();
 	void makeRemoveTimeGraph();
 	void makeSeqSearchTimeGraph();
+	void makeAddMemGraph();
+	void makeDisplayMemGraph();
+	void makeRemoveMemGraph();
+	void makeSeqSearchMemGraph();
 	void plotGraphMenu();
 	void performanceMenu();
 	int mainLoop();
