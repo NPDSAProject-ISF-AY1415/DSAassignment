@@ -18,9 +18,9 @@ namespace unsortedptr {
 	vector<double> timingAddWCounter(0);
 	vector<double> memoryPAddWCounter(0);
 	vector<double> memoryVAddWCounter(0);
-	vector<double> timingDisplayWCounter(WORD_DATASET_LENGTH);
-	vector<double> memoryPDisplayWCounter(WORD_DATASET_LENGTH);
-	vector<double> memoryVDisplayWCounter(WORD_DATASET_LENGTH);
+	vector<double> timingDisplayWCounter(0);
+	vector<double> memoryPDisplayWCounter(0);
+	vector<double> memoryVDisplayWCounter(0);
 
 	vector<double> timingAddMCounter(0);
 	vector<double> memoryPAddMCounter(0);
@@ -30,13 +30,13 @@ namespace unsortedptr {
 	vector<double> memoryPAddLCounter(0);
 	vector<double> memoryVAddLCounter(0);
 
-	vector<double> timingDisplayMCounter(SONG_FILE_LENGTH);
-	vector<double> memoryPDisplayMCounter(SONG_FILE_LENGTH);
-	vector<double> memoryVDisplayMCounter(SONG_FILE_LENGTH);
+	vector<double> timingDisplayMCounter(0);
+	vector<double> memoryPDisplayMCounter(0);
+	vector<double> memoryVDisplayMCounter(0);
 
-	vector<double> timingSeqSearchMCounter(SONG_FILE_LENGTH);
-	vector<double> memoryPSeqSearchMCounter(SONG_FILE_LENGTH);
-	vector<double> memoryVSeqSearchMCounter(SONG_FILE_LENGTH);
+	vector<double> timingSeqSearchMCounter(0);
+	vector<double> memoryPSeqSearchMCounter(0);
+	vector<double> memoryVSeqSearchMCounter(0);
 
 	vector<double> timingRemoveMCounter(3);
 	vector<double> memoryPRemoveMCounter(3);
@@ -108,6 +108,10 @@ namespace unsortedptr {
 	@param lyricList List for lyrics in Songs
 	*/
 	void parseFiles(ListPointer &musInfoList, ListPointer &wordList, ListPointer &lyricList){
+		//Clears all memory vectors
+		timingAddLCounter.clear(), timingAddMCounter.clear(), timingAddWCounter.clear();
+		memoryPAddLCounter.clear(), memoryPAddMCounter.clear(), memoryPAddWCounter.clear();
+		memoryVAddLCounter.clear(), memoryVAddMCounter.clear(), memoryVAddWCounter.clear();
 		printMemoryInfo();
 		cout << pink << "How many lines to read in Music File? (-1 to read all): ";
 		settextcolor(cyan);
@@ -166,29 +170,15 @@ namespace unsortedptr {
 		SIZE_T bVMem = getVMUsed(), bPMem = getPMUsed();
 
 		for (string &str : wordDataset){
-			if (str[0] == '#') continue;	//Skip Comments
+			list.add(str);
 
-			//Check if its top words
-			if (str[0] == '%'){
-				//Parse Top words based on comma
-				str.erase(0, 1);
-				istringstream ss(str);
-				string topwrd;
-				while (getline(ss, topwrd, ',')){
-					if (verboseMode)
-						cout << topwrd << endl;
-					list.add(topwrd);
+			//Log Memory and CPU Time
+			timingAddWCounter.push_back(calculateElapsed(beginClock, clock()));
+			memoryPAddWCounter.push_back((double)(getPMUsed() - bPMem));
+			memoryVAddWCounter.push_back((double)(getVMUsed() - bVMem));
 
-					//Log Memory and CPU Time
-					timingAddWCounter.push_back(calculateElapsed(beginClock, clock()));
-					memoryPAddWCounter.push_back((double)(getPMUsed() - bPMem));
-					memoryVAddWCounter.push_back((double)(getVMUsed() - bVMem));
-
-					loadbar(internalCounter, progressCounter, beginClock, bPMem, bVMem);
-					internalCounter++; //Increment counter
-				}
-				break;
-			}
+			loadbar(internalCounter, progressCounter, beginClock, bPMem, bVMem);
+			internalCounter++; //Increment counter
 		}
 		loadbar(progressCounter, progressCounter, beginClock, bPMem, bVMem);
 
@@ -350,9 +340,9 @@ namespace unsortedptr {
 		getline(cin, target);
 		settextcolor(white);
 
-		timingSeqSearchMCounter.resize(list.getLength());
-		memoryPSeqSearchMCounter.resize(list.getLength());
-		memoryVSeqSearchMCounter.resize(list.getLength());
+		//Clear and rereserve memory for logs
+		timingSeqSearchMCounter.clear(), memoryPSeqSearchMCounter.clear(), memoryVSeqSearchMCounter.clear();
+		timingSeqSearchMCounter.reserve(list.getLength()), memoryPSeqSearchMCounter.reserve(list.getLength()), memoryVSeqSearchMCounter.reserve(list.getLength());
 
 		
 		//Get Start Memory (Virtual, Physical) and CPU Time
@@ -364,9 +354,9 @@ namespace unsortedptr {
 			Music musIfo = parseMusicItem(list.get(i));
 
 			//Log Memory and CPU Time
-			timingSeqSearchMCounter[i - 1] = calculateElapsed(start, clock());
-			memoryPSeqSearchMCounter[i - 1] = (double)(getPMUsed() - bPMem);
-			memoryVSeqSearchMCounter[i - 1] = (double)(getVMUsed() - bVMem);
+			timingSeqSearchMCounter.push_back(calculateElapsed(start, clock()));
+			memoryPSeqSearchMCounter.push_back((double)(getPMUsed() - bPMem));
+			memoryVSeqSearchMCounter.push_back((double)(getVMUsed() - bVMem));
 
 			if (musIfo.getMTitle() == target){
 				cout << endl << yellow << "Music Found! Details of the music file is found below:" << endl;
@@ -401,9 +391,9 @@ namespace unsortedptr {
 	void listAllSongs(ListPointer &list){
 		printMenuTitle("List All Songs");
 
-		timingDisplayMCounter.resize(list.getLength());
-		memoryPDisplayMCounter.resize(list.getLength());
-		memoryVDisplayMCounter.resize(list.getLength());
+		//Clears log and rereserve memory
+		timingDisplayMCounter.clear(), memoryPDisplayMCounter.clear(), memoryVDisplayMCounter.clear();
+		timingDisplayMCounter.reserve(list.getLength()), memoryPDisplayMCounter.reserve(list.getLength()), memoryVDisplayMCounter.reserve(list.getLength());
 
 		//Get Start Memory (Virtual, Physical) and CPU Time
 		SIZE_T bVMem = getVMUsed(), bPMem = getPMUsed();
@@ -417,9 +407,9 @@ namespace unsortedptr {
 			musIfo.printMusicInfo();
 			cout << yellow << "=========================================================" << endl;
 			//Log Memory and CPU Time
-			timingDisplayMCounter[i - 1] = calculateElapsed(start, clock());
-			memoryPDisplayMCounter[i - 1] = (double)(getPMUsed() - bPMem);
-			memoryVDisplayMCounter[i - 1] = (double)(getVMUsed() - bVMem);
+			timingDisplayMCounter.push_back(calculateElapsed(start, clock()));
+			memoryPDisplayMCounter.push_back((double)(getPMUsed() - bPMem));
+			memoryVDisplayMCounter.push_back((double)(getVMUsed() - bVMem));
 		}
 
 		//Calculate Memory Used (Virtual, Physical)
@@ -443,15 +433,19 @@ namespace unsortedptr {
 		//Get Start Memory (Virtual, Physical)
 		SIZE_T bVMem = getVMUsed(), bPMem = getPMUsed();
 
+		//Clears memory & CPU Logs and rereserve stuff
+		timingDisplayWCounter.clear(), memoryPDisplayWCounter.clear(), memoryVDisplayWCounter.clear();
+		timingDisplayWCounter.reserve(list.getLength()), memoryPDisplayWCounter.reserve(list.getLength()), memoryVDisplayWCounter.reserve(list.getLength());
+
 		for (int i = 1; i <= list.getLength(); i++){
 			if (modder % 6 == 0){ cout << endl;	modder = 1; }
 			string wordString = list.get(i);
 			cout << "  " << white << wordString << yellow << "  |";
 
 			//Log Memory and CPU Time
-			timingDisplayWCounter[i - 1] = calculateElapsed(start, clock());
-			memoryPDisplayWCounter[i - 1] = (double)(getPMUsed() - bPMem);
-			memoryVDisplayWCounter[i - 1] = (double)(getVMUsed() - bVMem);
+			timingDisplayWCounter.push_back(calculateElapsed(start, clock()));
+			memoryPDisplayWCounter.push_back((double)(getPMUsed() - bPMem));
+			memoryVDisplayWCounter.push_back((double)(getVMUsed() - bVMem));
 
 			modder++;
 		}

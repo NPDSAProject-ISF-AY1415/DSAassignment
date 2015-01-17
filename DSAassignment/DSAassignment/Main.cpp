@@ -213,6 +213,6 @@ int main(){
 		}
 		else { cout << dark_red << "Selection must be an integer" << endl; }
 	}
-
+	cout << green << "Freeing Memory taken by variables and containers. This may take a while..." << white << endl;
 	return menErr;
 }
