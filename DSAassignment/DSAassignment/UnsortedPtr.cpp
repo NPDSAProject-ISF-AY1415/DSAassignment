@@ -647,6 +647,8 @@ namespace unsortedptr {
 		printSeperator();
 	}
 
+	//START OF GRAPH GENERATION METHODS
+
 	/*
 	Make a Graph with x axis being the length of the list and the y axis being time taken
 	*/
@@ -725,6 +727,105 @@ namespace unsortedptr {
 	}
 
 	/*
+	Make a Graph with x axis being the length of the list and the y axis being memory use
+	*/
+	void makeAddMemGraph(){
+		vector<string> ptrArrList(0);
+		//Make Graph for Lyric and get string
+		if (addLPTime == -1)	cout << dark_red << "There is no data for adding Lyrics. Please run the add operation before doing this." << endl;
+		else{
+			Graph lycG1("Lyrics (RAM)", memoryPAddLCounter.size(), memoryPAddLCounter);
+			string lycGStr = lycG1.createGraphString();
+			ptrArrList.push_back(lycGStr);
+			Graph lycG2("Lyrics (Page)", memoryVAddLCounter.size(), memoryVAddLCounter);
+			lycGStr = lycG2.createGraphString();
+			ptrArrList.push_back(lycGStr);
+		}
+		//Make Graph for Songs
+		if (addMPTime == -1)	cout << dark_red << "There is no data for adding Song Data. Please run the add operation before doing this." << endl;
+		else {
+			Graph sonG1("Song Data (RAM)", memoryPAddMCounter.size(), memoryPAddMCounter);
+			string sonGStr = sonG1.createGraphString();
+			ptrArrList.push_back(sonGStr);
+			Graph sonG2("Song Data (Page)", memoryVAddMCounter.size(), memoryVAddMCounter);
+			sonGStr = sonG2.createGraphString();
+			ptrArrList.push_back(sonGStr);
+		}
+		//Make Graph for Words
+		if (addWPTime == -1)	cout << dark_red << "There is no data for adding top words. Please run the add operation before doing this." << endl;
+		else {
+			Graph wrdG1("Top Lyric Words (RAM)", memoryPAddWCounter.size(), memoryPAddWCounter);
+			string wrdGStr = wrdG1.createGraphString();
+			ptrArrList.push_back(wrdGStr);
+			Graph wrdG2("Top Lyric Words (Page)", memoryVAddWCounter.size(), memoryVAddWCounter);
+			wrdGStr = wrdG2.createGraphString();
+			ptrArrList.push_back(wrdGStr);
+		}
+		if (ptrArrList.size() > 0 && ptrArrList.size() <= 6)	plotGraph(ptrArrList, "Unsorted Pointer-Based List Memory Graph (ADD)");
+	}
+
+	/*
+	Make a Graph with x axis being the length of the list and the y axis being memory use
+	*/
+	void makeDisplayMemGraph(){
+		vector<string> ptrArrList(0);
+		if (displayMPTime == -1)	cout << dark_red << "There is no data for displaying song data. Please run the display operation before doing this." << endl;
+		else{
+			Graph sonG1("Song Data (RAM)", memoryPDisplayMCounter.size(), memoryPDisplayMCounter);
+			string sonGStr = sonG1.createGraphString();
+			ptrArrList.push_back(sonGStr);
+			Graph sonG2("Song Data (Page)", memoryVDisplayMCounter.size(), memoryVDisplayMCounter);
+			sonGStr = sonG2.createGraphString();
+			ptrArrList.push_back(sonGStr);
+		}
+		if (displayWPTime == -1)	cout << dark_red << "There is no data for displaying top words. Please run the display operation before doing this." << endl;
+		else{
+			Graph wrdG1("Top Lyric Words (RAM)", memoryPDisplayWCounter.size(), memoryPDisplayWCounter);
+			string wrdGStr = wrdG1.createGraphString();
+			ptrArrList.push_back(wrdGStr);
+			Graph wrdG2("Top Lyric Words (Page)", memoryVDisplayWCounter.size(), memoryVDisplayWCounter);
+			wrdGStr = wrdG2.createGraphString();
+			ptrArrList.push_back(wrdGStr);
+		}
+		if (ptrArrList.size() > 0 && ptrArrList.size() <= 4)	plotGraph(ptrArrList, "Unsorted Pointer-Based List Memory Graph (DISPLAY)");
+	}
+
+	/*
+	Make a Graph with x axis being the length of the list and the y axis being memory use
+	*/
+	void makeRemoveMemGraph(){
+		vector<string> ptrArrList(0);
+		if (removePTime == -1)	cout << dark_red << "There is no data for removing song data. Please run the remove operation before doing this." << endl;
+		else {
+			Graph sonG1("Song Data (RAM)", memoryPRemoveMCounter.size(), memoryPRemoveMCounter);
+			string sonGStr = sonG1.createGraphString();
+			ptrArrList.push_back(sonGStr);
+			Graph sonG2("Song Data (Page)", memoryVRemoveMCounter.size(), memoryVRemoveMCounter);
+			sonGStr = sonG2.createGraphString();
+			ptrArrList.push_back(sonGStr);
+		}
+		if (ptrArrList.size() == 2)	plotGraph(ptrArrList, "Unsorted Pointer-Based List Timings Graph (REMOVE)");
+	}
+
+	/*
+	Make a Graph with x axis being the length of the list and the y axis being memory use
+	*/
+	void makeSeqSearchMemGraph(){
+		vector<string> ptrArrList(0);
+		if (sequSearchPTime == -1)	cout << dark_red << "There is no data for searching song data sequentially. Please run the seq. search operation before doing this." << endl;
+		else {
+			Graph sonG1("Song Data (RAM)", memoryPSeqSearchMCounter.size(), memoryPSeqSearchMCounter);
+			string sonGStr = sonG1.createGraphString();
+			ptrArrList.push_back(sonGStr);
+			Graph sonG2("Song Data (Page)", memoryVSeqSearchMCounter.size(), memoryVSeqSearchMCounter);
+			sonGStr = sonG2.createGraphString();
+			ptrArrList.push_back(sonGStr);
+		}
+		if (ptrArrList.size() == 2)	plotGraph(ptrArrList, "Unsorted Pointer-Based List Timings Graph (SEQUENTIAL SEARCH)");
+	}
+	//END OF GRAPH GENERATION METHODS
+
+	/*
 	Plot Graph Menu
 	*/
 	void plotGraphMenu(){
@@ -745,13 +846,13 @@ namespace unsortedptr {
 			switch (stoi(selection))
 			{
 			case 1: makeAddTimeGraph(); break;
-			case 2: cout << dark_aqua << "SOON" << endl; break;
+			case 2: makeAddMemGraph(); break;
 			case 3: makeDisplayTimeGraph(); break;
-			case 4: cout << dark_aqua << "SOON" << endl; break;
+			case 4: makeDisplayMemGraph(); break;
 			case 5: makeRemoveTimeGraph(); break;
-			case 6: cout << dark_aqua << "SOON" << endl; break;
+			case 6: makeRemoveMemGraph(); break;
 			case 7: makeSeqSearchTimeGraph(); break;
-			case 8: cout << dark_aqua << "SOON" << endl; break;
+			case 8: makeSeqSearchMemGraph(); break;
 			case 0: return;
 			default: cout << dark_red << "Invalid Selection." << endl; break;
 			}
