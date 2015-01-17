@@ -268,7 +268,7 @@ namespace unsortedptr {
 	/*
 	Reads the 779k Match Text File
 	READ+ADD Estimated Time: ~7589.52 secs (~2 hrs 6 mins 29.52 secs)
-	VECTORADD Estimated Time: ~8046.77 secs
+	VECTORADD Estimated Time: ~8046.77 secs (~2 hrs 14 mins 6.77 secs)
 	@param &list Linked list to store the music data lines in
 	@param count How many lines in the text file to process
 	*/

@@ -1,4 +1,3 @@
-#include <iostream>
 #include "ListPointer.h"
 
 using namespace std;
