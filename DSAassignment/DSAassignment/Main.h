@@ -6,6 +6,7 @@
 #include "sortedArr.h"
 #include "Memory.h"
 #include "GlobalIdentifiers.h"
+#include "DblLinkList.h"
 
 extern vector<string> wordDataset, songDataset, lyricDataset;
 

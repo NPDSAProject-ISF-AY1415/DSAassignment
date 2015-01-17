@@ -69,6 +69,9 @@
     <ClInclude Include="sortedArr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DblLinkList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="DoubleLinkedList.h">
       <Filter>Header Files\Objects</Filter>
     </ClInclude>
@@ -115,6 +118,9 @@
     </ClCompile>
     <ClCompile Include="DoubleLinkedList.cpp">
       <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="DblLinkList.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

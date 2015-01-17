@@ -140,7 +140,7 @@ ItemType DoubleLinkedList::getBack(){
 ItemType DoubleLinkedList::get(int index){
 	if (!(index >= 1 || index <= size)) return NULL;	//Check for valid index
 	Node *tmpNode = firstNode;
-	for (int i = 0; i <= size - 2; i++){
+	for (int i = 0; i <= index - 2; i++){
 		tmpNode = tmpNode->next;
 	}
 	return tmpNode->item;

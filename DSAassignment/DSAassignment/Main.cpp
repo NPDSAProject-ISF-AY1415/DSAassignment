@@ -167,12 +167,13 @@ Prints out the main menu
 */
 void mainMenu(){
 	printMenuTitle("Main Menu (Select a storage type)");
-	cout << "1) " << yellow << "Unsorted Pointer-Based List" << white << endl;
-	cout << "2) " << yellow << "Sorted Pointer-Based List" << white << endl;
+	cout << "1) " << yellow << "Unsorted Double Linked List" << white << endl;
+	cout << "2) " << yellow << "Sorted Double Linked List" << white << endl;
 	cout << "3) " << yellow << "Unsorted Array-Based List" << white << endl;
 	cout << "4) " << yellow << "Sorted Array-Based List" << white << endl;
-	cout << "5) " << yellow << "Performance Utilities" << white << endl;
-	cout << "6) " << yellow << "Plot Performance Graphs" << white << endl;
+	cout << "5) " << yellow << "Unsorted Pointer-Based List" << white << endl;
+	cout << "8) " << yellow << "Performance Utilities" << white << endl;
+	cout << "9) " << yellow << "Plot Performance Graphs" << white << endl;
 	//cout << "9) " << yellow << "(Test) Initialize data into vector datasets" << white << endl;
 	cout << "0) " << yellow << "Quit" << white << endl;
 }
@@ -201,12 +202,13 @@ int main(){
 		if (is_number(selection)){
 			switch (stoi(selection))
 			{
-			case 1: menErr = unsortedptr::mainLoop(); break;
-			case 2: cout << dark_red << "Soon to be implemented" << endl; break;	//TODO Replace with main loop for sorted pointer
+			case 1: menErr = unsorteddll::mainLoop(); break;	//TODO Replace with main loop for unsorted DLL
+			case 2: cout << dark_red << "Soon to be implemented" << endl; break;	//TODO Replace with main loop for sorted DLL
 			case 3: menErr = sortedArr::mainLoop(true); break;	//TODO Replace with main loop for unsorted array
 			case 4: menErr =  sortedArr::mainLoop(false); break;	
-			case 5: unsortedptr::performanceMenu(); break;		//Temp, soon will be a menu specifically for main menu
-			case 6: unsortedptr::plotGraphMenu(); break;			//Temp, soon will be a menu designed for main menu
+			case 5: menErr = unsortedptr::mainLoop(); break;
+			case 8: unsortedptr::performanceMenu(); break;		//Temp, soon will be a menu specifically for main menu
+			case 9: unsortedptr::plotGraphMenu(); break;			//Temp, soon will be a menu designed for main menu
 			//case 9: initFileParse(); break;		//Test Vectors speed as per LCY suggestion
 			case 0: cout << green << "Freeing Memory taken by variables and containers. This may take a while..." << white << endl; 
 				return 0;
