@@ -205,7 +205,7 @@ namespace unsortedptr {
 	void readSongLyricCount(ListPointer &list, int count){
 		bool verboseMode = false; //Enable Verbose Mode
 
-		int internalCounter = 0, fullCounter = 210519, progressCounter = count;	//Latter 2 are hardcoded
+		int internalCounter = 0, progressCounter = count;	//Latter 2 are hardcoded
 
 		settextcolor(white);
 		if (count > LYRIC_DATASET_LENGTH || count <= -1){
@@ -213,7 +213,7 @@ namespace unsortedptr {
 			count = -1;
 		}
 		if (count == -1){
-			progressCounter = fullCounter;
+			progressCounter = LYRIC_DATASET_LENGTH;
 			cout << "As the file is extremely large, this may take a couple of minutes..." << endl;
 		}
 		settextcolor(yellow);
