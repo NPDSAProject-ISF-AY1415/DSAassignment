@@ -7,6 +7,7 @@
 *.sln.docstates
 mxm_779k_matches.txt
 mxm_dataset_train.txt
+mxm_779k_matches_sorted.txt
 
 # Build results
 [Dd]ebug/
