@@ -79,6 +79,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="concol.h" />
+    <ClInclude Include="DoubleLinkedList.h" />
     <ClInclude Include="GlobalIdentifiers.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="ListArray.h" />
@@ -95,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="concol.cpp" />
+    <ClCompile Include="DoubleLinkedList.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="ListArray.cpp" />
     <ClCompile Include="ListPointer.cpp" />

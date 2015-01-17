@@ -22,6 +22,7 @@ public:
 	DoubleLinkedList();
 	bool addFront(ItemType item);
 	bool addBack(ItemType item);
+	bool addAt(int index, ItemType item);
 	void removeFront();
 	void removeBack();
 	void remove(int index);
