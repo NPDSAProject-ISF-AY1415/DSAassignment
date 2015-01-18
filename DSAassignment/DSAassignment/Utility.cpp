@@ -137,7 +137,7 @@ namespace utility {
 	*/
 	bool shouldPlot(int size, int index){
 		//Case Extreme: Size of Arr > 100000
-		if (size > 100000){
+		if (size >= 100000){
 			//If > arrSize - 10, all
 			//> arrSize-100, %10
 			//> arrSize-1000, %100
