@@ -21,17 +21,18 @@
 
 namespace sortedArr {
 	extern int musicInfoFileLength;
-	extern double addMElapsed, addWElapsed, addLElapsed, displayMElapsed, displayWElapsed, sequSearchElapsed;
+	extern double addMElapsed, addWElapsed, addLElapsed, displayMElapsed, displayWElapsed, sequSearchElapsed, binaSearchElapsed;
 	extern double removeElapsed;
 
-	extern SIZE_T addMVTime, addWVTime, addLVTime, displayMVTime, displayWVTime, sequSearchVTime, removeVTime;
-	extern SIZE_T addMPTime, addWPTime, addLPTime, displayMPTime, displayWPTime, sequSearchPTime, removePTime;
+	extern SIZE_T addMVTime, addWVTime, addLVTime, displayMVTime, displayWVTime, sequSearchVTime, binaSearchVTime, removeVTime;
+	extern SIZE_T addMPTime, addWPTime, addLPTime, displayMPTime, displayWPTime, sequSearchPTime, binaSearchPTime, removePTime;
 
 	extern vector<double> timingAddMCounter;
 	extern vector<double> timingAddLCounter;
 	extern vector<double> timingAddWCounter;
 	extern vector<double> timingDisplayMCounter;
 	extern vector<double> timingSeqSearchMCounter;
+	extern vector<double> timingBinaSeachMCounter;
 	extern vector<double> timingRemoveMCounter;
 	extern vector<double> timingDisplayWCounter;
 	extern vector<double> memoryPAddMCounter;
@@ -39,6 +40,7 @@ namespace sortedArr {
 	extern vector<double> memoryPAddWCounter;
 	extern vector<double> memoryPDisplayMCounter;
 	extern vector<double> memoryPSeqSearchMCounter;
+	extern vector<double> memoryPBinaSearchMCounter;
 	extern vector<double> memoryPRemoveMCounter;
 	extern vector<double> memoryPDisplayWCounter;
 	extern vector<double> memoryVAddMCounter;
@@ -46,6 +48,7 @@ namespace sortedArr {
 	extern vector<double> memoryVAddWCounter;
 	extern vector<double> memoryVDisplayMCounter;
 	extern vector<double> memoryVSeqSearchMCounter;
+	extern vector<double> memoryVBinaSearchMCounter;
 	extern vector<double> memoryVRemoveMCounter;
 	extern vector<double> memoryVDisplayWCounter;
 
@@ -57,7 +60,6 @@ namespace sortedArr {
 	void readSongLyricCount(ListArray &list, int count);
 	void mainPtrArrMenu();
 	void searchSong(ListArray &list);
-	void searchSongBinary(ListArray &list);
 	void listAllSongs(ListArray &list);
 	void listTopWords(ListArray &list);
 	void removeMusicInfo(ListArray &list);
@@ -66,6 +68,12 @@ namespace sortedArr {
 	void makeDisplayTimeGraph();
 	void makeRemoveTimeGraph();
 	void makeSeqSearchTimeGraph();
+	void makeBinaSearchTimeGraph();
+	void makeAddMemGraph();
+	void makeDisplayMemGraph();
+	void makeRemoveMemGraph();
+	void makeSeqSearchMemGraph();
+	void makeBinaSearchMemGraph();
 	void plotGraphMenu();
 	void performanceMenu();
 	int mainLoop(bool sortUnsort);
