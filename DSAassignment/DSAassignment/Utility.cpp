@@ -169,9 +169,6 @@ namespace utility {
 			else if (index > 50 && (index % 5 != 0)) return false;
 			else if (index > 10 && (index % 10 != 0)) return false;
 		}
-		//DEBUG CODE
-		cout << "Plot: " << index << "   ";
-		//END OF DEBUG CODE
 		return true;
 	}
 

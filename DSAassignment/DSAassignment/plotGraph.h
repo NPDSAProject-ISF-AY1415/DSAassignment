@@ -5,5 +5,7 @@
 #include "Utility.h"
 #include <iostream>
 #include <vector>
+#include <iomanip>		//std::setw
 
+static inline void loadbar(unsigned int x, unsigned int n, unsigned int w);
 int plotGraph(vector<string> &graphList, string title);
