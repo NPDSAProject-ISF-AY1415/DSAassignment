@@ -23,5 +23,6 @@ namespace utility{
 	void printAscii();
 	void getStringInput(string &storein);
 	string centerString(const char* s, int size);
+	bool shouldPlot(int size, int index);
 }
 #endif

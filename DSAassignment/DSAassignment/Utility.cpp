@@ -116,4 +116,64 @@ namespace utility {
 		return centeredStr.str();
 	}
 
+	/*
+	Checks if this point should be plotted in a graph or not
+	@param size Size of the vector/list
+	@param index Current index
+	@return Whether it should be plotted or not
+	*/
+	bool shouldPlot(int size, int index){
+		//Case Extreme: Size of Arr > 100000
+		if (size > 100000){
+			//If > arrSize - 10, all
+			//> arrSize-100, %10
+			//> arrSize-1000, %100
+			//> 100000, %1000
+			//%10000
+			if (index > (size - 10)){}
+			else if (index < (size - 100) && (index % 10 != 0)) return false;
+			else if (index < (size - 1000) && (index % 100 != 0)) return false;
+			else if (index > 100000 && (index % 1000 != 0)) return false;
+			else if (index % 10000 != 0) return false;
+		}
+		//Case 1: Size of Arr more than 1000
+		if (size > 1000){
+			//If > arrSize - 10, all
+			//> 1000, %10
+			//>100, %50
+			//%100
+			if (index > (size - 10)){}
+			else if (index > 1000 && (index % 10 != 0)) return false;
+			else if (index > 100 && (index % 50 != 0)) return false;
+			else if (index % 100 != 0) return false;
+		}
+		//Case 2: Size of Arr Less than 1000 but more than 100
+		else if (size > 100){
+			//>990, all
+			//>900, %5
+			//>500, %10
+			//>100, %50
+			//%100
+			if (index > 990) {}
+			else if (index > 900 && (index % 5 != 0)) return false;
+			else if (index > 500 && (index % 10 != 0)) return false;
+			else if (index > 100 && (index % 50 != 0)) return false;
+			else if (index % 100 != 0) return false;
+		}
+		//Case 3: Size of Arr Less than 100
+		else {
+			//>90, all
+			//>50, %5
+			//>10, %10
+			if (index > 90){}
+			else if (index > 50 && (index % 5 != 0)) return false;
+			else if (index > 10 && (index % 10 != 0)) return false;
+		}
+		//DEBUG CODE
+		cout << "Plot: " << index << "   ";
+		//END OF DEBUG CODE
+		return true;
+	}
+
+
 }

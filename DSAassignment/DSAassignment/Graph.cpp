@@ -16,9 +16,10 @@ Graph::Graph(string title, vector<double> x, vector<double> y){
 Graph::Graph(string title, int xCt, vector<double> y){
 	this->title = title;
 	this->yValues = y;
-	this->xValues.resize(xCt);
-	for (int i = 0; i < this->xValues.size(); i++){
-		this->xValues[i] = (i + 1);
+	this->xValues.clear();
+	this->xValues.reserve(xCt);
+	for (int i = 0; i < xCt; i++){
+		this->xValues.push_back((i + 1));
 	}
 }
 
@@ -81,16 +82,17 @@ Graph Graph::createGraphObjFromString(string str){
 	//cout << "String: " << str << endl;
 	//Temp Var
 	string title;
-	vector<double> x;
-	vector<double> y;
+	vector<double> x(0);
+	vector<double> y(0);
+	x.clear(), y.clear();
 	int counter = 0;
 	while (getline(stream, token, ',')){
 		if (tokenCt == 0)
 			title = token;
 		else if (tokenCt == 1){
 			//Set Lengths of Array
-			x.resize(stoi(token));
-			y.resize(stoi(token));
+			x.reserve(stoi(token));
+			y.reserve(stoi(token));
 		}
 		else {
 			//Add Values (Split into :)
@@ -100,10 +102,10 @@ Graph Graph::createGraphObjFromString(string str){
 			while (getline(subStr, xAndY, ':')){
 				if (first){
 					first = false;
-					x[counter] = stod(xAndY);
+					x.push_back(stod(xAndY));
 				}
 				else {
-					y[counter] = stod(xAndY);
+					y.push_back(stod(xAndY));
 				}
 			}
 			//cout << "LEL: " << x[counter] << ":" << y[counter] << ", ";

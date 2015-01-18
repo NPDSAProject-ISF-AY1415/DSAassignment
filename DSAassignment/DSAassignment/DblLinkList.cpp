@@ -347,7 +347,10 @@ namespace unsorteddll{
 			memoryPSeqSearchMCounter.push_back((double)(getPMUsed() - bPMem));
 			memoryVSeqSearchMCounter.push_back((double)(getVMUsed() - bVMem));
 
+			loadbar(i, list.getLength(), start, bPMem, bVMem);
+
 			if (musIfo.getMTitle() == target){
+				loadbar(i, i, start, bPMem, bVMem);
 				cout << endl << yellow << "Music Found! Details of the music file is found below:" << endl;
 				//printMusicInfo(musIfo);
 				musIfo.printMusicInfo();
@@ -360,6 +363,7 @@ namespace unsorteddll{
 			}
 		}
 		if (!found){
+			loadbar(list.getLength(), list.getLength(), start, bPMem, bVMem);
 			cout << endl << dark_red << "Unable to find a music file matching the search term" << endl;
 		}
 

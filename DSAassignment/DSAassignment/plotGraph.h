@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "Graph.h"
 #include "concol.h"
+#include "Utility.h"
 #include <iostream>
 #include <vector>
 
