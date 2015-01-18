@@ -117,6 +117,19 @@ namespace utility {
 	}
 
 	/*
+	Centers a double if needed
+	@param value the Double to center
+	@param size Size of the "cell" to center
+	@param precision Rounds off the double to how many DP
+	@return Centered Double String
+	*/
+	string centerDouble(double value, int size, int precision){
+		stringstream ss;
+		ss << setprecision(precision) << fixed << value;
+		return centerString(ss.str().c_str(), size);
+	}
+
+	/*
 	Checks if this point should be plotted in a graph or not
 	@param size Size of the vector/list
 	@param index Current index

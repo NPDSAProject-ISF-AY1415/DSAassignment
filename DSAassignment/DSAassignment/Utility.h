@@ -9,6 +9,7 @@
 #include <iostream>		//String
 #include <fstream>		//File Reading
 #include <sstream>		//String Stream
+#include <iomanip>		//Set precision
 #include <string>
 #include "GlobalIdentifiers.h"
 
@@ -23,6 +24,7 @@ namespace utility{
 	void printAscii();
 	void getStringInput(string &storein);
 	string centerString(const char* s, int size);
+	string centerDouble(double value, int size, int precision);
 	bool shouldPlot(int size, int index);
 }
 #endif
