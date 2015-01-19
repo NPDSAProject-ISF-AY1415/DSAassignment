@@ -657,27 +657,27 @@ namespace unsortedptr {
 	Make a Graph with x axis being the length of the list and the y axis being time taken
 	*/
 	void makeAddTimeGraph(){
-		vector<string> ptrArrList(0);
+		vector<Graph> ptrArrList(0);
 		//Make Graph for Lyric and get string
 		if (addLElapsed == -1)	cout << dark_red << "There is no data for adding Lyrics. Please run the add operation before doing this." << endl;
 		else{
 			Graph lycG("Lyrics", timingAddLCounter.size(), timingAddLCounter);
-			string lycGStr = lycG.createGraphString();
-			ptrArrList.push_back(lycGStr);
+			//string lycGStr = lycG.createGraphString();
+			ptrArrList.push_back(lycG);
 		}
 		//Make Graph for Songs
 		if (addMElapsed == -1)	cout << dark_red << "There is no data for adding Song Data. Please run the add operation before doing this." << endl;
 		else {
 			Graph sonG("Song Data", timingAddMCounter.size(), timingAddMCounter);
-			string sonGStr = sonG.createGraphString();
-			ptrArrList.push_back(sonGStr);
+			//string sonGStr = sonG.createGraphString();
+			ptrArrList.push_back(sonG);
 		}
 		//Make Graph for Words
 		if (addWElapsed == -1)	cout << dark_red << "There is no data for adding top words. Please run the add operation before doing this." << endl;
 		else {
 			Graph wrdG("Top Lyric Words", timingAddWCounter.size(), timingAddWCounter);
-			string wrdGStr = wrdG.createGraphString();
-			ptrArrList.push_back(wrdGStr);
+			//string wrdGStr = wrdG.createGraphString();
+			ptrArrList.push_back(wrdG);
 		}
 		if (ptrArrList.size() > 0 && ptrArrList.size() <= 3)	plotGraph(ptrArrList, "Unsorted Pointer-Based List Timings Graph (ADD)");
 	}
@@ -686,18 +686,18 @@ namespace unsortedptr {
 	Make a Graph with x axis being the length of the list and the y axis being time taken
 	*/
 	void makeDisplayTimeGraph(){
-		vector<string> ptrArrList(0);
+		vector<Graph> ptrArrList(0);
 		if (displayMElapsed == -1)	cout << dark_red << "There is no data for displaying song data. Please run the display operation before doing this." << endl;
 		else{
 			Graph sonG("Song Data", timingDisplayMCounter.size(), timingDisplayMCounter);
-			string sonGStr = sonG.createGraphString();
-			ptrArrList.push_back(sonGStr);
+			//string sonGStr = sonG.createGraphString();
+			ptrArrList.push_back(sonG);
 		}
 		if (displayWElapsed == -1)	cout << dark_red << "There is no data for displaying top words. Please run the display operation before doing this." << endl;
 		else{
 			Graph wrdG("Top Lyric Words", timingDisplayWCounter.size(), timingDisplayWCounter);
-			string wrdGStr = wrdG.createGraphString();
-			ptrArrList.push_back(wrdGStr);
+			//string wrdGStr = wrdG.createGraphString();
+			ptrArrList.push_back(wrdG);
 		}
 		if (ptrArrList.size() > 0 && ptrArrList.size() <= 2)	plotGraph(ptrArrList, "Unsorted Pointer-Based List Timings Graph (DISPLAY)");
 	}
@@ -706,12 +706,12 @@ namespace unsortedptr {
 	Make a Graph with x axis being the length of the list and the y axis being time taken
 	*/
 	void makeRemoveTimeGraph(){
-		vector<string> ptrArrList(0);
+		vector<Graph> ptrArrList(0);
 		if (removeElapsed == -1)	cout << dark_red << "There is no data for removing song data. Please run the remove operation before doing this." << endl;
 		else {
 			Graph sonG("Song Data", timingRemoveMCounter.size(), timingRemoveMCounter);
-			string sonGStr = sonG.createGraphString();
-			ptrArrList.push_back(sonGStr);
+			//string sonGStr = sonG.createGraphString();
+			ptrArrList.push_back(sonG);
 		}
 		if (ptrArrList.size() == 1)	plotGraph(ptrArrList, "Unsorted Pointer-Based List Timings Graph (REMOVE)");
 	}
@@ -720,12 +720,12 @@ namespace unsortedptr {
 	Make a Graph with x axis being the length of the list and the y axis being time taken
 	*/
 	void makeSeqSearchTimeGraph(){
-		vector<string> ptrArrList(0);
+		vector<Graph> ptrArrList(0);
 		if (sequSearchElapsed == -1)	cout << dark_red << "There is no data for searching song data sequentially. Please run the seq. search operation before doing this." << endl;
 		else {
 			Graph sonG("Song Data", timingSeqSearchMCounter.size(), timingSeqSearchMCounter);
-			string sonGStr = sonG.createGraphString();
-			ptrArrList.push_back(sonGStr);
+			//string sonGStr = sonG.createGraphString();
+			ptrArrList.push_back(sonG);
 		}
 		if (ptrArrList.size() == 1)	plotGraph(ptrArrList, "Unsorted Pointer-Based List Timings Graph (SEQUENTIAL SEARCH)");
 	}
@@ -734,36 +734,36 @@ namespace unsortedptr {
 	Make a Graph with x axis being the length of the list and the y axis being memory use
 	*/
 	void makeAddMemGraph(){
-		vector<string> ptrArrList(0);
+		vector<Graph> ptrArrList(0);
 		//Make Graph for Lyric and get string
 		if (addLPTime == -1)	cout << dark_red << "There is no data for adding Lyrics. Please run the add operation before doing this." << endl;
 		else{
 			Graph lycG1("Lyrics (RAM)", memoryPAddLCounter.size(), memoryPAddLCounter);
-			string lycGStr = lycG1.createGraphString();
-			ptrArrList.push_back(lycGStr);
+			//string lycGStr = lycG1.createGraphString();
+			ptrArrList.push_back(lycG1);
 			Graph lycG2("Lyrics (Page)", memoryVAddLCounter.size(), memoryVAddLCounter);
-			lycGStr = lycG2.createGraphString();
-			ptrArrList.push_back(lycGStr);
+			//lycGStr = lycG2.createGraphString();
+			ptrArrList.push_back(lycG2);
 		}
 		//Make Graph for Songs
 		if (addMPTime == -1)	cout << dark_red << "There is no data for adding Song Data. Please run the add operation before doing this." << endl;
 		else {
 			Graph sonG1("Song Data (RAM)", memoryPAddMCounter.size(), memoryPAddMCounter);
-			string sonGStr = sonG1.createGraphString();
-			ptrArrList.push_back(sonGStr);
+			//string sonGStr = sonG1.createGraphString();
+			ptrArrList.push_back(sonG1);
 			Graph sonG2("Song Data (Page)", memoryVAddMCounter.size(), memoryVAddMCounter);
-			sonGStr = sonG2.createGraphString();
-			ptrArrList.push_back(sonGStr);
+			//sonGStr = sonG2.createGraphString();
+			ptrArrList.push_back(sonG2);
 		}
 		//Make Graph for Words
 		if (addWPTime == -1)	cout << dark_red << "There is no data for adding top words. Please run the add operation before doing this." << endl;
 		else {
 			Graph wrdG1("Top Lyric Words (RAM)", memoryPAddWCounter.size(), memoryPAddWCounter);
-			string wrdGStr = wrdG1.createGraphString();
-			ptrArrList.push_back(wrdGStr);
+			//string wrdGStr = wrdG1.createGraphString();
+			ptrArrList.push_back(wrdG1);
 			Graph wrdG2("Top Lyric Words (Page)", memoryVAddWCounter.size(), memoryVAddWCounter);
-			wrdGStr = wrdG2.createGraphString();
-			ptrArrList.push_back(wrdGStr);
+			//wrdGStr = wrdG2.createGraphString();
+			ptrArrList.push_back(wrdG2);
 		}
 		if (ptrArrList.size() > 0 && ptrArrList.size() <= 6)	plotGraph(ptrArrList, "Unsorted Pointer-Based List Memory Graph (ADD)");
 	}
@@ -772,24 +772,24 @@ namespace unsortedptr {
 	Make a Graph with x axis being the length of the list and the y axis being memory use
 	*/
 	void makeDisplayMemGraph(){
-		vector<string> ptrArrList(0);
+		vector<Graph> ptrArrList(0);
 		if (displayMPTime == -1)	cout << dark_red << "There is no data for displaying song data. Please run the display operation before doing this." << endl;
 		else{
 			Graph sonG1("Song Data (RAM)", memoryPDisplayMCounter.size(), memoryPDisplayMCounter);
 			string sonGStr = sonG1.createGraphString();
-			ptrArrList.push_back(sonGStr);
+			ptrArrList.push_back(sonG1);
 			Graph sonG2("Song Data (Page)", memoryVDisplayMCounter.size(), memoryVDisplayMCounter);
 			sonGStr = sonG2.createGraphString();
-			ptrArrList.push_back(sonGStr);
+			ptrArrList.push_back(sonG2);
 		}
 		if (displayWPTime == -1)	cout << dark_red << "There is no data for displaying top words. Please run the display operation before doing this." << endl;
 		else{
 			Graph wrdG1("Top Lyric Words (RAM)", memoryPDisplayWCounter.size(), memoryPDisplayWCounter);
 			string wrdGStr = wrdG1.createGraphString();
-			ptrArrList.push_back(wrdGStr);
+			ptrArrList.push_back(wrdG1);
 			Graph wrdG2("Top Lyric Words (Page)", memoryVDisplayWCounter.size(), memoryVDisplayWCounter);
 			wrdGStr = wrdG2.createGraphString();
-			ptrArrList.push_back(wrdGStr);
+			ptrArrList.push_back(wrdG2);
 		}
 		if (ptrArrList.size() > 0 && ptrArrList.size() <= 4)	plotGraph(ptrArrList, "Unsorted Pointer-Based List Memory Graph (DISPLAY)");
 	}
@@ -798,15 +798,15 @@ namespace unsortedptr {
 	Make a Graph with x axis being the length of the list and the y axis being memory use
 	*/
 	void makeRemoveMemGraph(){
-		vector<string> ptrArrList(0);
+		vector<Graph> ptrArrList(0);
 		if (removePTime == -1)	cout << dark_red << "There is no data for removing song data. Please run the remove operation before doing this." << endl;
 		else {
 			Graph sonG1("Song Data (RAM)", memoryPRemoveMCounter.size(), memoryPRemoveMCounter);
-			string sonGStr = sonG1.createGraphString();
-			ptrArrList.push_back(sonGStr);
+			//string sonGStr = sonG1.createGraphString();
+			ptrArrList.push_back(sonG1);
 			Graph sonG2("Song Data (Page)", memoryVRemoveMCounter.size(), memoryVRemoveMCounter);
-			sonGStr = sonG2.createGraphString();
-			ptrArrList.push_back(sonGStr);
+			//sonGStr = sonG2.createGraphString();
+			ptrArrList.push_back(sonG2);
 		}
 		if (ptrArrList.size() == 2)	plotGraph(ptrArrList, "Unsorted Pointer-Based List Timings Graph (REMOVE)");
 	}
@@ -815,15 +815,15 @@ namespace unsortedptr {
 	Make a Graph with x axis being the length of the list and the y axis being memory use
 	*/
 	void makeSeqSearchMemGraph(){
-		vector<string> ptrArrList(0);
+		vector<Graph> ptrArrList(0);
 		if (sequSearchPTime == -1)	cout << dark_red << "There is no data for searching song data sequentially. Please run the seq. search operation before doing this." << endl;
 		else {
 			Graph sonG1("Song Data (RAM)", memoryPSeqSearchMCounter.size(), memoryPSeqSearchMCounter);
 			string sonGStr = sonG1.createGraphString();
-			ptrArrList.push_back(sonGStr);
+			ptrArrList.push_back(sonG1);
 			Graph sonG2("Song Data (Page)", memoryVSeqSearchMCounter.size(), memoryVSeqSearchMCounter);
 			sonGStr = sonG2.createGraphString();
-			ptrArrList.push_back(sonGStr);
+			ptrArrList.push_back(sonG2);
 		}
 		if (ptrArrList.size() == 2)	plotGraph(ptrArrList, "Unsorted Pointer-Based List Timings Graph (SEQUENTIAL SEARCH)");
 	}

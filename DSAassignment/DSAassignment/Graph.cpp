@@ -6,6 +6,7 @@ using namespace std;
 //Y Values
 //0 - Add, 1 - Remove, 2-Display, 3-Sequential Search, 4-Binary Search
 
+Graph::Graph(){}
 
 Graph::Graph(string title, vector<double> x, vector<double> y){
 	this->title = title;

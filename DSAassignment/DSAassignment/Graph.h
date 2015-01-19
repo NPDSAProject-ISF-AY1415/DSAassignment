@@ -14,6 +14,7 @@ private:
 	vector<double> yValues;	//Timings/Mem Usage
 	vector<double> xValues;	//n of items
 public:
+	Graph();
 	Graph(string title, vector<double> x, vector<double> y);
 	Graph(string title, int xCt, vector<double> y);
 	void setTitle(string title);

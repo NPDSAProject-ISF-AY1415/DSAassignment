@@ -6,7 +6,6 @@ Global variables - textcol,backcol,deftextcol,defbackcol,colorprotect*/
 
 #include<windows.h>
 #include<iosfwd>
-
 namespace eku
 {
 

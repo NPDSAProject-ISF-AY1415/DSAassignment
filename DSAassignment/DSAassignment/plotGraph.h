@@ -9,3 +9,4 @@
 
 static inline void loadbar(unsigned int x, unsigned int n, clock_t beginClock, unsigned int w);
 int plotGraph(vector<string> &graphList, string title);
+int plotGraph(vector<Graph> &graphList, string title);
