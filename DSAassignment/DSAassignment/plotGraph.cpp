@@ -132,7 +132,7 @@ int plotGraph(vector<Graph> &graphList, string title){
 	}
 	cout << green << "Graph Processed. Plotting and Launching Graph Window... May take a while..." << white << endl;
 	fflush(gnuplotPipe);
-	cout << red << "Please ensure that you have closed the graph before continuing! Press any key to continue" << endl;
+	cout << red << "Please ensure that you have closed the graph window before continuing! Press any key to continue" << white << endl;
 	cin.get();
 	cin.get();
 	return 0;

@@ -145,6 +145,260 @@ void parseWords(){
 	cout << "Length of Vector: " << wordDataset.size() << endl;	//DEBUG Code
 }
 
+//START OF GRAPH GENERATION METHODS
+
+/*
+Make a Graph with x axis being the length of the list and the y axis being time taken
+*/
+void makeAddTimeGraph(){
+	vector<Graph> ptrArrList(0);
+	if (unsorteddll::addMElapsed == -1)	cout << dark_red << "No data logged for Unsorted Doubly Linked List. Run the add operation to view its data." << endl;
+	else {
+		Graph udllG("Unsorted Doubly Linked List", unsorteddll::timingAddMCounter.size(), unsorteddll::timingAddMCounter);
+		ptrArrList.push_back(udllG);
+	}
+	if (unsortedptr::addMElapsed == -1) cout << dark_red << "No data logged for Unsorted Pointer-based List. Run the add operation to view its data." << endl;
+	else {
+		Graph uptrG("Unsorted Pointer-based List", unsortedptr::timingAddMCounter.size(), unsortedptr::timingAddMCounter);
+		ptrArrList.push_back(uptrG);
+	}
+	//TODO Double check?
+	if (sortedArr::addWElapsed == -1)	cout << dark_red << "No data logged for Sorted Array-Based List. Run the add operation to view its data." << endl;
+	else {
+		Graph sptrG("Sorted Array-based List", sortedArr::timingAddMCounter.size(), sortedArr::timingAddMCounter);
+		//string wrdGStr = wrdG.createGraphString();
+		ptrArrList.push_back(sptrG);
+	}
+	if (ptrArrList.size() > 0 && ptrArrList.size() <= 3)	plotGraph(ptrArrList, "Add Operation Comparision (CPU)");
+}
+
+/*
+Make a Graph with x axis being the length of the list and the y axis being time taken
+*/
+void makeDisplayTimeGraph(){
+	vector<Graph> ptrArrList(0);
+	if (unsorteddll::displayMElapsed == -1)	cout << dark_red << "No data logged for Unsorted Doubly Linked List. Run the display operation to view its data." << endl;
+	else {
+		Graph udllG("Unsorted Doubly Linked List", unsorteddll::timingDisplayMCounter.size(), unsorteddll::timingDisplayMCounter);
+		ptrArrList.push_back(udllG);
+	}
+	if (unsortedptr::displayMElapsed == -1) cout << dark_red << "No data logged for Unsorted Pointer-based List. Run the display operation to view its data." << endl;
+	else {
+		Graph uptrG("Unsorted Pointer-based List", unsortedptr::timingDisplayMCounter.size(), unsortedptr::timingDisplayMCounter);
+		ptrArrList.push_back(uptrG);
+	}
+	//TODO Double check?
+	if (sortedArr::displayMElapsed == -1)	cout << dark_red << "No data logged for Sorted Array-Based List. Run the display operation to view its data." << endl;
+	else {
+		Graph sptrG("Sorted Array-based List", sortedArr::timingDisplayMCounter.size(), sortedArr::timingDisplayMCounter);
+		//string wrdGStr = wrdG.createGraphString();
+		ptrArrList.push_back(sptrG);
+	}
+	if (ptrArrList.size() > 0 && ptrArrList.size() <= 3)	plotGraph(ptrArrList, "Display Operation Comparision (CPU)");
+}
+
+/*
+Make a Graph with x axis being the length of the list and the y axis being time taken
+*/
+void makeRemoveTimeGraph(){
+	vector<Graph> ptrArrList(0);
+	if (unsorteddll::removeElapsed == -1)	cout << dark_red << "No data logged for Unsorted Doubly Linked List. Run the remove operation to view its data." << endl;
+	else {
+		Graph udllG("Unsorted Doubly Linked List", unsorteddll::timingRemoveMCounter.size(), unsorteddll::timingRemoveMCounter);
+		ptrArrList.push_back(udllG);
+	}
+	if (unsortedptr::removeElapsed == -1) cout << dark_red << "No data logged for Unsorted Pointer-based List. Run the remove operation to view its data." << endl;
+	else {
+		Graph uptrG("Unsorted Pointer-based List", unsortedptr::timingRemoveMCounter.size(), unsortedptr::timingRemoveMCounter);
+		ptrArrList.push_back(uptrG);
+	}
+	//TODO Double check?
+	if (sortedArr::removeElapsed == -1)	cout << dark_red << "No data logged for Sorted Array-Based List. Run the remove operation to view its data." << endl;
+	else {
+		Graph sptrG("Sorted Array-based List", sortedArr::timingRemoveMCounter.size(), sortedArr::timingRemoveMCounter);
+		//string wrdGStr = wrdG.createGraphString();
+		ptrArrList.push_back(sptrG);
+	}
+	if (ptrArrList.size() > 0 && ptrArrList.size() <= 3)	plotGraph(ptrArrList, "Remove Operation Comparision (CPU)");
+}
+
+/*
+Make a Graph with x axis being the length of the list and the y axis being time taken
+*/
+void makeSeqSearchTimeGraph(){
+	vector<Graph> ptrArrList(0);
+	if (unsorteddll::sequSearchElapsed == -1)	cout << dark_red << "No data logged for Unsorted Doubly Linked List. Run the seq search operation to view its data." << endl;
+	else {
+		Graph udllG("Unsorted Doubly Linked List", unsorteddll::timingSeqSearchMCounter.size(), unsorteddll::timingSeqSearchMCounter);
+		ptrArrList.push_back(udllG);
+	}
+	if (unsortedptr::sequSearchElapsed == -1) cout << dark_red << "No data logged for Unsorted Pointer-based List. Run the seq search operation to view its data." << endl;
+	else {
+		Graph uptrG("Unsorted Pointer-based List", unsortedptr::timingSeqSearchMCounter.size(), unsortedptr::timingSeqSearchMCounter);
+		ptrArrList.push_back(uptrG);
+	}
+	//TODO Double check?
+	if (sortedArr::sequSearchElapsed == -1)	cout << dark_red << "No data logged for Sorted Array-Based List. Run the seq search operation to view its data." << endl;
+	else {
+		Graph sptrG("Sorted Array-based List", sortedArr::timingSeqSearchMCounter.size(), sortedArr::timingSeqSearchMCounter);
+		//string wrdGStr = wrdG.createGraphString();
+		ptrArrList.push_back(sptrG);
+	}
+	if (ptrArrList.size() > 0 && ptrArrList.size() <= 3)	plotGraph(ptrArrList, "Sequential Search Operation Comparision (CPU)");
+}
+
+/*
+Make a Graph with x axis being the length of the list and the y axis being memory use
+*/
+void makeAddMemGraph(){
+	vector<Graph> ptrArrList(0);
+	if (unsorteddll::addMPTime == -1)	cout << dark_red << "No data logged for Unsorted Doubly Linked List. Run the add operation to view its data." << endl;
+	else{
+		Graph lycG1("Unsorted Doubly Linked List (RAM)", unsorteddll::memoryPAddMCounter.size(), unsorteddll::memoryPAddMCounter);
+		ptrArrList.push_back(lycG1);
+		Graph lycG2("Unsorted Doubly Linked List (Page)", unsorteddll::memoryVAddMCounter.size(), unsorteddll::memoryVAddMCounter);
+		ptrArrList.push_back(lycG2);
+	}
+	if (unsortedptr::addMPTime == -1)	cout << dark_red << "No data logged for Unsorted Pointer-based List. Run the add operation to view its data." << endl;
+	else {
+		Graph sonG1("Unsorted Pointer-based List (RAM)", unsortedptr::memoryPAddMCounter.size(), unsortedptr::memoryPAddMCounter);
+		ptrArrList.push_back(sonG1);
+		Graph sonG2("Unsorted Pointer-based List (Page)", unsortedptr::memoryVAddMCounter.size(), unsortedptr::memoryVAddMCounter);
+		ptrArrList.push_back(sonG2);
+	}
+	if (sortedArr::addMPTime == -1)	cout << dark_red << "No data logged for Sorted Array-based List. Run the add operation to view its data." << endl;
+	else {
+		Graph wrdG1("Sorted Array-based List (RAM)", sortedArr::memoryPAddMCounter.size(), sortedArr::memoryPAddMCounter);
+		ptrArrList.push_back(wrdG1);
+		Graph wrdG2("Sorted Array-based List (Page)", sortedArr::memoryVAddMCounter.size(), sortedArr::memoryVAddMCounter);
+		ptrArrList.push_back(wrdG2);
+	}
+	if (ptrArrList.size() > 0 && ptrArrList.size() <= 6)	plotGraph(ptrArrList, "Add Operation Comparision (Memory)");
+}
+
+/*
+Make a Graph with x axis being the length of the list and the y axis being memory use
+*/
+void makeDisplayMemGraph(){
+	vector<Graph> ptrArrList(0);
+	if (unsorteddll::displayMPTime == -1)	cout << dark_red << "No data logged for Unsorted Doubly Linked List. Run the display operation to view its data." << endl;
+	else{
+		Graph lycG1("Unsorted Doubly Linked List (RAM)", unsorteddll::memoryPDisplayMCounter.size(), unsorteddll::memoryPDisplayMCounter);
+		ptrArrList.push_back(lycG1);
+		Graph lycG2("Unsorted Doubly Linked List (Page)", unsorteddll::memoryVDisplayMCounter.size(), unsorteddll::memoryVDisplayMCounter);
+		ptrArrList.push_back(lycG2);
+	}
+	if (unsortedptr::displayMPTime == -1)	cout << dark_red << "No data logged for Unsorted Pointer-based List. Run the display operation to view its data." << endl;
+	else {
+		Graph sonG1("Unsorted Pointer-based List (RAM)", unsortedptr::memoryPDisplayMCounter.size(), unsortedptr::memoryPDisplayMCounter);
+		ptrArrList.push_back(sonG1);
+		Graph sonG2("Unsorted Pointer-based List (Page)", unsortedptr::memoryVDisplayMCounter.size(), unsortedptr::memoryVDisplayMCounter);
+		ptrArrList.push_back(sonG2);
+	}
+	if (sortedArr::displayMPTime == -1)	cout << dark_red << "No data logged for Sorted Array-based List. Run the display operation to view its data." << endl;
+	else {
+		Graph wrdG1("Sorted Array-based List (RAM)", sortedArr::memoryPDisplayMCounter.size(), sortedArr::memoryPDisplayMCounter);
+		ptrArrList.push_back(wrdG1);
+		Graph wrdG2("Sorted Array-based List (Page)", sortedArr::memoryVDisplayMCounter.size(), sortedArr::memoryVDisplayMCounter);
+		ptrArrList.push_back(wrdG2);
+	}
+	if (ptrArrList.size() > 0 && ptrArrList.size() <= 6)	plotGraph(ptrArrList, "Display Operation Comparision (Memory)");
+}
+
+/*
+Make a Graph with x axis being the length of the list and the y axis being memory use
+*/
+void makeRemoveMemGraph(){
+	vector<Graph> ptrArrList(0);
+	if (unsorteddll::removePTime == -1)	cout << dark_red << "No data logged for Unsorted Doubly Linked List. Run the remove operation to view its data." << endl;
+	else{
+		Graph lycG1("Unsorted Doubly Linked List (RAM)", unsorteddll::memoryPRemoveMCounter.size(), unsorteddll::memoryPRemoveMCounter);
+		ptrArrList.push_back(lycG1);
+		Graph lycG2("Unsorted Doubly Linked List (Page)", unsorteddll::memoryVRemoveMCounter.size(), unsorteddll::memoryVRemoveMCounter);
+		ptrArrList.push_back(lycG2);
+	}
+	if (unsortedptr::removePTime == -1)	cout << dark_red << "No data logged for Unsorted Pointer-based List. Run the remove operation to view its data." << endl;
+	else {
+		Graph sonG1("Unsorted Pointer-based List (RAM)", unsortedptr::memoryPRemoveMCounter.size(), unsortedptr::memoryPRemoveMCounter);
+		ptrArrList.push_back(sonG1);
+		Graph sonG2("Unsorted Pointer-based List (Page)", unsortedptr::memoryVRemoveMCounter.size(), unsortedptr::memoryVRemoveMCounter);
+		ptrArrList.push_back(sonG2);
+	}
+	if (sortedArr::removePTime == -1)	cout << dark_red << "No data logged for Sorted Array-based List. Run the remove operation to view its data." << endl;
+	else {
+		Graph wrdG1("Sorted Array-based List (RAM)", sortedArr::memoryPRemoveMCounter.size(), sortedArr::memoryPRemoveMCounter);
+		ptrArrList.push_back(wrdG1);
+		Graph wrdG2("Sorted Array-based List (Page)", sortedArr::memoryVRemoveMCounter.size(), sortedArr::memoryVRemoveMCounter);
+		ptrArrList.push_back(wrdG2);
+	}
+	if (ptrArrList.size() > 0 && ptrArrList.size() <= 6)	plotGraph(ptrArrList, "Remove Operation Comparision (Memory)");
+}
+
+/*
+Make a Graph with x axis being the length of the list and the y axis being memory use
+*/
+void makeSeqSearchMemGraph(){
+	vector<Graph> ptrArrList(0);
+	if (unsorteddll::sequSearchPTime == -1)	cout << dark_red << "No data logged for Unsorted Doubly Linked List. Run the seq search operation to view its data." << endl;
+	else{
+		Graph lycG1("Unsorted Doubly Linked List (RAM)", unsorteddll::memoryPSeqSearchMCounter.size(), unsorteddll::memoryPSeqSearchMCounter);
+		ptrArrList.push_back(lycG1);
+		Graph lycG2("Unsorted Doubly Linked List (Page)", unsorteddll::memoryVSeqSearchMCounter.size(), unsorteddll::memoryVSeqSearchMCounter);
+		ptrArrList.push_back(lycG2);
+	}
+	if (unsortedptr::sequSearchPTime == -1)	cout << dark_red << "No data logged for Unsorted Pointer-based List. Run the seq search operation to view its data." << endl;
+	else {
+		Graph sonG1("Unsorted Pointer-based List (RAM)", unsortedptr::memoryPSeqSearchMCounter.size(), unsortedptr::memoryPSeqSearchMCounter);
+		ptrArrList.push_back(sonG1);
+		Graph sonG2("Unsorted Pointer-based List (Page)", unsortedptr::memoryVSeqSearchMCounter.size(), unsortedptr::memoryVSeqSearchMCounter);
+		ptrArrList.push_back(sonG2);
+	}
+	if (sortedArr::sequSearchPTime == -1)	cout << dark_red << "No data logged for Sorted Array-based List. Run the seq search operation to view its data." << endl;
+	else {
+		Graph wrdG1("Sorted Array-based List (RAM)", sortedArr::memoryPSeqSearchMCounter.size(), sortedArr::memoryPSeqSearchMCounter);
+		ptrArrList.push_back(wrdG1);
+		Graph wrdG2("Sorted Array-based List (Page)", sortedArr::memoryVSeqSearchMCounter.size(), sortedArr::memoryVSeqSearchMCounter);
+		ptrArrList.push_back(wrdG2);
+	}
+	if (ptrArrList.size() > 0 && ptrArrList.size() <= 6)	plotGraph(ptrArrList, "Add Operation Comparision (Memory)");
+}
+//END OF GRAPH GENERATION METHODS
+
+/*
+Plot Main Graph Menu
+*/
+void plotGraphMenu(){
+	printMenuTitle("Select a Song Data graph to view");
+	cout << "1) " << yellow << "Add (CPU)" << white << endl;
+	cout << "2) " << yellow << "Add (Memory)" << white << endl;
+	cout << "3) " << yellow << "Display (CPU)" << white << endl;
+	cout << "4) " << yellow << "Display (Memory)" << white << endl;
+	cout << "5) " << yellow << "Remove (CPU)" << white << endl;
+	cout << "6) " << yellow << "Remove (Memory)" << white << endl;
+	cout << "7) " << yellow << "Sequential Search (CPU)" << white << endl;
+	cout << "8) " << yellow << "Sequential Search (Memory)" << white << endl;
+	cout << "0) " << yellow << "Return to Menu" << white << endl;
+	string selection;
+	cout << pink << "Select an option: ";
+	getStringInput(selection);
+	if (is_number(selection)){
+		switch (stoi(selection))
+		{
+		case 1: makeAddTimeGraph(); break;
+		case 2: makeAddMemGraph(); break;
+		case 3: makeDisplayTimeGraph(); break;
+		case 4: makeDisplayMemGraph(); break;
+		case 5: makeRemoveTimeGraph(); break;
+		case 6: makeRemoveMemGraph(); break;
+		case 7: makeSeqSearchTimeGraph(); break;
+		case 8: makeSeqSearchMemGraph(); break;
+		case 0: return;
+		default: cout << dark_red << "Invalid Selection." << endl; break;
+		}
+	}
+	else { cout << dark_red << "Selection must be an integer" << endl; }
+}
+
 /*
 Calls all the 3 methods to load the dataset into the vectors
 PUSH_BACK Estimated Time: ~156.33 secs (~2 mins 36.33 secs)
@@ -173,7 +427,7 @@ void mainMenu(){
 	cout << "4) " << yellow << "Sorted Array-Based List" << white << endl;
 	cout << "5) " << yellow << "Unsorted Pointer-Based List" << white << endl;
 	cout << "8) " << yellow << "Performance Utilities" << white << endl;
-	cout << "9) " << yellow << "Plot Performance Graphs" << white << endl;
+	cout << "9) " << yellow << "Plot Performance Graphs for all lists" << white << endl;
 	//cout << "9) " << yellow << "(Test) Initialize data into vector datasets" << white << endl;
 	cout << "0) " << yellow << "Quit" << white << endl;
 }
@@ -208,7 +462,7 @@ int main(){
 			case 4: menErr =  sortedArr::mainLoop(false); break;	
 			case 5: menErr = unsortedptr::mainLoop(); break;
 			case 8: unsortedptr::performanceMenu(); break;		//Temp, soon will be a menu specifically for main menu
-			case 9: unsortedptr::plotGraphMenu(); break;			//Temp, soon will be a menu designed for main menu
+			case 9: plotGraphMenu(); break;
 			//case 9: initFileParse(); break;		//Test Vectors speed as per LCY suggestion
 			case 0: cout << green << "Freeing Memory taken by variables and containers. This may take a while..." << white << endl; 
 				return 0;

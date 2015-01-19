@@ -305,7 +305,7 @@ namespace unsorteddll{
 	Prints out the main pointer-based list menu
 	*/
 	void mainPtrArrMenu(){
-		printMenuTitle("Main Pointer-based List Menu");
+		printMenuTitle("Main Doubly Linked List Menu");
 		cout << "1) " << yellow << "View Songs in Database" << white << endl;
 		cout << "2) " << yellow << "View All the Top Words found in Lyrics" << white << endl;
 		cout << "3) " << yellow << "Search for a song in database with name" << white << endl;
