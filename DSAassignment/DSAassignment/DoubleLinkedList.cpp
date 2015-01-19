@@ -3,14 +3,14 @@
 using namespace std;
 
 DoubleLinkedList::DoubleLinkedList(){ size = 0; }
-DoubleLinkedList::~DoubleLinkedList(){
-	Node *firstNode = firstNode;
-	while (firstNode->next != NULL){
-		Node *nextNode = firstNode->next;
-		delete firstNode;
-		firstNode = nextNode;
+/*DoubleLinkedList::~DoubleLinkedList(){
+	Node *currentNode = firstNode;
+	while (currentNode->next != NULL){
+		Node *nextNode = currentNode->next;
+		delete currentNode;
+		currentNode = nextNode;
 	}
-}
+}*/
 bool DoubleLinkedList::addFront(ItemType item){
 	//Create new node
 	Node *newNode = new Node;

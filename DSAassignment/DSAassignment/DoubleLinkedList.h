@@ -20,7 +20,7 @@ private:
 	int size;
 public:
 	DoubleLinkedList();
-	~DoubleLinkedList();
+	//~DoubleLinkedList();
 	bool addFront(ItemType item);
 	bool addBack(ItemType item);
 	bool addAt(int index, ItemType item);

@@ -81,7 +81,7 @@ namespace unsorteddll{
 	@param lyricStr String of the Lyric
 	@param l Points to the lyric object to load to
 	*/
-	void parseLyricData(string lyricStr, LyricDLL *l){
+	void parseLyricData(string &lyricStr, LyricDLL *l){
 		istringstream lyrStream(lyricStr);
 		string token;
 		//LyricDLL l;
@@ -317,7 +317,7 @@ namespace unsorteddll{
 		cout << "0) " << yellow << "Quit" << white << endl;
 	}
 
-	void getLyrics(Music musicInfo, DoubleLinkedList &words, DoubleLinkedList &lyrics){
+	void getLyrics(Music &musicInfo, DoubleLinkedList &words, DoubleLinkedList &lyrics){
 		cout << green << "Searching for possible lyrics of song" << white << endl;
 		bool found = false;
 		clock_t start = clock();
