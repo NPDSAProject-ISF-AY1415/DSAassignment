@@ -87,6 +87,7 @@
     <ClInclude Include="ListPointer.h" />
     <ClInclude Include="Lyric.h" />
     <ClInclude Include="LyricA.h" />
+    <ClInclude Include="LyricDLL.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Memory.h" />
     <ClInclude Include="Music.h" />
@@ -104,6 +105,7 @@
     <ClCompile Include="ListPointer.cpp" />
     <ClCompile Include="Lyric.cpp" />
     <ClCompile Include="LyricA.cpp" />
+    <ClCompile Include="LyricDLL.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Memory.cpp" />
     <ClCompile Include="Music.cpp" />

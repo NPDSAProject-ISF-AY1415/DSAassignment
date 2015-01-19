@@ -79,21 +79,21 @@ namespace unsorteddll{
 	/*
 	Parsing each Lyric String File
 	@param lyricStr String of the Lyric
-	@return Created Lyric File
+	@param l Points to the lyric object to load to
 	*/
-	Lyric parseLyricData(string lyricStr){
+	void parseLyricData(string lyricStr, LyricDLL *l){
 		istringstream lyrStream(lyricStr);
 		string token;
-		Lyric l;
+		//LyricDLL l;
 		int ct = 0;	//0 - Track ID, 1 - MusicXMatch ID, >2 Word Count
 		while (getline(lyrStream, token, ',')){
 			switch (ct){
-			case 0: l.setTrackID(token); ct++; break;
-			case 1: l.setMusicXMatchID(token); ct++; break;
-			default: l.addWordAndCount(token); break;	//Parse Word and Count
+			case 0: l->setTrackID(token); ct++; break;
+			case 1: l->setMusicXMatchID(token); ct++; break;
+			default: l->addWordAndCount(token); break;	//Parse Word and Count
 			}
 		}
-		return l;
+		//return l;
 	}
 
 	//END OF UTILITY
@@ -309,18 +309,58 @@ namespace unsorteddll{
 		cout << "1) " << yellow << "View Songs in Database" << white << endl;
 		cout << "2) " << yellow << "View All the Top Words found in Lyrics" << white << endl;
 		cout << "3) " << yellow << "Search for a song in database with name" << white << endl;
-		cout << "4) " << yellow << "Remove a song from the database" << white << endl;
-		cout << "5) " << yellow << "View Plotted Graph" << white << endl;
+		cout << "4) " << yellow << "Search for a song in database with name and get song lyrics" << white << endl;
+		cout << "5) " << yellow << "Remove a song from the database" << white << endl;
+		cout << "6) " << yellow << "View Plotted Graph" << white << endl;
 		cout << "8) " << yellow << "Performance Utilities" << white << endl;
 		cout << "9) " << yellow << "Return to Main Menu" << white << endl;
 		cout << "0) " << yellow << "Quit" << white << endl;
 	}
 
+	void getLyrics(Music musicInfo, DoubleLinkedList &words, DoubleLinkedList &lyrics){
+		cout << green << "Searching for possible lyrics of song" << white << endl;
+		bool found = false;
+		clock_t start = clock();
+		SIZE_T startPM = getPMUsed(), startVM = getVMUsed();
+		int sizeOfLyrics = lyrics.getLength();
+		for (int i = 1; i <= sizeOfLyrics; i++){
+			LyricDLL *l = new LyricDLL();
+			parseLyricData(lyrics.get(i), l);
+			loadbar(i, sizeOfLyrics, start, startPM, startVM);
+			if (l->getTrackID() == musicInfo.getTid() && l->getMusicXMatchID() == musicInfo.getMid()){
+				DoubleLinkedList wordList = l->getWords();
+				DoubleLinkedList counts = l->getCounts();
+				loadbar(i, i, start, startPM, startVM);
+				//Start Printing
+				cout << endl << green << "Lyrics Found! Parsing count of lyrics!" << white << endl;
+				found = true;
+				//string announceTitle = ;
+				printMenuTitle("Lyric for " + musicInfo.getMTitle());
+				cout << centerString("Word", 40) << "|" << centerString("No. of times it appears", 37) << endl;
+				printSeperator();
+				int wrdSize = wordList.getLength();
+				for (int i = 1; i <= wrdSize; i++){
+					int word = stoi(wordList.get(i));
+					cout << centerString(words.get(word).c_str(), 10) << "|" << centerString(counts.get(i).c_str(), 10) << endl;
+				}
+				printSeperator();
+			}
+			delete l;
+		}
+		if (!found){
+			loadbar(sizeOfLyrics, sizeOfLyrics, start, startPM, startVM);
+			cout << endl << dark_red << "No lyrics is found for this song" << endl;
+		}
+	}
+
 	/*
 	Option 2 : Search for a song
 	@param &list Linked List of the songs
+	@param &wrdlist Pass in Word List
+	@param &lyricList Pass in the lyric list
+	@param findLyrics Check if you need to find lyrics or not
 	*/
-	void searchSong(DoubleLinkedList &list){
+	void searchSong(DoubleLinkedList &list, DoubleLinkedList &wrdList, DoubleLinkedList &lyricList, bool findLyrics){
 		printMenuTitle("Search Songs");
 		string target, empty;
 		getline(cin, empty);
@@ -353,6 +393,8 @@ namespace unsorteddll{
 				cout << endl << yellow << "Music Found! Details of the music file is found below:" << endl;
 				//printMusicInfo(musIfo);
 				musIfo.printMusicInfo();
+				if (findLyrics)
+					getLyrics(musIfo, wrdList, lyricList);
 				cout << endl;
 				found = true;
 				timingSeqSearchMCounter.resize(i);
@@ -904,9 +946,10 @@ namespace unsorteddll{
 				{
 				case 1: listAllSongs(mainMusicList); break;
 				case 2: listTopWords(mainWordList); break;
-				case 3: searchSong(mainMusicList); break;
-				case 4: removeMusicInfo(mainMusicList); break;
-				case 5: plotGraphMenu(); break;
+				case 3: searchSong(mainMusicList, mainWordList, mainLyricList, false); break;
+				case 4: searchSong(mainMusicList, mainWordList, mainLyricList, true); break;
+				case 5: removeMusicInfo(mainMusicList); break;
+				case 6: plotGraphMenu(); break;
 				case 8: performanceMenu(); break;
 				case 9: return -1;
 				case 0: return 0;

@@ -75,6 +75,9 @@
     <ClInclude Include="DoubleLinkedList.h">
       <Filter>Header Files\Objects</Filter>
     </ClInclude>
+    <ClInclude Include="LyricDLL.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -121,6 +124,9 @@
     </ClCompile>
     <ClCompile Include="DblLinkList.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LyricDLL.cpp">
+      <Filter>Source Files\Objects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

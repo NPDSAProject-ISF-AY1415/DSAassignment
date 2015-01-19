@@ -9,7 +9,7 @@
 #include "DoubleLinkedList.h"
 #include "Music.h"
 #include "Utility.h"
-#include "Lyric.h"
+#include "LyricDLL.h"
 #include "Graph.h"
 #include "plotGraph.h"
 #include "Memory.h"
@@ -50,17 +50,18 @@ namespace unsorteddll{
 	extern vector<double> memoryVDisplayWCounter;
 
 	static inline void loadbar(unsigned int x, unsigned int n, clock_t beginClock, SIZE_T beginPMem, SIZE_T beginVMem, unsigned int w);
-	Lyric parseLyricData(string lyricStr);
+	void parseLyricData(string lyricStr, LyricDLL *l);
 	void parseFiles(DoubleLinkedList &musInfoList, DoubleLinkedList &wordList, DoubleLinkedList &lyricList);
 	void readTopWords(DoubleLinkedList &list);
 	void readMatchFile(DoubleLinkedList &list, int count);
 	void readSongLyricCount(DoubleLinkedList &list, int count);
-	void parseNewFiles(DoubleLinkedList &musInfoList, DoubleLinkedList &wordList, DoubleLinkedList &lyricList);
+	void parseNewFiles(DoubleLinkedList &musInfoList, DoubleLinkedList &wordList, DoubleLinkedList &lyricList, bool findLyrics);
 	void readNewTopWords(DoubleLinkedList &list);
 	void readNewMatchFile(DoubleLinkedList &list, int count);
 	void readNewSongLyricCount(DoubleLinkedList &list, int count);
 	void mainPtrArrMenu();
-	void searchSong(DoubleLinkedList &list);
+	void getLyrics(Music musicInfo, DoubleLinkedList &words, DoubleLinkedList &lyrics);
+	void searchSong(DoubleLinkedList &list, DoubleLinkedList &wrdList, DoubleLinkedList &lyricList);
 	void listAllSongs(DoubleLinkedList &list);
 	void listTopWords(DoubleLinkedList &list);
 	void removeMusicInfo(DoubleLinkedList &list);
