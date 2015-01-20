@@ -364,7 +364,7 @@ namespace unsorteddll{
 		printMenuTitle("Search Songs");
 		string target, empty;
 		getline(cin, empty);
-		cout << pink << "Enter Exact Song Name: " << cyan;
+		cout << pink << "Enter Exact Track ID: " << cyan;
 		getline(cin, target);
 		settextcolor(white);
 
@@ -388,7 +388,7 @@ namespace unsorteddll{
 
 			loadbar(i, list.getLength(), start, bPMem, bVMem);
 
-			if (musIfo.getMTitle() == target){
+			if (musIfo.getTid() == target){
 				loadbar(i, i, start, bPMem, bVMem);
 				cout << endl << yellow << "Music Found! Details of the music file is found below:" << endl;
 				//printMusicInfo(musIfo);
