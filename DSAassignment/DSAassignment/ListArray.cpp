@@ -38,6 +38,18 @@ bool ListArray::add(int index, ItemType newItem)
 	return success;
 }
 
+/*bool ListArray::addNoShift(int index, ItemType newItem)
+{
+	bool success = (index >= 1) && (index <= size + 1) && (size < MAX_SIZE);
+	if (success)
+	{  
+		// insert new item
+		items[index - 1] = newItem;
+		size++;  // increase the size of the list by one
+	}
+	return success;
+}*/
+
 // remove an item at a specified position in the list
 void ListArray::remove(int index)
 {

@@ -322,70 +322,66 @@ namespace sortedArr {
 	void readMatchFile2(ListArray &list, int count){
 		bool verboseMode = false; //Enable Verbose Mode
 
-		ifstream file("mxm_779k_matches_sorted.txt");
-		string str;
-		string str2;
-		bool isBig = false;
-		bool isSmall = false;
-		int internalCounter = 0;
-		int progressCounter = count;
+		int internalCounter = 0, progressCounter = count;
 		settextcolor(white);
-		if (count > musicInfoFileLength){
+		if (count > SONG_DATASET_LENGTH || count <= -1){
 			cout << "Lines to read specified exceeds lines in file. Defaulting to read all" << endl;
 			count = -1;
 		}
 		if (count == -1){
-			progressCounter = musicInfoFileLength;
-			cout << "As the file is extremely large, this may take a couple of minutes..." << endl;
+			progressCounter = SONG_DATASET_LENGTH;
+			cout << "As the file is extremely large, this may take a while..." << endl;
 		}
-		settextcolor(yellow);
-		printSeperator();
-		cout << red << "                          Parsing Song Information..." << endl;
-		printSeperator();
+		printMenuTitle("Parsing Song Information...");
+
+		//Get Start Memory (Virtual, Physical) and CPU Time
 		clock_t beginClock = clock();
-
-		//Get Start Memory (Virtual, Physical)
-		SIZE_T bVMem = getVMUsed();
-		SIZE_T bPMem = getPMUsed();
-
-		while (getline(file, str)){
-			if (internalCounter >= progressCounter)
-				break;
-			if (verboseMode)
-				cout << str << endl;
-
-			//Check if string is a comment
-			if (str[0] == '#'){
-				//cout << "DEBUG: IS COMMENT" << endl;
-			}
-			else {
-				//Parse Music Details Line
+		SIZE_T bVMem = getVMUsed(), bPMem = getPMUsed();
+		int pos = 0;
+		int counter;
+		for (string &str : songDataset)
+		{
+			if (internalCounter >= progressCounter)	break;
+			if (verboseMode) cout << str << endl;
+			if (str[0] == '#') continue; 	//Check if string is a comment
+			if (list.getLength() == 0)
+			{
 				list.add(str);
-
+				continue;
 			}
+			//Music musInfo = parseMusicItem(str);
+			counter = list.getLength();
+			for (int k = counter; k >= 0; k--)
+			{
+				//Music musInfoCom = parseMusicItem(list.get(k));
+				if (str >list.get(k))
+				{
+					pos = k + 1; break; //means position in front
+				}
+				else if (str < list.get(k))
+				{
+					pos = k; 
+				}
+			}
+			list.add(pos, str);
 
-			timingAddMCounter[internalCounter] = calculateElapsed(beginClock, clock());
 			//Log Memory and CPU Time
-			memoryPAddMCounter[internalCounter] = (double)(getPMUsed() - bPMem);
-			memoryVAddMCounter[internalCounter] = (double)(getVMUsed() - bVMem);
+			timingAddMCounter.push_back(calculateElapsed(beginClock, clock()));
+			memoryPAddMCounter.push_back((double)(getPMUsed() - bPMem));
+			memoryVAddMCounter.push_back((double)(getVMUsed() - bVMem));
 
 			loadbar(internalCounter, progressCounter, beginClock, bPMem, bVMem);
-			//Increment counter
-			internalCounter++;
+			internalCounter++;	//Increment counter
 		}
 
 		loadbar(progressCounter, progressCounter, beginClock, bPMem, bVMem);
-		clock_t finalEndClock = clock();
 
-		//Get Finish Memory (Virtual, Physical)
-		SIZE_T eVMem = getVMUsed();
-		SIZE_T ePMem = getPMUsed();
-		//Calculate Memory Used (Virtual, Physical)
-		addMPTime = (ePMem - bPMem);
-		addMVTime = (eVMem - bVMem);
+		//Calculate Memory Used (Virtual, Physical) and CPU Time
+		addMPTime = (getPMUsed() - bPMem);
+		addMVTime = (getVMUsed() - bVMem);
+		addMElapsed = calculateElapsed(beginClock, clock());
 
 		settextcolor(yellow);
-		addMElapsed = calculateElapsed(beginClock, finalEndClock);
 		cout << endl << "Finished Parsing and Adding Song Information." << endl;
 		cout << yellow << "Elapsed Time to add: " << cyan << setprecision(2) << fixed << addMElapsed << " seconds" << endl;
 		cout << yellow << "Total Lines Read: " << cyan << internalCounter << endl;
@@ -417,7 +413,7 @@ namespace sortedArr {
 		printMenuTitle("Search Songs");
 		string target, empty;
 		getline(cin, empty);
-		cout << pink << "Enter Exact Song Name: " << cyan;
+		cout << pink << "Enter Exact Track ID: " << cyan;
 		getline(cin, target);
 		settextcolor(white);
 
@@ -443,7 +439,7 @@ namespace sortedArr {
 			memoryPSeqSearchMCounter.push_back((double)(getPMUsed() - bPMem));
 			memoryVSeqSearchMCounter.push_back((double)(getVMUsed() - bVMem));
 
-			if (musIfo.getMTitle() == target){
+			if (musIfo.getTid() == target){
 				cout << endl << yellow << "Music Found! Details of the music file is found below:" << endl;
 				//printMusicInfo(musIfo);
 				musIfo.printMusicInfo();
@@ -468,7 +464,7 @@ namespace sortedArr {
 			timingBinaSearchMCounter.push_back(calculateElapsed(startBina, clock()));
 			memoryPBinaSearchMCounter.push_back((double)(getPMUsed() - bPMemBina));
 			memoryVBinaSearchMCounter.push_back((double)(getVMUsed() - bVMemBina));
-			if (musInf.getMTitle() == target)
+			if (musInf.getTid() == target)
 			{
 				bool found2 = true;
 				timingBinaSearchMCounter.resize(mid);
@@ -477,7 +473,7 @@ namespace sortedArr {
 				break;
 			}
 			else
-			if (target < musInf.getMTitle())
+			if (target < musInf.getTid())
 			{
 				last = mid - 1;
 			}

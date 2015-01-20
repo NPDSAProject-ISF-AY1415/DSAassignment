@@ -9,6 +9,7 @@ vector<string> wordDataset(0);
 vector<string> songDataset(0);
 vector<string> lyricDataset(0);
 
+
 /* An Inline Progress Bar
 @param x Current Index
 @param n Total Number of Progress
@@ -103,6 +104,8 @@ void parseSong(){
 	cout << endl;
 	cout << "Length of Vector: " << songDataset.size() << endl;	//DEBUG Code
 }
+
+
 
 /*
 Stores the Words Dataset into a vector
