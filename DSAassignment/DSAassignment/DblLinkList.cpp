@@ -309,9 +309,9 @@ namespace unsorteddll{
 		cout << "1) " << yellow << "View Songs in Database" << white << endl;
 		cout << "2) " << yellow << "View All the Top Words found in Lyrics" << white << endl;
 		cout << "3) " << yellow << "Search for a song in database with name" << white << endl;
-		cout << "4) " << yellow << "Search for a song in database with name and get song lyrics" << white << endl;
-		cout << "5) " << yellow << "Remove a song from the database" << white << endl;
-		cout << "6) " << yellow << "View Plotted Graph" << white << endl;
+		//cout << "4) " << yellow << "Search for a song in database with name and get song lyrics" << white << endl;
+		cout << "4) " << yellow << "Remove a song from the database" << white << endl;
+		cout << "5) " << yellow << "View Plotted Graph" << white << endl;
 		cout << "8) " << yellow << "Performance Utilities" << white << endl;
 		cout << "9) " << yellow << "Return to Main Menu" << white << endl;
 		cout << "0) " << yellow << "Quit" << white << endl;
@@ -344,6 +344,8 @@ namespace unsorteddll{
 					cout << centerString(words.get(word).c_str(), 10) << "|" << centerString(counts.get(i).c_str(), 10) << endl;
 				}
 				printSeperator();
+				delete l;
+				break;
 			}
 			delete l;
 		}
@@ -947,9 +949,9 @@ namespace unsorteddll{
 				case 1: listAllSongs(mainMusicList); break;
 				case 2: listTopWords(mainWordList); break;
 				case 3: searchSong(mainMusicList, mainWordList, mainLyricList, false); break;
-				case 4: searchSong(mainMusicList, mainWordList, mainLyricList, true); break;
-				case 5: removeMusicInfo(mainMusicList); break;
-				case 6: plotGraphMenu(); break;
+				//case 4: searchSong(mainMusicList, mainWordList, mainLyricList, true); break;
+				case 4: removeMusicInfo(mainMusicList); break;
+				case 5: plotGraphMenu(); break;
 				case 8: performanceMenu(); break;
 				case 9: return -1;
 				case 0: return 0;
