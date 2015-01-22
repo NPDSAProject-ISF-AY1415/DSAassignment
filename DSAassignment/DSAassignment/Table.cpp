@@ -4,35 +4,22 @@ using namespace eku;
 using namespace utility;
 
 
-/* An Inline Progress Bar
-@param x Current Index
-@param n Total Number of Progress
-@param beginClock Start of time
-@param w Width of the bar
+/*TABLE DESIGN
+===============================================================================
+OPERATE   |  UNSORTED PTR  |  UNSORTED ARR  |   SORTED ARR   | DOUBLY LINKED  |
+===============================================================================
+    n     |  CPU  |  RAM   |  CPU  |  RAM   |  CPU  |  RAM   |  CPU  |  RAM   |
+===============================================================================
+
+
+===============================================================================
+OPERATIONS
+* ADD			-	Add into list
+* REMOVE		-	Remove from list
+* SEQ SEARCH	-	Do a Sequential Search on list
+* BIN SEARCH	-	Do a Binary Search on list
+* DISPLAY		-	Display all from list
 */
-static inline void loadbar(unsigned int x, unsigned int n, clock_t beginClock, unsigned int w = 25)
-{
-	if ((x != n) && (x % (n / 100 + 1) != 0) && n >= 2000) return;
-
-	float ratio = x / (float)n;
-	int   c = ratio * w;
-
-	//Print Progress Bar
-	cout << setw(3) << white << "Processed: " << cyan << x << white << "/" << green << n << yellow << " [" << red;
-	for (int x = 0; x < c; x++) cout << "=";
-	for (int x = c; x < w; x++) cout << " ";
-	cout << yellow << "] " << (int)(ratio * 100) << "%" << white;
-	cout << " Time: " << cyan << setprecision(2) << fixed << calculateElapsed(beginClock, clock()) << " sec" << white;
-	//Get Console Cursor Pos
-	CONSOLE_SCREEN_BUFFER_INFO SBInfo;
-	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &SBInfo);
-	int currentlen = SBInfo.dwCursorPosition.X;
-	//Zero out stuff
-	for (int i = currentlen - 1; i < CONSOLE_WINDOW_SIZE; i++)
-		cout << " ";
-	cout << "\r" << flush;
-	settextcolor(white);
-}
 
 int plotTable(vector<Graph> &tableList, string operation){
 	cout << green << "Processing Table. This may take a while" << white << endl;

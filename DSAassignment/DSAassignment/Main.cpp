@@ -367,6 +367,25 @@ void makeSeqSearchMemGraph(){
 }
 //END OF GRAPH GENERATION METHODS
 
+//TABLE GENERATION METHODS
+void doAddTable(){
+	vector<Graph> tblVec(0);
+	Graph dblnkPtr("DOUBLY LINKED", unsorteddll::timingAddMCounter, unsorteddll::memoryPAddMCounter);
+	tblVec.push_back(dblnkPtr);
+	Graph unsrtPtr("UNSORTED PTR", unsortedptr::timingAddMCounter, unsortedptr::memoryPAddMCounter);
+	tblVec.push_back(unsrtPtr);
+	Graph srtArr("SORTED ARR", sortedArr::timingAddMCounter, sortedArr::memoryPAddMCounter);
+	tblVec.push_back(srtArr);
+	//TODO When Unsorted Array comes out, add it here too
+	vector<double> tmp1(0);
+	vector<double> tmp2(0);
+	Graph unsrtArr("UNSORTED ARR", tmp1, tmp2);
+	tblVec.push_back(unsrtArr);
+	if (tblVec.size() > 0 && tblVec.size() <= 6)	plotGraph(tblVec, "ADD");
+}
+
+//END OF TABLE GENERATION METHODS
+
 /*
 Plot Main Graph Menu
 */
@@ -403,6 +422,35 @@ void plotGraphMenu(){
 }
 
 /*
+Plot Main Tabulation Table Menu
+*/
+void plotGraphMenu(){
+	printMenuTitle("Select a Song Data graph to view");
+	cout << "1) " << yellow << "Add" << white << endl;
+	cout << "2) " << yellow << "Display" << white << endl;
+	cout << "3) " << yellow << "Remove" << white << endl;
+	cout << "4) " << yellow << "Sequential Search" << white << endl;
+	cout << "5) " << yellow << "Binary Search" << white << endl;
+	cout << "0) " << yellow << "Return to Menu" << white << endl;
+	string selection;
+	cout << pink << "Select an option: ";
+	getStringInput(selection);
+	if (is_number(selection)){
+		switch (stoi(selection))
+		{
+		case 1: doAddTable(); break;
+		case 2: cout << dark_red << "Soon" << white << endl; break;
+		case 3: cout << dark_red << "Soon" << white << endl; break;
+		case 4: cout << dark_red << "Soon" << white << endl; break;
+		case 5: cout << dark_red << "Soon" << white << endl; break;
+		case 0: return;
+		default: cout << dark_red << "Invalid Selection." << endl; break;
+		}
+	}
+	else { cout << dark_red << "Selection must be an integer" << endl; }
+}
+
+/*
 Calls all the 3 methods to load the dataset into the vectors
 PUSH_BACK Estimated Time: ~156.33 secs (~2 mins 36.33 secs)
 RESERVE Estimated Time: ~153.04 secs (~2 mins 33.04 secs)
@@ -429,8 +477,9 @@ void mainMenu(){
 	cout << "3) " << yellow << "Unsorted Array-Based List" << white << endl;
 	cout << "4) " << yellow << "Sorted Array-Based List" << white << endl;
 	cout << "5) " << yellow << "Unsorted Pointer-Based List" << white << endl;
-	cout << "8) " << yellow << "Performance Utilities" << white << endl;
-	cout << "9) " << yellow << "Plot Performance Graphs for all lists" << white << endl;
+	cout << "7) " << yellow << "Print Tabulation Table" << white << endl;
+	cout << "8) " << yellow << "Plot Performance Graphs for all lists" << white << endl;
+	cout << "9) " << yellow << "Performance Utilities" << white << endl;
 	//cout << "9) " << yellow << "(Test) Initialize data into vector datasets" << white << endl;
 	cout << "0) " << yellow << "Quit" << white << endl;
 }
@@ -464,8 +513,8 @@ int main(){
 			case 3: menErr = sortedArr::mainLoop(true); break;	//TODO Replace with main loop for unsorted array
 			case 4: menErr =  sortedArr::mainLoop(false); break;	
 			case 5: menErr = unsortedptr::mainLoop(); break;
-			case 8: unsortedptr::performanceMenu(); break;		//Temp, soon will be a menu specifically for main menu
-			case 9: plotGraphMenu(); break;
+			case 8: plotGraphMenu(); break;
+			case 9: unsortedptr::performanceMenu(); break;		//Temp, soon will be a menu specifically for main menu
 			//case 9: initFileParse(); break;		//Test Vectors speed as per LCY suggestion
 			case 0: cout << green << "Freeing Memory taken by variables and containers. This may take a while..." << white << endl; 
 				return 0;
