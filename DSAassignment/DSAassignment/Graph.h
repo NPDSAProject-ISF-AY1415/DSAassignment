@@ -11,8 +11,8 @@ using namespace std;
 class Graph{
 private:
 	string title;		//Title of the Graph (Includes the name)
-	vector<double> yValues;	//Timings/Mem Usage
-	vector<double> xValues;	//n of items
+	vector<double> yValues;	//Timings/Mem Usage (During plotting of tables, its memory usage)
+	vector<double> xValues;	//n of items (During plotting of tables, its CPU Usage)
 public:
 	Graph();
 	Graph(string title, vector<double> x, vector<double> y);

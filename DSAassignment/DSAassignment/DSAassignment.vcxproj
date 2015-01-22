@@ -93,6 +93,7 @@
     <ClInclude Include="Music.h" />
     <ClInclude Include="plotGraph.h" />
     <ClInclude Include="sortedArr.h" />
+    <ClInclude Include="Table.h" />
     <ClInclude Include="UnsortedPtr.h" />
     <ClInclude Include="Utility.h" />
   </ItemGroup>
@@ -111,6 +112,7 @@
     <ClCompile Include="Music.cpp" />
     <ClCompile Include="plotGraph.cpp" />
     <ClCompile Include="sortedArr.cpp" />
+    <ClCompile Include="Table.cpp" />
     <ClCompile Include="UnsortedPtr.cpp" />
     <ClCompile Include="Utility.cpp" />
   </ItemGroup>

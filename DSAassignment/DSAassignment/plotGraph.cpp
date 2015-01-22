@@ -20,7 +20,7 @@ static inline void loadbar(unsigned int x, unsigned int n, clock_t beginClock, u
 	int   c = ratio * w;
 
 	//Print Progress Bar
-	cout << setw(3) << white << "Parsed: " << cyan << x << white << "/" << green << n << yellow << " [" << red;
+	cout << setw(3) << white << "Processed: " << cyan << x << white << "/" << green << n << yellow << " [" << red;
 	for (int x = 0; x < c; x++) cout << "=";
 	for (int x = c; x < w; x++) cout << " ";
 	cout << yellow << "] " << (int)(ratio * 100) << "%" << white;
