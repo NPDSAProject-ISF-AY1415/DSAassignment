@@ -381,7 +381,63 @@ void doAddTable(){
 	vector<double> tmp2(0);
 	Graph unsrtArr("UNSORTED ARR", tmp1, tmp2);
 	tblVec.push_back(unsrtArr);
-	if (tblVec.size() > 0 && tblVec.size() <= 4) plotTable(tblVec, "ADD");
+	plotTable(tblVec, "ADD");
+}
+
+void doDisplayTable(){
+	vector<Graph> tblVec(0);
+	Graph dblnkPtr("DOUBLY LINKED", unsorteddll::timingDisplayMCounter, unsorteddll::memoryPDisplayMCounter);
+	tblVec.push_back(dblnkPtr);
+	Graph unsrtPtr("UNSORTED PTR", unsortedptr::timingDisplayMCounter, unsortedptr::memoryPDisplayMCounter);
+	tblVec.push_back(unsrtPtr);
+	Graph srtArr("SORTED ARR", sortedArr::timingDisplayMCounter, sortedArr::memoryPDisplayMCounter);
+	tblVec.push_back(srtArr);
+	//TODO When Unsorted Array comes out, add it here too
+	vector<double> tmp1(0);
+	vector<double> tmp2(0);
+	Graph unsrtArr("UNSORTED ARR", tmp1, tmp2);
+	tblVec.push_back(unsrtArr);
+	plotTable(tblVec, "DISPLAY");
+}
+
+void doRemoveTable(){
+	vector<Graph> tblVec(0);
+	Graph dblnkPtr("DOUBLY LINKED", unsorteddll::timingRemoveMCounter, unsorteddll::memoryPRemoveMCounter);
+	tblVec.push_back(dblnkPtr);
+	Graph unsrtPtr("UNSORTED PTR", unsortedptr::timingRemoveMCounter, unsortedptr::memoryPRemoveMCounter);
+	tblVec.push_back(unsrtPtr);
+	Graph srtArr("SORTED ARR", sortedArr::timingRemoveMCounter, sortedArr::memoryPRemoveMCounter);
+	tblVec.push_back(srtArr);
+	//TODO When Unsorted Array comes out, add it here too
+	vector<double> tmp1(0);
+	vector<double> tmp2(0);
+	Graph unsrtArr("UNSORTED ARR", tmp1, tmp2);
+	tblVec.push_back(unsrtArr);
+	plotTable(tblVec, "REMOVE");
+}
+
+void doSeqSearchTable(){
+	vector<Graph> tblVec(0);
+	Graph dblnkPtr("DOUBLY LINKED", unsorteddll::timingSeqSearchMCounter, unsorteddll::memoryPSeqSearchMCounter);
+	tblVec.push_back(dblnkPtr);
+	Graph unsrtPtr("UNSORTED PTR", unsortedptr::timingSeqSearchMCounter, unsortedptr::memoryPSeqSearchMCounter);
+	tblVec.push_back(unsrtPtr);
+	Graph srtArr("SORTED ARR", sortedArr::timingSeqSearchMCounter, sortedArr::memoryPSeqSearchMCounter);
+	tblVec.push_back(srtArr);
+	//TODO When Unsorted Array comes out, add it here too
+	vector<double> tmp1(0);
+	vector<double> tmp2(0);
+	Graph unsrtArr("UNSORTED ARR", tmp1, tmp2);
+	tblVec.push_back(unsrtArr);
+	plotTable(tblVec, "SEQ SEARCH");
+}
+
+void doBinSearchTable(){
+	vector<Graph> tblVec(0);
+	//Only Sorted Array has Binary Search
+	Graph srtArr("SORTED ARR", sortedArr::timingBinaSearchMCounter, sortedArr::memoryPBinaSearchMCounter);
+	tblVec.push_back(srtArr);
+	plotTable(tblVec, "BIN SEARCH");
 }
 
 //END OF TABLE GENERATION METHODS

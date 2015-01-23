@@ -35,6 +35,7 @@ namespace sortedArr {
 	extern vector<double> timingBinaSeachMCounter;
 	extern vector<double> timingRemoveMCounter;
 	extern vector<double> timingDisplayWCounter;
+	extern vector<double> timingBinaSearchMCounter;
 	extern vector<double> memoryPAddMCounter;
 	extern vector<double> memoryPAddLCounter;
 	extern vector<double> memoryPAddWCounter;
