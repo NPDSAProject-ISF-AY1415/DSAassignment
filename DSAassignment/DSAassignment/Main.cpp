@@ -495,10 +495,10 @@ void plotTableMenu(){
 		switch (stoi(selection))
 		{
 		case 1: doAddTable(); break;
-		case 2: cout << dark_red << "Soon" << white << endl; break;
-		case 3: cout << dark_red << "Soon" << white << endl; break;
-		case 4: cout << dark_red << "Soon" << white << endl; break;
-		case 5: cout << dark_red << "Soon" << white << endl; break;
+		case 2: doDisplayTable(); break;
+		case 3: doRemoveTable(); break;
+		case 4: doSeqSearchTable(); break;
+		case 5: doBinSearchTable(); break;
 		case 0: return;
 		default: cout << dark_red << "Invalid Selection." << endl; break;
 		}
