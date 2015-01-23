@@ -1,6 +1,6 @@
 #include "Music.h"
 using namespace std;
-using namespace eku;
+using namespace consolecolors;
 //constructor
 
 Music::Music(string id, string art, string title, string mid, string mart, string mtitl){
