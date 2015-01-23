@@ -454,6 +454,8 @@ namespace sortedArr {
 		if (!found){
 			cout << endl << dark_red << "Unable to find a music file matching the search term" << endl;
 		}
+
+		cout << endl << green << "Doing Binary Search Now..." << endl;
 		bool found2 = false;
 		int first = 0;
 		int last = list.getLength() - 1;
