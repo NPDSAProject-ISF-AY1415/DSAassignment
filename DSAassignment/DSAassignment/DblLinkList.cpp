@@ -57,7 +57,7 @@ namespace unsorteddll{
 		if ((x != n) && (x % (n / 100 + 1) != 0) && n >= 2000) return;
 
 		float ratio = x / (float)n;
-		int   c = (int) ratio * w;
+		int   c = (int) (ratio * w);
 
 		//Print Progress Bar
 		cout << setw(3) << white << "Parsed: " << cyan << x << white << "/" << green << n << yellow << " [" << red;
