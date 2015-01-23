@@ -39,9 +39,6 @@
     <ClInclude Include="Lyric.h">
       <Filter>Header Files\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="LyricA.h">
-      <Filter>Header Files\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Memory.h">
       <Filter>Header Files\Utilities</Filter>
     </ClInclude>
@@ -75,9 +72,6 @@
     <ClInclude Include="DoubleLinkedList.h">
       <Filter>Header Files\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="LyricDLL.h">
-      <Filter>Header Files\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Table.h">
       <Filter>Header Files\Utilities</Filter>
     </ClInclude>
@@ -96,9 +90,6 @@
       <Filter>Source Files\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Lyric.cpp">
-      <Filter>Source Files\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="LyricA.cpp">
       <Filter>Source Files\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Music.cpp">
@@ -128,11 +119,11 @@
     <ClCompile Include="DblLinkList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LyricDLL.cpp">
-      <Filter>Source Files\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Table.cpp">
       <Filter>Source Files\Utilities</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

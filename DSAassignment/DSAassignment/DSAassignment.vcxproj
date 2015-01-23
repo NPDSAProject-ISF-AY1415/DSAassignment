@@ -53,11 +53,15 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -86,8 +90,6 @@
     <ClInclude Include="ListArray.h" />
     <ClInclude Include="ListPointer.h" />
     <ClInclude Include="Lyric.h" />
-    <ClInclude Include="LyricA.h" />
-    <ClInclude Include="LyricDLL.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Memory.h" />
     <ClInclude Include="Music.h" />
@@ -105,8 +107,6 @@
     <ClCompile Include="ListArray.cpp" />
     <ClCompile Include="ListPointer.cpp" />
     <ClCompile Include="Lyric.cpp" />
-    <ClCompile Include="LyricA.cpp" />
-    <ClCompile Include="LyricDLL.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Memory.cpp" />
     <ClCompile Include="Music.cpp" />
@@ -115,6 +115,9 @@
     <ClCompile Include="Table.cpp" />
     <ClCompile Include="UnsortedPtr.cpp" />
     <ClCompile Include="Utility.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
