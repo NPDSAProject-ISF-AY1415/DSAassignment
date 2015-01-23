@@ -165,14 +165,19 @@ void makeAddTimeGraph(){
 		Graph uptrG("Unsorted Pointer-based List", unsortedptr::timingAddMCounter.size(), unsortedptr::timingAddMCounter);
 		ptrArrList.push_back(uptrG);
 	}
-	//TODO Double check?
 	if (sortedArr::addWElapsed == -1)	cout << dark_red << "No data logged for Sorted Array-Based List. Run the add operation to view its data." << endl;
 	else {
 		Graph sptrG("Sorted Array-based List", sortedArr::timingAddMCounter.size(), sortedArr::timingAddMCounter);
-		//string wrdGStr = wrdG.createGraphString();
 		ptrArrList.push_back(sptrG);
 	}
-	if (ptrArrList.size() > 0 && ptrArrList.size() <= 3)	plotGraph(ptrArrList, "Add Operation Comparision (CPU)");
+
+
+	if (sortedArr::addWElapsed == -1)	cout << dark_red << "No data logged for Unsorted Array-Based List. Run the add operation to view its data." << endl;
+	else {
+		Graph sptrG("Unsorted Array-based List", sortedArr::timingAddMCounter.size(), sortedArr::timingAddMCounter);
+		ptrArrList.push_back(sptrG);
+	}
+	if (ptrArrList.size() > 0 && ptrArrList.size() <= 4)	plotGraph(ptrArrList, "Add Operation Comparision (CPU)");
 }
 
 /*
@@ -190,14 +195,18 @@ void makeDisplayTimeGraph(){
 		Graph uptrG("Unsorted Pointer-based List", unsortedptr::timingDisplayMCounter.size(), unsortedptr::timingDisplayMCounter);
 		ptrArrList.push_back(uptrG);
 	}
-	//TODO Double check?
 	if (sortedArr::displayMElapsed == -1)	cout << dark_red << "No data logged for Sorted Array-Based List. Run the display operation to view its data." << endl;
 	else {
 		Graph sptrG("Sorted Array-based List", sortedArr::timingDisplayMCounter.size(), sortedArr::timingDisplayMCounter);
-		//string wrdGStr = wrdG.createGraphString();
 		ptrArrList.push_back(sptrG);
 	}
-	if (ptrArrList.size() > 0 && ptrArrList.size() <= 3)	plotGraph(ptrArrList, "Display Operation Comparision (CPU)");
+
+	if (sortedArr::displayMElapsed == -1)	cout << dark_red << "No data logged for Unsorted Array-Based List. Run the display operation to view its data." << endl;
+	else {
+		Graph sptrG("Unsorted Array-based List", sortedArr::timingDisplayMCounter.size(), sortedArr::timingDisplayMCounter);
+		ptrArrList.push_back(sptrG);
+	}
+	if (ptrArrList.size() > 0 && ptrArrList.size() <= 4)	plotGraph(ptrArrList, "Display Operation Comparision (CPU)");
 }
 
 /*
@@ -215,14 +224,20 @@ void makeRemoveTimeGraph(){
 		Graph uptrG("Unsorted Pointer-based List", unsortedptr::timingRemoveMCounter.size(), unsortedptr::timingRemoveMCounter);
 		ptrArrList.push_back(uptrG);
 	}
-	//TODO Double check?
 	if (sortedArr::removeElapsed == -1)	cout << dark_red << "No data logged for Sorted Array-Based List. Run the remove operation to view its data." << endl;
 	else {
 		Graph sptrG("Sorted Array-based List", sortedArr::timingRemoveMCounter.size(), sortedArr::timingRemoveMCounter);
 		//string wrdGStr = wrdG.createGraphString();
 		ptrArrList.push_back(sptrG);
 	}
-	if (ptrArrList.size() > 0 && ptrArrList.size() <= 3)	plotGraph(ptrArrList, "Remove Operation Comparision (CPU)");
+
+	if (sortedArr::removeElapsed == -1)	cout << dark_red << "No data logged for Unsorted Array-Based List. Run the remove operation to view its data." << endl;
+	else {
+		Graph sptrG("Unsorted Array-based List", sortedArr::timingRemoveMCounter.size(), sortedArr::timingRemoveMCounter);
+		//string wrdGStr = wrdG.createGraphString();
+		ptrArrList.push_back(sptrG);
+	}
+	if (ptrArrList.size() > 0 && ptrArrList.size() <= 4)	plotGraph(ptrArrList, "Remove Operation Comparision (CPU)");
 }
 
 /*
@@ -240,14 +255,34 @@ void makeSeqSearchTimeGraph(){
 		Graph uptrG("Unsorted Pointer-based List", unsortedptr::timingSeqSearchMCounter.size(), unsortedptr::timingSeqSearchMCounter);
 		ptrArrList.push_back(uptrG);
 	}
-	//TODO Double check?
 	if (sortedArr::sequSearchElapsed == -1)	cout << dark_red << "No data logged for Sorted Array-Based List. Run the seq search operation to view its data." << endl;
 	else {
 		Graph sptrG("Sorted Array-based List", sortedArr::timingSeqSearchMCounter.size(), sortedArr::timingSeqSearchMCounter);
 		//string wrdGStr = wrdG.createGraphString();
 		ptrArrList.push_back(sptrG);
 	}
-	if (ptrArrList.size() > 0 && ptrArrList.size() <= 3)	plotGraph(ptrArrList, "Sequential Search Operation Comparision (CPU)");
+
+	if (sortedArr::sequSearchElapsed == -1)	cout << dark_red << "No data logged for Unsorted Array-Based List. Run the seq search operation to view its data." << endl;
+	else {
+		Graph sptrG("Unsorted Array-based List", sortedArr::timingSeqSearchMCounter.size(), sortedArr::timingSeqSearchMCounter);
+		//string wrdGStr = wrdG.createGraphString();
+		ptrArrList.push_back(sptrG);
+	}
+	if (ptrArrList.size() > 0 && ptrArrList.size() <= 4)	plotGraph(ptrArrList, "Sequential Search Operation Comparision (CPU)");
+}
+
+/*
+Make a Graph with x axis being the length of the list and the y axis being time taken
+*/
+void makeBinSearchTimeGraph(){
+	vector<Graph> ptrArrList(0);
+	if (sortedArr::sequSearchElapsed == -1)	cout << dark_red << "No data logged for Sorted Array-Based List. Run the binary search operation to view its data." << endl;
+	else {
+		Graph sptrG("Sorted Array-based List", sortedArr::timingBinaSearchMCounter.size(), sortedArr::timingBinaSearchMCounter);
+		//string wrdGStr = wrdG.createGraphString();
+		ptrArrList.push_back(sptrG);
+	}
+	if (ptrArrList.size() == 1)	plotGraph(ptrArrList, "Binary Search Operation Comparision (CPU)");
 }
 
 /*
@@ -276,7 +311,15 @@ void makeAddMemGraph(){
 		Graph wrdG2("Sorted Array-based List (Page)", sortedArr::memoryVAddMCounter.size(), sortedArr::memoryVAddMCounter);
 		ptrArrList.push_back(wrdG2);
 	}
-	if (ptrArrList.size() > 0 && ptrArrList.size() <= 6)	plotGraph(ptrArrList, "Add Operation Comparision (Memory)");
+
+	if (sortedArr::addMPTime == -1)	cout << dark_red << "No data logged for Unsorted Array-based List. Run the add operation to view its data." << endl;
+	else {
+		Graph wrdG1("Unsorted Array-based List (RAM)", sortedArr::memoryPAddMCounter.size(), sortedArr::memoryPAddMCounter);
+		ptrArrList.push_back(wrdG1);
+		Graph wrdG2("Unsorted Array-based List (Page)", sortedArr::memoryVAddMCounter.size(), sortedArr::memoryVAddMCounter);
+		ptrArrList.push_back(wrdG2);
+	}
+	if (ptrArrList.size() > 0 && ptrArrList.size() <= 8)	plotGraph(ptrArrList, "Add Operation Comparision (Memory)");
 }
 
 /*
@@ -305,7 +348,15 @@ void makeDisplayMemGraph(){
 		Graph wrdG2("Sorted Array-based List (Page)", sortedArr::memoryVDisplayMCounter.size(), sortedArr::memoryVDisplayMCounter);
 		ptrArrList.push_back(wrdG2);
 	}
-	if (ptrArrList.size() > 0 && ptrArrList.size() <= 6)	plotGraph(ptrArrList, "Display Operation Comparision (Memory)");
+
+	if (sortedArr::displayMPTime == -1)	cout << dark_red << "No data logged for Unsorted Array-based List. Run the display operation to view its data." << endl;
+	else {
+		Graph wrdG1("Unsorted Array-based List (RAM)", sortedArr::memoryPDisplayMCounter.size(), sortedArr::memoryPDisplayMCounter);
+		ptrArrList.push_back(wrdG1);
+		Graph wrdG2("Unsorted Array-based List (Page)", sortedArr::memoryVDisplayMCounter.size(), sortedArr::memoryVDisplayMCounter);
+		ptrArrList.push_back(wrdG2);
+	}
+	if (ptrArrList.size() > 0 && ptrArrList.size() <= 8)	plotGraph(ptrArrList, "Display Operation Comparision (Memory)");
 }
 
 /*
@@ -334,7 +385,15 @@ void makeRemoveMemGraph(){
 		Graph wrdG2("Sorted Array-based List (Page)", sortedArr::memoryVRemoveMCounter.size(), sortedArr::memoryVRemoveMCounter);
 		ptrArrList.push_back(wrdG2);
 	}
-	if (ptrArrList.size() > 0 && ptrArrList.size() <= 6)	plotGraph(ptrArrList, "Remove Operation Comparision (Memory)");
+
+	if (sortedArr::removePTime == -1)	cout << dark_red << "No data logged for Unsorted Array-based List. Run the remove operation to view its data." << endl;
+	else {
+		Graph wrdG1("Unsorted Array-based List (RAM)", sortedArr::memoryPRemoveMCounter.size(), sortedArr::memoryPRemoveMCounter);
+		ptrArrList.push_back(wrdG1);
+		Graph wrdG2("Unsorted Array-based List (Page)", sortedArr::memoryVRemoveMCounter.size(), sortedArr::memoryVRemoveMCounter);
+		ptrArrList.push_back(wrdG2);
+	}
+	if (ptrArrList.size() > 0 && ptrArrList.size() <= 8)	plotGraph(ptrArrList, "Remove Operation Comparision (Memory)");
 }
 
 /*
@@ -363,7 +422,30 @@ void makeSeqSearchMemGraph(){
 		Graph wrdG2("Sorted Array-based List (Page)", sortedArr::memoryVSeqSearchMCounter.size(), sortedArr::memoryVSeqSearchMCounter);
 		ptrArrList.push_back(wrdG2);
 	}
-	if (ptrArrList.size() > 0 && ptrArrList.size() <= 6)	plotGraph(ptrArrList, "Add Operation Comparision (Memory)");
+
+	if (sortedArr::sequSearchPTime == -1)	cout << dark_red << "No data logged for Unsorted Array-based List. Run the seq search operation to view its data." << endl;
+	else {
+		Graph wrdG1("Unsorted Array-based List (RAM)", sortedArr::memoryPSeqSearchMCounter.size(), sortedArr::memoryPSeqSearchMCounter);
+		ptrArrList.push_back(wrdG1);
+		Graph wrdG2("Unsorted Array-based List (Page)", sortedArr::memoryVSeqSearchMCounter.size(), sortedArr::memoryVSeqSearchMCounter);
+		ptrArrList.push_back(wrdG2);
+	}
+	if (ptrArrList.size() > 0 && ptrArrList.size() <= 8)	plotGraph(ptrArrList, "Sequential Search Operation Comparision (Memory)");
+}
+
+/*
+Make a Graph with x axis being the length of the list and the y axis being memory use
+*/
+void makeBinSearchMemGraph(){
+	vector<Graph> ptrArrList(0);
+	if (sortedArr::sequSearchPTime == -1)	cout << dark_red << "No data logged for Sorted Array-based List. Run the binary search operation to view its data." << endl;
+	else {
+		Graph wrdG1("Sorted Array-based List (RAM)", sortedArr::memoryPBinaSearchMCounter.size(), sortedArr::memoryPBinaSearchMCounter);
+		ptrArrList.push_back(wrdG1);
+		Graph wrdG2("Sorted Array-based List (Page)", sortedArr::memoryVBinaSearchMCounter.size(), sortedArr::memoryVBinaSearchMCounter);
+		ptrArrList.push_back(wrdG2);
+	}
+	if (ptrArrList.size() == 2)	plotGraph(ptrArrList, "Binary Search Operation Comparision (Memory)");
 }
 //END OF GRAPH GENERATION METHODS
 
@@ -455,6 +537,8 @@ void plotGraphMenu(){
 	cout << "6) " << yellow << "Remove (Memory)" << white << endl;
 	cout << "7) " << yellow << "Sequential Search (CPU)" << white << endl;
 	cout << "8) " << yellow << "Sequential Search (Memory)" << white << endl;
+	cout << "9) " << yellow << "Binary Search (CPU)" << white << endl;
+	cout << "10) " << yellow << "Binary Search (Memory)" << white << endl;
 	cout << "0) " << yellow << "Return to Menu" << white << endl;
 	string selection;
 	cout << pink << "Select an option: ";
