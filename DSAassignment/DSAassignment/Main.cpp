@@ -381,7 +381,7 @@ void doAddTable(){
 	vector<double> tmp2(0);
 	Graph unsrtArr("UNSORTED ARR", tmp1, tmp2);
 	tblVec.push_back(unsrtArr);
-	if (tblVec.size() > 0 && tblVec.size() <= 6)	plotGraph(tblVec, "ADD");
+	if (tblVec.size() > 0 && tblVec.size() <= 4) plotTable(tblVec, "ADD");
 }
 
 //END OF TABLE GENERATION METHODS
@@ -424,8 +424,8 @@ void plotGraphMenu(){
 /*
 Plot Main Tabulation Table Menu
 */
-void plotGraphMenu(){
-	printMenuTitle("Select a Song Data graph to view");
+void plotTableMenu(){
+	printMenuTitle("Select a Song Data Table to print");
 	cout << "1) " << yellow << "Add" << white << endl;
 	cout << "2) " << yellow << "Display" << white << endl;
 	cout << "3) " << yellow << "Remove" << white << endl;
@@ -513,6 +513,7 @@ int main(){
 			case 3: menErr = sortedArr::mainLoop(true); break;	//TODO Replace with main loop for unsorted array
 			case 4: menErr =  sortedArr::mainLoop(false); break;	
 			case 5: menErr = unsortedptr::mainLoop(); break;
+			case 7: plotTableMenu(); break;
 			case 8: plotGraphMenu(); break;
 			case 9: unsortedptr::performanceMenu(); break;		//Temp, soon will be a menu specifically for main menu
 			//case 9: initFileParse(); break;		//Test Vectors speed as per LCY suggestion

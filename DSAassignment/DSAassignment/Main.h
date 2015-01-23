@@ -7,6 +7,7 @@
 #include "Memory.h"
 #include "GlobalIdentifiers.h"
 #include "DblLinkList.h"
+#include "Table.h"
 
 extern vector<string> wordDataset, songDataset, lyricDataset;
 
