@@ -68,7 +68,7 @@ string Graph::createGraphString(){
 	else
 		s << "NULL";
 	s << "," << this->xValues.size();
-	for (int i = 0; i < this->xValues.size(); i++)
+	for (unsigned int i = 0; i < this->xValues.size(); i++)
 		s << "," << this->xValues[i] << ":" << this->yValues[i];
 
 	//cout << "DEBUG: " << s.str() << endl;

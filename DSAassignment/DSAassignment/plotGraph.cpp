@@ -17,12 +17,12 @@ static inline void loadbar(unsigned int x, unsigned int n, clock_t beginClock, u
 	if ((x != n) && (x % (n / 100 + 1) != 0) && n >= 2000) return;
 
 	float ratio = x / (float)n;
-	int   c = ratio * w;
+	int   c = (int) ratio * w;
 
 	//Print Progress Bar
 	cout << setw(3) << white << "Processed: " << cyan << x << white << "/" << green << n << yellow << " [" << red;
 	for (int x = 0; x < c; x++) cout << "=";
-	for (int x = c; x < w; x++) cout << " ";
+	for (unsigned int x = c; x < w; x++) cout << " ";
 	cout << yellow << "] " << (int)(ratio * 100) << "%" << white;
 	cout << " Time: " << cyan << setprecision(2) << fixed << calculateElapsed(beginClock, clock()) << " sec" << white;
 	//Get Console Cursor Pos
@@ -50,7 +50,7 @@ int plotGraph(vector<string> &graphList, string title){
 	//Set The Display, Add, Remove, Binary Search, Sequential Search
 	//fprintf(gnuplotPipe, "set xtics offset character 0,0,0 norangelimit (\"Add\" 1, \"Remove\" 2, \"Display\" 3, \"Binary Search\" 4, \"Sequential Search\" 5) \n");
 	bool first_line = true;
-	for (int j = 0; j < graphList.size(); j++){
+	for (unsigned int j = 0; j < graphList.size(); j++){
 		Graph g = Graph::createGraphObjFromString(graphList[j]);
 		if (first_line)
 			fprintf(gnuplotPipe, "plot '-' t \"");
@@ -61,7 +61,7 @@ int plotGraph(vector<string> &graphList, string title){
 		fprintf(gnuplotPipe, "\" w linesp,");
 	}
 	fprintf(gnuplotPipe, "\n");
-	for (int j = 0; j < graphList.size(); j++){
+	for (unsigned int j = 0; j < graphList.size(); j++){
 		Graph g = Graph::createGraphObjFromString(graphList[j]);
 		//cout << g.getValues(1) << "lol" << endl; 
 		int size = g.getXValueArr().size();
@@ -70,7 +70,7 @@ int plotGraph(vector<string> &graphList, string title){
 		
 		cout << "Plotting Graph: " << yellow << g.getTitle() << white << endl;
 		clock_t startClock = clock();
-		for (int k = 0; k < g.getXValueArr().size(); k++)
+		for (unsigned int k = 0; k < g.getXValueArr().size(); k++)
 		{
 			loadbar(k, size, startClock);
 			if (shouldPlot(size, k))
@@ -120,7 +120,7 @@ int plotGraph(vector<Graph> &graphList, string title){
 
 		cout << "Plotting Graph: " << yellow << g.getTitle() << white << endl;
 		clock_t startClock = clock();
-		for (int k = 0; k < g.getXValueArr().size(); k++)
+		for (unsigned int k = 0; k < g.getXValueArr().size(); k++)
 		{
 			loadbar(k, size, startClock);
 			if (shouldPlot(size, k))

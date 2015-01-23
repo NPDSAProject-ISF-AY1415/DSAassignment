@@ -57,12 +57,12 @@ namespace unsorteddll{
 		if ((x != n) && (x % (n / 100 + 1) != 0) && n >= 2000) return;
 
 		float ratio = x / (float)n;
-		int   c = ratio * w;
+		int   c = (int) ratio * w;
 
 		//Print Progress Bar
 		cout << setw(3) << white << "Parsed: " << cyan << x << white << "/" << green << n << yellow << " [" << red;
 		for (int x = 0; x < c; x++) cout << "=";
-		for (int x = c; x < w; x++) cout << " ";
+		for (unsigned int x = c; x < w; x++) cout << " ";
 		cout << yellow << "] " << (int)(ratio * 100) << "%" << white << " Time: " << cyan << setprecision(2) << fixed << calculateElapsed(beginClock, clock()) << " sec";
 		cout << white << " Mem: " << gray << convertMemoryToHumanReadableSht((getPMUsed() - beginPMem)) << white << "/" << dark_white << convertMemoryToHumanReadableSht((getVMUsed() - beginVMem));
 		//Get Console Cursor Pos

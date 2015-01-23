@@ -24,7 +24,7 @@ OPERATIONS
 int plotTable(vector<Graph> &tableList, string operation){
 	cout << green << "Processing Table. This may take a while" << white << endl;
 	//Check max size of all of the vectors
-	int max_size = 0, graphNum = 0;
+	unsigned int max_size = 0, graphNum = 0;
 	for (Graph &g : tableList){
 		if (g.getXValueArr().size() > max_size)
 			max_size = g.getXValueArr().size();
@@ -43,12 +43,12 @@ int plotTable(vector<Graph> &tableList, string operation){
 	cout << endl;
 	printSeperator();
 	cout << centerString("n", 10) << "|";
-	for (int i = 0; i < graphNum; i++)
+	for (unsigned int i = 0; i < graphNum; i++)
 		cout << centerString("CPU", 7) << "|" << centerString("RAM", 8) << "|";
 	cout << endl;
 	printSeperator();
 	
-	for (int i = 0; i < max_size; i++){
+	for (unsigned int i = 0; i < max_size; i++){
 		if (shouldPlot(max_size, i)){
 			cout << centerString(to_string(i).c_str(), 10) << "|";
 			//Get the value out of all the graphs
@@ -57,7 +57,7 @@ int plotTable(vector<Graph> &tableList, string operation){
 				vector<double> memUse = g.getYValueArr();
 				//Check that size of the graph object contains the current index and the vectors are not null
 				if (cpuTime.size() > i && !cpuTime.empty())
-					cout << centerDouble(cpuTime[i], 7, 2) << "|" << centerString(convertMemoryToHumanReadableSht(memUse[i]).c_str(), 8) << "|";
+					cout << centerDouble(cpuTime[i], 7, 2) << "|" << centerString(convertMemoryToHumanReadableSht((SIZE_T) memUse[i]).c_str(), 8) << "|";
 				else
 					cout << centerString(" ", 7) << "|" << centerString(" ", 8) << "|";
 				cpuTime.clear();

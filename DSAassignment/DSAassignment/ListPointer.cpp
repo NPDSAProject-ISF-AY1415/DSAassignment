@@ -104,6 +104,7 @@ ItemType ListPointer::get(int index){
 		}
 		return tmpNode->item;
 	}
+	return NULL;
 }
 
 bool ListPointer::isEmpty(){

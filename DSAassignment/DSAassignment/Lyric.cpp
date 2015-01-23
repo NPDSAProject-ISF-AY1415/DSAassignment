@@ -34,9 +34,13 @@ void Lyric::addWordAndCount(string word){
 vector<string> Lyric::getWords(){
 	if (this->word.size() != 0)
 		return this->word;
+	vector<string> empty(0);
+	return empty;
 }
 
 vector<string> Lyric::getCounts(){
 	if (this->count.size() != 0)
 		return this->count;
+	vector<string> empty(0);
+	return empty;
 }
