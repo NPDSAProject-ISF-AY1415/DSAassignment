@@ -35,31 +35,31 @@ int plotTable(vector<Graph> &tableList, string operation){
 
 	//Start on printing stuff
 	printSeperator();
-	cout << centerString(operation.c_str(), 10) << "|";
+	cout << green << centerString(operation.c_str(), 10) << yellow << "|" << white;
 	//Get the title of the graphs
 	for (Graph &g : tableList){
-		cout << centerString(g.getTitle().c_str(), 16) << "|";
+		cout << red << centerString(g.getTitle().c_str(), 16) << yellow << "|" << white;
 	}
 	cout << endl;
 	printSeperator();
-	cout << centerString("n", 10) << "|";
+	cout << pink << centerString("n", 10) << yellow << "|" << white;
 	for (unsigned int i = 0; i < graphNum; i++)
-		cout << centerString("CPU", 7) << "|" << centerString("RAM", 8) << "|";
+		cout << cyan << centerString("CPU", 7) << yellow << "|" << gray << centerString("RAM", 8) << yellow << "|" << white;
 	cout << endl;
 	printSeperator();
 	
 	for (unsigned int i = 0; i < max_size; i++){
 		if (shouldPlot(max_size, i)){
-			cout << centerString(to_string(i).c_str(), 10) << "|";
+			cout << pink << centerString(to_string(i).c_str(), 10) << yellow << "|" << white;
 			//Get the value out of all the graphs
 			for (Graph &g : tableList){
 				vector<double> cpuTime = g.getXValueArr();
 				vector<double> memUse = g.getYValueArr();
 				//Check that size of the graph object contains the current index and the vectors are not null
 				if (cpuTime.size() > i && !cpuTime.empty())
-					cout << centerDouble(cpuTime[i], 7, 2) << "|" << centerString(convertMemoryToHumanReadableSht((SIZE_T) memUse[i]).c_str(), 8) << "|";
+					cout << cyan << centerDouble(cpuTime[i], 7, 2) << yellow << "|" << gray << centerString(convertMemoryToHumanReadableSht((SIZE_T)memUse[i]).c_str(), 8) << yellow << "|" << white;
 				else
-					cout << centerString(" ", 7) << "|" << centerString(" ", 8) << "|";
+					cout << cyan << centerString("-", 7) << yellow << "|" << gray << centerString("-", 8) << yellow << "|" << white;
 				cpuTime.clear();
 				memUse.clear();
 			}
