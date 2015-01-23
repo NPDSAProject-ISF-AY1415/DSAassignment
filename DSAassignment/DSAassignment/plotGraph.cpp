@@ -3,7 +3,7 @@
 //Command is something that goes
 //"plot <data> title <title>[, <2nd data> title <2nd title>,]..."
 
-using namespace eku;
+using namespace consolecolors;
 using namespace utility;
 
 /* An Inline Progress Bar

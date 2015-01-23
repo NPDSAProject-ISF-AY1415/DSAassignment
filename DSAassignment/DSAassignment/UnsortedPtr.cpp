@@ -1,7 +1,7 @@
 #include "UnsortedPtr.h"
 
 using namespace std;
-using namespace eku;
+using namespace consolecolors;
 using namespace utility;
 
 namespace unsortedptr {
