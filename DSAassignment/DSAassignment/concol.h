@@ -42,6 +42,9 @@ namespace consolecolors
 	deftextcol - original text color
 	defbackcol - original back color*/
 
+	/*
+	Updates Console Bufferes to reflect new colors
+	*/
 	inline void update_colors()
 	{
 		CONSOLE_SCREEN_BUFFER_INFO csbi;
@@ -50,6 +53,9 @@ namespace consolecolors
 		backcol = concol((csbi.wAttributes & 0xf0) >> 4);
 	}
 
+	/*
+	Sets Color for both text and background
+	*/
 	inline void setcolor(concol textcolor, concol backcolor)
 	{
 		if (colorprotect && textcolor == backcolor)return;
@@ -58,6 +64,9 @@ namespace consolecolors
 		SetConsoleTextAttribute(std_con_out, wAttributes);
 	}
 
+	/*
+	Sets Text Color
+	*/
 	inline void settextcolor(concol textcolor)
 	{
 		if (colorprotect && textcolor == backcol)return;
@@ -66,6 +75,9 @@ namespace consolecolors
 		SetConsoleTextAttribute(std_con_out, wAttributes);
 	}
 
+	/*
+	Set Background Color
+	*/
 	inline void setbackcolor(concol backcolor)
 	{
 		if (colorprotect && textcol == backcolor)return;
@@ -74,6 +86,9 @@ namespace consolecolors
 		SetConsoleTextAttribute(std_con_out, wAttributes);
 	}
 
+	/*
+	Initialize and hooks this class into the console output handler
+	*/
 	inline void concolinit()
 	{
 		std_con_out = GetStdHandle(STD_OUTPUT_HANDLE);
