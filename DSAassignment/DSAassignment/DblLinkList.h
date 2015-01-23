@@ -9,7 +9,7 @@
 #include "DoubleLinkedList.h"
 #include "Music.h"
 #include "Utility.h"
-#include "LyricDLL.h"
+#include "Lyric.h"
 #include "Graph.h"
 #include "plotGraph.h"
 #include "Memory.h"
@@ -50,7 +50,7 @@ namespace unsorteddll{
 	extern vector<double> memoryVDisplayWCounter;
 
 	static inline void loadbar(unsigned int x, unsigned int n, clock_t beginClock, SIZE_T beginPMem, SIZE_T beginVMem, unsigned int w);
-	void parseLyricData(string &lyricStr, LyricDLL *l);
+	void parseLyricData(string &lyricStr, Lyric *l);
 	void parseFiles(DoubleLinkedList &musInfoList, DoubleLinkedList &wordList, DoubleLinkedList &lyricList);
 	void readTopWords(DoubleLinkedList &list);
 	void readMatchFile(DoubleLinkedList &list, int count);

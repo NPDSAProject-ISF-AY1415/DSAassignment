@@ -81,7 +81,7 @@ namespace unsorteddll{
 	@param lyricStr String of the Lyric
 	@param l Points to the lyric object to load to
 	*/
-	void parseLyricData(string &lyricStr, LyricDLL *l){
+	void parseLyricData(string &lyricStr, Lyric *l){
 		istringstream lyrStream(lyricStr);
 		string token;
 		//LyricDLL l;
@@ -324,12 +324,12 @@ namespace unsorteddll{
 		SIZE_T startPM = getPMUsed(), startVM = getVMUsed();
 		int sizeOfLyrics = lyrics.getLength();
 		for (int i = 1; i <= sizeOfLyrics; i++){
-			LyricDLL *l = new LyricDLL();
+			Lyric *l = new Lyric();
 			parseLyricData(lyrics.get(i), l);
 			loadbar(i, sizeOfLyrics, start, startPM, startVM);
 			if (l->getTrackID() == musicInfo.getTid() && l->getMusicXMatchID() == musicInfo.getMid()){
-				DoubleLinkedList wordList = l->getWords();
-				DoubleLinkedList counts = l->getCounts();
+				vector<string> wordList = l->getWords();
+				vector<string> counts = l->getCounts();
 				loadbar(i, i, start, startPM, startVM);
 				//Start Printing
 				cout << endl << green << "Lyrics Found! Parsing count of lyrics!" << white << endl;
@@ -338,10 +338,10 @@ namespace unsorteddll{
 				printMenuTitle("Lyric for " + musicInfo.getMTitle());
 				cout << centerString("Word", 40) << "|" << centerString("No. of times it appears", 37) << endl;
 				printSeperator();
-				int wrdSize = wordList.getLength();
+				int wrdSize = wordList.size();
 				for (int i = 1; i <= wrdSize; i++){
-					int word = stoi(wordList.get(i));
-					cout << centerString(words.get(word).c_str(), 10) << "|" << centerString(counts.get(i).c_str(), 10) << endl;
+					int word = stoi(wordList[i]);
+					cout << centerString(words.get(word).c_str(), 10) << "|" << centerString(counts[i].c_str(), 10) << endl;
 				}
 				printSeperator();
 				delete l;
@@ -356,7 +356,7 @@ namespace unsorteddll{
 	}
 
 	/*
-	Option 2 : Search for a song
+	Sequential Search Operation: Search for a song
 	@param &list Linked List of the songs
 	@param &wrdlist Pass in Word List
 	@param &lyricList Pass in the lyric list
@@ -421,7 +421,7 @@ namespace unsorteddll{
 	}
 
 	/*
-	Option 1 : List of all songs currently in the linked list
+	Display Operation: List of all songs currently in the linked list
 	@param &list Linked List of the songs
 	*/
 	void listAllSongs(DoubleLinkedList &list){
@@ -458,7 +458,8 @@ namespace unsorteddll{
 		cout << yellow << "RAM Use Changes: " << cyan << convertMemoryToHumanReadable(displayMPTime) << endl << endl;
 	}
 
-	/* Option 4: Display List of Top Words in Lyrics
+	/* 
+	Display Operation: Display List of Top Words in Lyrics
 	@param list List of Top Words
 	*/
 	void listTopWords(DoubleLinkedList &list){
@@ -498,7 +499,7 @@ namespace unsorteddll{
 	}
 
 	/*
-	Option 5: Remove an item from the music file
+	Remove Operation: Remove an item from the music file
 	@param list List of Music File
 	*/
 	void removeMusicInfo(DoubleLinkedList &list){
@@ -567,7 +568,7 @@ namespace unsorteddll{
 	}
 
 	/*
-	Option 3 : Prints out the statistics (timing/mem usage) of list
+	DEPRECRATED Memory View: Prints out the statistics (timing/mem usage) of list
 	*/
 	void printStats(){
 		//Timings (Sequence 40 | 37)

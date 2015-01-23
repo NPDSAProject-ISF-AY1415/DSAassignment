@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <sstream>
+#include <vector>
 #include "ListPointer.h"
 
 using namespace std;
@@ -12,8 +13,8 @@ class Lyric{
 private:
 	string tid;
 	string mxmid;
-	ListPointer word;
-	ListPointer count;
+	vector<string> word;
+	vector<string> count;
 public:
 	Lyric();
 	Lyric(string tid, string mxmid);
@@ -22,7 +23,8 @@ public:
 	string getMusicXMatchID();
 	void setMusicXMatchID(string mxmid);
 	void addWordAndCount(string word);
-	string getWordCount();
+	vector<string> getWords();
+	vector<string> getCounts();
 };
 
 #endif
