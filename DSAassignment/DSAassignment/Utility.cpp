@@ -1,7 +1,7 @@
 #include "Utility.h"
 
 using namespace std;
-using namespace consolecolors;
+using namespace eku;
 
 namespace utility {
 

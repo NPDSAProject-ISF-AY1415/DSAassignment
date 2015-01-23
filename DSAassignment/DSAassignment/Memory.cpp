@@ -1,7 +1,7 @@
 #include "Memory.h"
 
 using namespace std;
-using namespace consolecolors;
+using namespace eku;
 using namespace utility;
 
 /*

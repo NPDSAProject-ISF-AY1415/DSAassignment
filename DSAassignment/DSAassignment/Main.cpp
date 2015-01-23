@@ -2,7 +2,7 @@
 
 using namespace std;
 using namespace utility;
-using namespace consolecolors;
+using namespace eku;
 
 //Init Vector of Datasets
 vector<string> wordDataset(0);

@@ -1,12 +1,12 @@
-#ifndef CONSOLE_COLORS_UTIL
-#define CONSOLE_COLORS_UTIL
+#ifndef _INC_EKU_IO_CONCOL
+#define _INC_EKU_IO_CONCOL
 
 /*Header file to color text and background in windows console applications
 Global variables - textcol,backcol,deftextcol,defbackcol,colorprotect*/
 
 #include<windows.h>
 #include<iosfwd>
-namespace consolecolors
+namespace eku
 {
 
 #ifndef CONCOL

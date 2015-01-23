@@ -1,6 +1,6 @@
 #include "Table.h"
 
-using namespace consolecolors;
+using namespace eku;
 using namespace utility;
 
 

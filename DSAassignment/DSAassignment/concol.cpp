@@ -1,12 +1,12 @@
 #include "concol.h"
 
-using namespace consolecolors;
+using namespace eku;
 
-HANDLE consolecolors::std_con_out;
+HANDLE eku::std_con_out;
 //Standard Output Handle
-bool consolecolors::colorprotect = false;
+bool eku::colorprotect = false;
 //If colorprotect is true, background and text colors will never be the same
-consolecolors::concol consolecolors::textcol, consolecolors::backcol, consolecolors::deftextcol, consolecolors::defbackcol;
+eku::concol eku::textcol, eku::backcol, eku::deftextcol, eku::defbackcol;
 /*textcol - current text color
 backcol - current back color
 deftextcol - original text color
