@@ -4,6 +4,7 @@
 #include "Utility.h"
 #include "UnsortedPtr.h"
 #include "sortedArr.h"
+#include "UnsortedArr.h"
 #include "Memory.h"
 #include "GlobalIdentifiers.h"
 #include "DblLinkList.h"
