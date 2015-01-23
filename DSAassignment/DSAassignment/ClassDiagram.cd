@@ -25,7 +25,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ListArray">
-    <Position X="8.25" Y="3.75" Width="1.5" />
+    <Position X="2.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQgAAAAAAAEAAAEAIgAQAAAAAAAAAAAAAAAAAACQAA=</HashCode>
       <FileName>ListArray.h</FileName>
@@ -51,26 +51,12 @@
   <Class Name="Lyric">
     <Position X="8.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAARBAAIAIAAABAABAAQAAAAAYAAAIAAAAAAAAAA=</HashCode>
+      <HashCode>CAAAAAQBAAIAIAAABAABAAQAAAAAYAAAIAAAAAAEAAA=</HashCode>
       <FileName>Lyric.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="LyricA">
-    <Position X="9.75" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAARBAAIAIAAABAABAAQAAAAAYAAAIAAAAAAAAAA=</HashCode>
-      <FileName>LyricA.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="LyricDLL">
-    <Position X="2.25" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>CAAAAARBAAIAIAAABAABAAQAAAAAYAAAAAAAAAAMAAA=</HashCode>
-      <FileName>LyricDLL.h</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Music">
-    <Position X="11.25" Y="0.5" Width="1.5" />
+    <Position X="9.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ECAAAgEEBABIIAACAAAAAQRAggAAAIBAAABAAAAAACA=</HashCode>
       <FileName>Music.h</FileName>
