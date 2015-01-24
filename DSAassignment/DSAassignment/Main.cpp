@@ -652,7 +652,7 @@ int main(){
 			case 1: menErr = unsorteddll::mainLoop(); break;
 			case 2: menErr = unsortedptr::mainLoop(); break;
 			case 3: menErr = unsortedArr::mainLoop(); break;	//TODO Replace with main loop for unsorted array
-			case 4: menErr =  sortedArr::mainLoop(); break;	
+			case 4: menErr = sortedArr::mainLoop(); break;	
 			case 7: plotTableMenu(); break;
 			case 8: plotGraphMenu(); break;
 			case 9: printMemoryInfo(); break;

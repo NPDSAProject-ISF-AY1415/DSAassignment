@@ -11,7 +11,6 @@ namespace sortedArr {
 	double removeElapsed = -1;
 	void readTopWords(ListArray &list);
 	void readSongLyricCount(ListArray &list, int count);
-	void readMatchFile(ListArray &list, int count);
 	void readMatchFile2(ListArray &list, int count);
 	//Memory Counters
 	SIZE_T addMVTime = -1, addWVTime = -1, addLVTime = -1, displayMVTime = -1, displayWVTime = -1, sequSearchVTime = -1, binaSearchVTime = -1, removeVTime = -1;	//Virtual Mem
@@ -403,7 +402,7 @@ namespace sortedArr {
 		cout << endl << green << "Doing Binary Search Now..." << endl;
 		bool found2 = false;
 		int first = 0;
-		int last = list.getLength() - 1;
+		int last = list.getLength() -1;
 		while (first <= last)
 		{
 			int mid = (first + last) / 2;
@@ -411,6 +410,7 @@ namespace sortedArr {
 			timingBinaSearchMCounter.push_back(calculateElapsed(startBina, clock()));
 			memoryPBinaSearchMCounter.push_back((double)(getPMUsed() - bPMemBina));
 			memoryVBinaSearchMCounter.push_back((double)(getVMUsed() - bVMemBina));
+			cout << mid << endl;
 			if (musInf.getTid() == target)
 			{
 				bool found2 = true;
@@ -426,7 +426,7 @@ namespace sortedArr {
 			}
 			else
 			{
-				last = mid + 1;
+				first = mid + 1;
 			}
 		}
 		//Calculate Memory Used (Virtual, Physical) and CPU Time
@@ -444,6 +444,7 @@ namespace sortedArr {
 		cout << yellow << "Page Memory Use Changes: " << cyan << convertMemoryToHumanReadable(binaSearchVTime) << endl;
 		cout << yellow << "RAM Use Changes: " << cyan << convertMemoryToHumanReadable(binaSearchPTime) << endl << endl;
 	}
+	
 	
 	
 	

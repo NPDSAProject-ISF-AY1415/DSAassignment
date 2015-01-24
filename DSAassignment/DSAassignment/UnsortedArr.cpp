@@ -382,8 +382,6 @@ namespace unsortedArr {
 		cout << yellow << "Elapsed Time for Sequential Search: " << cyan << setprecision(2) << fixed << sequSearchElapsed << " seconds." << endl;
 		cout << yellow << "Page Memory Use Changes: " << cyan << convertMemoryToHumanReadable(sequSearchVTime) << endl;
 		cout << yellow << "RAM Use Changes: " << cyan << convertMemoryToHumanReadable(sequSearchPTime) << endl << endl;
-		cout << yellow << "Page Memory Use Changes: " << cyan << convertMemoryToHumanReadable(binaSearchVTime) << endl;
-		cout << yellow << "RAM Use Changes: " << cyan << convertMemoryToHumanReadable(binaSearchPTime) << endl << endl;
 	}
 
 
