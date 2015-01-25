@@ -47,8 +47,8 @@ int plotGraph(vector<Graph> &graphList, string title){
 	FILE * gnuplotPipe = _popen("gnuplot -persistent", "w");
 	string titleStr = "set title \"" + title + "\" \n";
 	fprintf(gnuplotPipe, titleStr.c_str());
-	//Set The Display, Add, Remove, Binary Search, Sequential Search
-	//fprintf(gnuplotPipe, "set xtics offset character 0,0,0 norangelimit (\"Add\" 1, \"Remove\" 2, \"Display\" 3, \"Binary Search\" 4, \"Sequential Search\" 5) \n");
+	fprintf(gnuplotPipe, "set ylabel \"CPU Time (sec)/Memory Usage (Bytes)\" \n");
+	fprintf(gnuplotPipe, "set xlabel \"Iterations/Critical Instructions\" \n");
 	bool first_line = true;
 	for (Graph &g : graphList){
 		if (first_line)
