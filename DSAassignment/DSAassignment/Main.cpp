@@ -601,6 +601,8 @@ void initFileParse(){
 Prints out the main menu
 */
 void mainMenu(){
+	printAscii();
+	cout << endl;
 	printMenuTitle("Main Menu (Select a storage type)");
 	cout << "1) " << yellow << "Unsorted Double Linked List" << white << endl;
 	cout << "2) " << yellow << "Unsorted Pointer-Based List" << white << endl;
@@ -624,8 +626,6 @@ int main(){
 	concolinit();
 	initFileParse();
 
-	printAscii();
-	cout << endl;
 	//This will be used to check if the array pointers returned an error or not
 	//-1 means no error but continue looping, 0 means no error but exit program, anything else = error
 	int menErr = -1;
