@@ -62,7 +62,7 @@ namespace unsortedArr {
 		int   c = (int)(ratio * w);
 
 		//Print Progress Bar
-		cout << setw(3) << white << "Parsed: " << cyan << x << white << "/" << green << n << yellow << " [" << red;
+		cout << setw(3) << white << "Processed: " << cyan << x << white << "/" << green << n << yellow << " [" << red;
 		for (int x = 0; x < c; x++) cout << "=";
 		for (unsigned int x = c; x < w; x++) cout << " ";
 		cout << yellow << "] " << (int)(ratio * 100) << "%" << white << " Time: " << cyan << setprecision(2) << fixed << calculateElapsed(beginClock, clock()) << " sec";
