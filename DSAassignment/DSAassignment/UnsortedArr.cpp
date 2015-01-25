@@ -660,27 +660,24 @@ namespace unsortedArr {
 
 
 	void makeAddTimeGraph(){
-		vector<string> ArrList(0);
+		vector<Graph> ArrList(0);
 		//Make Graph for Lyric and get string
 		if (addLElapsed == -1)	cout << dark_red << "There is no data for adding Lyrics. Please run the add operation before doing this." << endl;
 		else{
 			Graph lycG("Lyrics", timingAddLCounter.size(), timingAddLCounter);
-			string lycGStr = lycG.createGraphString();
-			ArrList.push_back(lycGStr);
+			ArrList.push_back(lycG);
 		}
 		//Make Graph for Songs
 		if (addMElapsed == -1)	cout << dark_red << "There is no data for adding Song Data. Please run the add operation before doing this." << endl;
 		else {
 			Graph sonG("Song Data", timingAddMCounter.size(), timingAddMCounter);
-			string sonGStr = sonG.createGraphString();
-			ArrList.push_back(sonGStr);
+			ArrList.push_back(sonG);
 		}
 		//Make Graph for Words
 		if (addWElapsed == -1)	cout << dark_red << "There is no data for adding top words. Please run the add operation before doing this." << endl;
 		else {
 			Graph wrdG("Top Lyric Words", timingAddWCounter.size(), timingAddWCounter);
-			string wrdGStr = wrdG.createGraphString();
-			ArrList.push_back(wrdGStr);
+			ArrList.push_back(wrdG);
 		}
 		if (ArrList.size() > 0 && ArrList.size() <= 3)	plotGraph(ArrList, "Array-Based List Timings Graph (ADD)");
 	}
@@ -689,18 +686,16 @@ namespace unsortedArr {
 	Make a Graph with x axis being the length of the list and the y axis being time taken
 	*/
 	void makeDisplayTimeGraph(){
-		vector<string> ArrList;
+		vector<Graph> ArrList(0);
 		if (displayMElapsed == -1)	cout << dark_red << "There is no data for displaying song data. Please run the display operation before doing this." << endl;
 		else{
 			Graph sonG("Song Data", timingDisplayMCounter.size(), timingDisplayMCounter);
-			string sonGStr = sonG.createGraphString();
-			ArrList.push_back(sonGStr);
+			ArrList.push_back(sonG);
 		}
 		if (displayWElapsed == -1)	cout << dark_red << "There is no data for displaying top words. Please run the display operation before doing this." << endl;
 		else{
 			Graph wrdG("Top Lyric Words", timingDisplayWCounter.size(), timingDisplayWCounter);
-			string wrdGStr = wrdG.createGraphString();
-			ArrList.push_back(wrdGStr);
+			ArrList.push_back(wrdG);
 		}
 		if (ArrList.size() > 0 && ArrList.size() <= 2)	plotGraph(ArrList, "Array-Based List Timings Graph (DISPLAY)");
 	}
@@ -709,12 +704,11 @@ namespace unsortedArr {
 	Make a Graph with x axis being the length of the list and the y axis being time taken
 	*/
 	void makeRemoveTimeGraph(){
-		vector<string> ArrList;
+		vector<Graph> ArrList(0);
 		if (removeElapsed == -1)	cout << dark_red << "There is no data for removing song data. Please run the remove operation before doing this." << endl;
 		else {
 			Graph sonG("Song Data", timingRemoveMCounter.size(), timingRemoveMCounter);
-			string sonGStr = sonG.createGraphString();
-			ArrList.push_back(sonGStr);
+			ArrList.push_back(sonG);
 		}
 		if (ArrList.size() == 1)	plotGraph(ArrList, "Array-Based List Timings Graph (REMOVE)");
 	}
@@ -723,12 +717,11 @@ namespace unsortedArr {
 	Make a Graph with x axis being the length of the list and the y axis being time taken
 	*/
 	void makeSeqSearchTimeGraph(){
-		vector<string> ArrList;
+		vector<Graph> ArrList(0);
 		if (sequSearchElapsed == -1)	cout << dark_red << "There is no data for searching song data sequentially. Please run the seq. search operation before doing this." << endl;
 		else {
 			Graph sonG("Song Data", timingSeqSearchMCounter.size(), timingSeqSearchMCounter);
-			string sonGStr = sonG.createGraphString();
-			ArrList.push_back(sonGStr);
+			ArrList.push_back(sonG);
 		}
 		if (ArrList.size() == 1)	plotGraph(ArrList, "Array-Based List Timings Graph (SEQUENTIAL SEARCH)");
 	}
@@ -738,36 +731,30 @@ namespace unsortedArr {
 	Make a Graph with x axis being the length of the list and the y axis being memory use
 	*/
 	void makeAddMemGraph(){
-		vector<string> ArrList(0);
+		vector<Graph> ArrList(0);
 		//Make Graph for Lyric and get string
 		if (addLPTime == -1)	cout << dark_red << "There is no data for adding Lyrics. Please run the add operation before doing this." << endl;
 		else{
 			Graph lycG1("Lyrics (RAM)", memoryPAddLCounter.size(), memoryPAddLCounter);
-			string lycGStr = lycG1.createGraphString();
-			ArrList.push_back(lycGStr);
+			ArrList.push_back(lycG1);
 			Graph lycG2("Lyrics (Page)", memoryVAddLCounter.size(), memoryVAddLCounter);
-			lycGStr = lycG2.createGraphString();
-			ArrList.push_back(lycGStr);
+			ArrList.push_back(lycG2);
 		}
 		//Make Graph for Songs
 		if (addMPTime == -1)	cout << dark_red << "There is no data for adding Song Data. Please run the add operation before doing this." << endl;
 		else {
 			Graph sonG1("Song Data (RAM)", memoryPAddMCounter.size(), memoryPAddMCounter);
-			string sonGStr = sonG1.createGraphString();
-			ArrList.push_back(sonGStr);
+			ArrList.push_back(sonG1);
 			Graph sonG2("Song Data (Page)", memoryVAddMCounter.size(), memoryVAddMCounter);
-			sonGStr = sonG2.createGraphString();
-			ArrList.push_back(sonGStr);
+			ArrList.push_back(sonG2);
 		}
 		//Make Graph for Words
 		if (addWPTime == -1)	cout << dark_red << "There is no data for adding top words. Please run the add operation before doing this." << endl;
 		else {
 			Graph wrdG1("Top Lyric Words (RAM)", memoryPAddWCounter.size(), memoryPAddWCounter);
-			string wrdGStr = wrdG1.createGraphString();
-			ArrList.push_back(wrdGStr);
+			ArrList.push_back(wrdG1);
 			Graph wrdG2("Top Lyric Words (Page)", memoryVAddWCounter.size(), memoryVAddWCounter);
-			wrdGStr = wrdG2.createGraphString();
-			ArrList.push_back(wrdGStr);
+			ArrList.push_back(wrdG2);
 		}
 		if (ArrList.size() > 0 && ArrList.size() <= 6)	plotGraph(ArrList, "Array-Based List Memory Graph (ADD)");
 	}
@@ -776,24 +763,20 @@ namespace unsortedArr {
 	Make a Graph with x axis being the length of the list and the y axis being memory use
 	*/
 	void makeDisplayMemGraph(){
-		vector<string> ArrList(0);
+		vector<Graph> ArrList(0);
 		if (displayMPTime == -1)	cout << dark_red << "There is no data for displaying song data. Please run the display operation before doing this." << endl;
 		else{
 			Graph sonG1("Song Data (RAM)", memoryPDisplayMCounter.size(), memoryPDisplayMCounter);
-			string sonGStr = sonG1.createGraphString();
-			ArrList.push_back(sonGStr);
+			ArrList.push_back(sonG1);
 			Graph sonG2("Song Data (Page)", memoryVDisplayMCounter.size(), memoryVDisplayMCounter);
-			sonGStr = sonG2.createGraphString();
-			ArrList.push_back(sonGStr);
+			ArrList.push_back(sonG2);
 		}
 		if (displayWPTime == -1)	cout << dark_red << "There is no data for displaying top words. Please run the display operation before doing this." << endl;
 		else{
 			Graph wrdG1("Top Lyric Words (RAM)", memoryPDisplayWCounter.size(), memoryPDisplayWCounter);
-			string wrdGStr = wrdG1.createGraphString();
-			ArrList.push_back(wrdGStr);
+			ArrList.push_back(wrdG1);
 			Graph wrdG2("Top Lyric Words (Page)", memoryVDisplayWCounter.size(), memoryVDisplayWCounter);
-			wrdGStr = wrdG2.createGraphString();
-			ArrList.push_back(wrdGStr);
+			ArrList.push_back(wrdG2);
 		}
 		if (ArrList.size() > 0 && ArrList.size() <= 4)	plotGraph(ArrList, "Array-Based List Memory Graph (DISPLAY)");
 	}
@@ -802,15 +785,13 @@ namespace unsortedArr {
 	Make a Graph with x axis being the length of the list and the y axis being memory use
 	*/
 	void makeRemoveMemGraph(){
-		vector<string> ArrList(0);
+		vector<Graph> ArrList(0);
 		if (removePTime == -1)	cout << dark_red << "There is no data for removing song data. Please run the remove operation before doing this." << endl;
 		else {
 			Graph sonG1("Song Data (RAM)", memoryPRemoveMCounter.size(), memoryPRemoveMCounter);
-			string sonGStr = sonG1.createGraphString();
-			ArrList.push_back(sonGStr);
+			ArrList.push_back(sonG1);
 			Graph sonG2("Song Data (Page)", memoryVRemoveMCounter.size(), memoryVRemoveMCounter);
-			sonGStr = sonG2.createGraphString();
-			ArrList.push_back(sonGStr);
+			ArrList.push_back(sonG2);
 		}
 		if (ArrList.size() == 2)	plotGraph(ArrList, "Array-Based List Timings Graph (REMOVE)");
 	}
@@ -819,15 +800,13 @@ namespace unsortedArr {
 	Make a Graph with x axis being the length of the list and the y axis being memory use
 	*/
 	void makeSeqSearchMemGraph(){
-		vector<string> ArrList(0);
+		vector<Graph> ArrList(0);
 		if (sequSearchPTime == -1)	cout << dark_red << "There is no data for searching song data sequentially. Please run the seq. search operation before doing this." << endl;
 		else {
 			Graph sonG1("Song Data (RAM)", memoryPSeqSearchMCounter.size(), memoryPSeqSearchMCounter);
-			string sonGStr = sonG1.createGraphString();
-			ArrList.push_back(sonGStr);
+			ArrList.push_back(sonG1);
 			Graph sonG2("Song Data (Page)", memoryVSeqSearchMCounter.size(), memoryVSeqSearchMCounter);
-			sonGStr = sonG2.createGraphString();
-			ArrList.push_back(sonGStr);
+			ArrList.push_back(sonG2);
 		}
 		if (ArrList.size() == 2)	plotGraph(ArrList, "Array-Based List Timings Graph (SEQUENTIAL SEARCH)");
 	}
