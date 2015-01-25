@@ -172,9 +172,9 @@ void makeAddTimeGraph(){
 	}
 
 
-	if (sortedArr::addWElapsed == -1)	cout << dark_red << "No data logged for Unsorted Array-Based List. Run the add operation to view its data." << endl;
+	if (unsortedArr::addWElapsed == -1)	cout << dark_red << "No data logged for Unsorted Array-Based List. Run the add operation to view its data." << endl;
 	else {
-		Graph sptrG("Unsorted Array-based List", sortedArr::timingAddMCounter.size(), sortedArr::timingAddMCounter);
+		Graph sptrG("Unsorted Array-based List", unsortedArr::timingAddMCounter.size(), unsortedArr::timingAddMCounter);
 		ptrArrList.push_back(sptrG);
 	}
 	if (ptrArrList.size() > 0 && ptrArrList.size() <= 4)	plotGraph(ptrArrList, "Add Operation Comparision (CPU)");
@@ -201,9 +201,9 @@ void makeDisplayTimeGraph(){
 		ptrArrList.push_back(sptrG);
 	}
 
-	if (sortedArr::displayMElapsed == -1)	cout << dark_red << "No data logged for Unsorted Array-Based List. Run the display operation to view its data." << endl;
+	if (unsortedArr::displayMElapsed == -1)	cout << dark_red << "No data logged for Unsorted Array-Based List. Run the display operation to view its data." << endl;
 	else {
-		Graph sptrG("Unsorted Array-based List", sortedArr::timingDisplayMCounter.size(), sortedArr::timingDisplayMCounter);
+		Graph sptrG("Unsorted Array-based List", unsortedArr::timingDisplayMCounter.size(), unsortedArr::timingDisplayMCounter);
 		ptrArrList.push_back(sptrG);
 	}
 	if (ptrArrList.size() > 0 && ptrArrList.size() <= 4)	plotGraph(ptrArrList, "Display Operation Comparision (CPU)");
@@ -231,9 +231,9 @@ void makeRemoveTimeGraph(){
 		ptrArrList.push_back(sptrG);
 	}
 
-	if (sortedArr::removeElapsed == -1)	cout << dark_red << "No data logged for Unsorted Array-Based List. Run the remove operation to view its data." << endl;
+	if (unsortedArr::removeElapsed == -1)	cout << dark_red << "No data logged for Unsorted Array-Based List. Run the remove operation to view its data." << endl;
 	else {
-		Graph sptrG("Unsorted Array-based List", sortedArr::timingRemoveMCounter.size(), sortedArr::timingRemoveMCounter);
+		Graph sptrG("Unsorted Array-based List", unsortedArr::timingRemoveMCounter.size(), unsortedArr::timingRemoveMCounter);
 		//string wrdGStr = wrdG.createGraphString();
 		ptrArrList.push_back(sptrG);
 	}
@@ -262,9 +262,9 @@ void makeSeqSearchTimeGraph(){
 		ptrArrList.push_back(sptrG);
 	}
 
-	if (sortedArr::sequSearchElapsed == -1)	cout << dark_red << "No data logged for Unsorted Array-Based List. Run the seq search operation to view its data." << endl;
+	if (unsortedArr::sequSearchElapsed == -1)	cout << dark_red << "No data logged for Unsorted Array-Based List. Run the seq search operation to view its data." << endl;
 	else {
-		Graph sptrG("Unsorted Array-based List", sortedArr::timingSeqSearchMCounter.size(), sortedArr::timingSeqSearchMCounter);
+		Graph sptrG("Unsorted Array-based List", unsortedArr::timingSeqSearchMCounter.size(), unsortedArr::timingSeqSearchMCounter);
 		//string wrdGStr = wrdG.createGraphString();
 		ptrArrList.push_back(sptrG);
 	}
@@ -312,11 +312,11 @@ void makeAddMemGraph(){
 		ptrArrList.push_back(wrdG2);
 	}
 
-	if (sortedArr::addMPTime == -1)	cout << dark_red << "No data logged for Unsorted Array-based List. Run the add operation to view its data." << endl;
+	if (unsortedArr::addMPTime == -1)	cout << dark_red << "No data logged for Unsorted Array-based List. Run the add operation to view its data." << endl;
 	else {
-		Graph wrdG1("Unsorted Array-based List (RAM)", sortedArr::memoryPAddMCounter.size(), sortedArr::memoryPAddMCounter);
+		Graph wrdG1("Unsorted Array-based List (RAM)", unsortedArr::memoryPAddMCounter.size(), unsortedArr::memoryPAddMCounter);
 		ptrArrList.push_back(wrdG1);
-		Graph wrdG2("Unsorted Array-based List (Page)", sortedArr::memoryVAddMCounter.size(), sortedArr::memoryVAddMCounter);
+		Graph wrdG2("Unsorted Array-based List (Page)", unsortedArr::memoryVAddMCounter.size(), unsortedArr::memoryVAddMCounter);
 		ptrArrList.push_back(wrdG2);
 	}
 	if (ptrArrList.size() > 0 && ptrArrList.size() <= 8)	plotGraph(ptrArrList, "Add Operation Comparision (Memory)");
@@ -349,11 +349,11 @@ void makeDisplayMemGraph(){
 		ptrArrList.push_back(wrdG2);
 	}
 
-	if (sortedArr::displayMPTime == -1)	cout << dark_red << "No data logged for Unsorted Array-based List. Run the display operation to view its data." << endl;
+	if (unsortedArr::displayMPTime == -1)	cout << dark_red << "No data logged for Unsorted Array-based List. Run the display operation to view its data." << endl;
 	else {
-		Graph wrdG1("Unsorted Array-based List (RAM)", sortedArr::memoryPDisplayMCounter.size(), sortedArr::memoryPDisplayMCounter);
+		Graph wrdG1("Unsorted Array-based List (RAM)", unsortedArr::memoryPDisplayMCounter.size(), unsortedArr::memoryPDisplayMCounter);
 		ptrArrList.push_back(wrdG1);
-		Graph wrdG2("Unsorted Array-based List (Page)", sortedArr::memoryVDisplayMCounter.size(), sortedArr::memoryVDisplayMCounter);
+		Graph wrdG2("Unsorted Array-based List (Page)", unsortedArr::memoryVDisplayMCounter.size(), unsortedArr::memoryVDisplayMCounter);
 		ptrArrList.push_back(wrdG2);
 	}
 	if (ptrArrList.size() > 0 && ptrArrList.size() <= 8)	plotGraph(ptrArrList, "Display Operation Comparision (Memory)");
@@ -386,11 +386,11 @@ void makeRemoveMemGraph(){
 		ptrArrList.push_back(wrdG2);
 	}
 
-	if (sortedArr::removePTime == -1)	cout << dark_red << "No data logged for Unsorted Array-based List. Run the remove operation to view its data." << endl;
+	if (unsortedArr::removePTime == -1)	cout << dark_red << "No data logged for Unsorted Array-based List. Run the remove operation to view its data." << endl;
 	else {
-		Graph wrdG1("Unsorted Array-based List (RAM)", sortedArr::memoryPRemoveMCounter.size(), sortedArr::memoryPRemoveMCounter);
+		Graph wrdG1("Unsorted Array-based List (RAM)", unsortedArr::memoryPRemoveMCounter.size(), unsortedArr::memoryPRemoveMCounter);
 		ptrArrList.push_back(wrdG1);
-		Graph wrdG2("Unsorted Array-based List (Page)", sortedArr::memoryVRemoveMCounter.size(), sortedArr::memoryVRemoveMCounter);
+		Graph wrdG2("Unsorted Array-based List (Page)", unsortedArr::memoryVRemoveMCounter.size(), unsortedArr::memoryVRemoveMCounter);
 		ptrArrList.push_back(wrdG2);
 	}
 	if (ptrArrList.size() > 0 && ptrArrList.size() <= 8)	plotGraph(ptrArrList, "Remove Operation Comparision (Memory)");
@@ -423,11 +423,11 @@ void makeSeqSearchMemGraph(){
 		ptrArrList.push_back(wrdG2);
 	}
 
-	if (sortedArr::sequSearchPTime == -1)	cout << dark_red << "No data logged for Unsorted Array-based List. Run the seq search operation to view its data." << endl;
+	if (unsortedArr::sequSearchPTime == -1)	cout << dark_red << "No data logged for Unsorted Array-based List. Run the seq search operation to view its data." << endl;
 	else {
-		Graph wrdG1("Unsorted Array-based List (RAM)", sortedArr::memoryPSeqSearchMCounter.size(), sortedArr::memoryPSeqSearchMCounter);
+		Graph wrdG1("Unsorted Array-based List (RAM)", unsortedArr::memoryPSeqSearchMCounter.size(), unsortedArr::memoryPSeqSearchMCounter);
 		ptrArrList.push_back(wrdG1);
-		Graph wrdG2("Unsorted Array-based List (Page)", sortedArr::memoryVSeqSearchMCounter.size(), sortedArr::memoryVSeqSearchMCounter);
+		Graph wrdG2("Unsorted Array-based List (Page)", unsortedArr::memoryVSeqSearchMCounter.size(), unsortedArr::memoryVSeqSearchMCounter);
 		ptrArrList.push_back(wrdG2);
 	}
 	if (ptrArrList.size() > 0 && ptrArrList.size() <= 8)	plotGraph(ptrArrList, "Sequential Search Operation Comparision (Memory)");
@@ -458,10 +458,7 @@ void doAddTable(){
 	tblVec.push_back(unsrtPtr);
 	Graph srtArr("SORTED ARR", sortedArr::timingAddMCounter, sortedArr::memoryPAddMCounter);
 	tblVec.push_back(srtArr);
-	//TODO When Unsorted Array comes out, add it here too
-	vector<double> tmp1(0);
-	vector<double> tmp2(0);
-	Graph unsrtArr("UNSORTED ARR", tmp1, tmp2);
+	Graph unsrtArr("UNSORTED ARR", unsortedArr::timingAddMCounter, unsortedArr::memoryPAddMCounter);
 	tblVec.push_back(unsrtArr);
 	plotTable(tblVec, "ADD");
 }
@@ -474,10 +471,7 @@ void doDisplayTable(){
 	tblVec.push_back(unsrtPtr);
 	Graph srtArr("SORTED ARR", sortedArr::timingDisplayMCounter, sortedArr::memoryPDisplayMCounter);
 	tblVec.push_back(srtArr);
-	//TODO When Unsorted Array comes out, add it here too
-	vector<double> tmp1(0);
-	vector<double> tmp2(0);
-	Graph unsrtArr("UNSORTED ARR", tmp1, tmp2);
+	Graph unsrtArr("UNSORTED ARR", unsortedArr::timingDisplayMCounter, unsortedArr::memoryPDisplayMCounter);
 	tblVec.push_back(unsrtArr);
 	plotTable(tblVec, "DISPLAY");
 }
@@ -490,10 +484,7 @@ void doRemoveTable(){
 	tblVec.push_back(unsrtPtr);
 	Graph srtArr("SORTED ARR", sortedArr::timingRemoveMCounter, sortedArr::memoryPRemoveMCounter);
 	tblVec.push_back(srtArr);
-	//TODO When Unsorted Array comes out, add it here too
-	vector<double> tmp1(0);
-	vector<double> tmp2(0);
-	Graph unsrtArr("UNSORTED ARR", tmp1, tmp2);
+	Graph unsrtArr("UNSORTED ARR", unsortedArr::timingRemoveMCounter, unsortedArr::memoryPRemoveMCounter);
 	tblVec.push_back(unsrtArr);
 	plotTable(tblVec, "REMOVE");
 }
@@ -506,10 +497,7 @@ void doSeqSearchTable(){
 	tblVec.push_back(unsrtPtr);
 	Graph srtArr("SORTED ARR", sortedArr::timingSeqSearchMCounter, sortedArr::memoryPSeqSearchMCounter);
 	tblVec.push_back(srtArr);
-	//TODO When Unsorted Array comes out, add it here too
-	vector<double> tmp1(0);
-	vector<double> tmp2(0);
-	Graph unsrtArr("UNSORTED ARR", tmp1, tmp2);
+	Graph unsrtArr("UNSORTED ARR", unsortedArr::timingSeqSearchMCounter, unsortedArr::memoryPSeqSearchMCounter);
 	tblVec.push_back(unsrtArr);
 	plotTable(tblVec, "SEQ SEARCH");
 }
