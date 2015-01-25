@@ -378,6 +378,7 @@ namespace unsorteddll{
 		//Get Start Memory (Virtual, Physical) and CPU Time
 		clock_t start = clock();
 		SIZE_T bVMem = getVMUsed(), bPMem = getPMUsed();
+		int criticalInstructions = 0;
 
 		bool found = false;
 		for (int i = 1; i <= list.getLength(); i++){
@@ -389,6 +390,7 @@ namespace unsorteddll{
 			memoryVSeqSearchMCounter.push_back((double)(getVMUsed() - bVMem));
 
 			loadbar(i, list.getLength(), start, bPMem, bVMem);
+			criticalInstructions++;
 
 			if (musIfo.getTid() == target){
 				loadbar(i, i, start, bPMem, bVMem);
@@ -408,6 +410,7 @@ namespace unsorteddll{
 		if (!found){
 			loadbar(list.getLength(), list.getLength(), start, bPMem, bVMem);
 			cout << endl << dark_red << "Unable to find a music file matching the search term" << endl;
+			cout << yellow << "Number of Critical Instructions: " << cyan << criticalInstructions << endl;
 		}
 
 		//Calculate Memory Used (Virtual, Physical) and CPU Time
@@ -418,6 +421,7 @@ namespace unsorteddll{
 		cout << yellow << "Elapsed Time for Sequential Search: " << cyan << setprecision(2) << fixed << sequSearchElapsed << " seconds." << endl;
 		cout << yellow << "Page Memory Use Changes: " << cyan << convertMemoryToHumanReadable(sequSearchVTime) << endl;
 		cout << yellow << "RAM Use Changes: " << cyan << convertMemoryToHumanReadable(sequSearchPTime) << endl << endl;
+		cout << yellow << "Number of Critical Instructions: " << cyan << criticalInstructions << endl;
 	}
 
 	/*

@@ -346,6 +346,7 @@ namespace unsortedArr {
 		//Get Start Memory (Virtual, Physical) and CPU Time
 		clock_t start = clock();
 		SIZE_T bVMem = getVMUsed(), bPMem = getPMUsed();
+		int criticalInstructions = 0;
 
 		bool found = false;
 		for (int i = 1; i <= list.getLength(); i++){
@@ -355,6 +356,7 @@ namespace unsortedArr {
 			timingSeqSearchMCounter.push_back(calculateElapsed(start, clock()));
 			memoryPSeqSearchMCounter.push_back((double)(getPMUsed() - bPMem));
 			memoryVSeqSearchMCounter.push_back((double)(getVMUsed() - bVMem));
+			criticalInstructions++;
 
 			if (musIfo.getTid() == target){
 				cout << endl << yellow << "Music Found! Details of the music file is found below:" << endl;
@@ -370,6 +372,7 @@ namespace unsortedArr {
 		}
 		if (!found){
 			cout << endl << dark_red << "Unable to find a music file matching the search term" << endl;
+			cout << yellow << "Number of Critical Instructions: " << cyan << criticalInstructions << endl;
 		}
 
 		
@@ -382,6 +385,7 @@ namespace unsortedArr {
 		cout << yellow << "Elapsed Time for Sequential Search: " << cyan << setprecision(2) << fixed << sequSearchElapsed << " seconds." << endl;
 		cout << yellow << "Page Memory Use Changes: " << cyan << convertMemoryToHumanReadable(sequSearchVTime) << endl;
 		cout << yellow << "RAM Use Changes: " << cyan << convertMemoryToHumanReadable(sequSearchPTime) << endl << endl;
+		cout << yellow << "Number of Critical Instructions: " << cyan << criticalInstructions << endl;
 	}
 
 

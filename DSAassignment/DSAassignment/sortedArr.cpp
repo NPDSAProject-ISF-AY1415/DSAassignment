@@ -372,6 +372,7 @@ namespace sortedArr {
 		SIZE_T bVMem = getVMUsed(), bPMem = getPMUsed();
 		clock_t startBina = clock();
 		SIZE_T bVMemBina = getVMUsed(), bPMemBina = getPMUsed();
+		int criticalInstructionsSeq = 0, criticalInstructionsBin = 0;
 		
 		
 		bool found = false;
@@ -382,6 +383,7 @@ namespace sortedArr {
 			timingSeqSearchMCounter.push_back(calculateElapsed(start, clock()));
 			memoryPSeqSearchMCounter.push_back((double)(getPMUsed() - bPMem));
 			memoryVSeqSearchMCounter.push_back((double)(getVMUsed() - bVMem));
+			criticalInstructionsSeq++;
 
 			if (musIfo.getTid() == target){
 				cout << endl << yellow << "Music Found! Details of the music file is found below:" << endl;
@@ -404,6 +406,7 @@ namespace sortedArr {
 		}
 		if (!found){
 			cout << endl << dark_red << "Unable to find a music file matching the search term" << endl;
+			cout << yellow << "Number of Critical Instructions: " << cyan << criticalInstructionsSeq << endl;
 		}
 
 		cout << endl << green << "Doing Binary Search Now..." << endl;
@@ -418,6 +421,8 @@ namespace sortedArr {
 			memoryPBinaSearchMCounter.push_back((double)(getPMUsed() - bPMemBina));
 			memoryVBinaSearchMCounter.push_back((double)(getVMUsed() - bVMemBina));
 			cout << mid << endl;
+			criticalInstructionsBin++;
+
 			if (musInf.getTid() == target)
 			{
 				bool found2 = true;
@@ -445,11 +450,13 @@ namespace sortedArr {
 		binaSearchElapsed = calculateElapsed(startBina, clock());
 
 		cout << yellow << "Elapsed Time for Sequential Search: " << cyan << setprecision(2) << fixed << sequSearchElapsed << " seconds." << endl;
-		cout << yellow << "Page Memory Use Changes: " << cyan << convertMemoryToHumanReadable(sequSearchVTime) << endl;
-		cout << yellow << "RAM Use Changes: " << cyan << convertMemoryToHumanReadable(sequSearchPTime) << endl << endl;
+		cout << yellow << "Page Memory Use Changes (Sequential): " << cyan << convertMemoryToHumanReadable(sequSearchVTime) << endl;
+		cout << yellow << "RAM Use Changes (Sequential): " << cyan << convertMemoryToHumanReadable(sequSearchPTime) << endl << endl;
+		cout << yellow << "Number of Critical Instructions (Sequential): " << cyan << criticalInstructionsSeq << endl;
 		cout << yellow << "Elapsed Time for Binary Search: " << cyan << setprecision(2) << fixed << binaSearchElapsed << " seconds." << endl;
-		cout << yellow << "Page Memory Use Changes: " << cyan << convertMemoryToHumanReadable(binaSearchVTime) << endl;
-		cout << yellow << "RAM Use Changes: " << cyan << convertMemoryToHumanReadable(binaSearchPTime) << endl << endl;
+		cout << yellow << "Page Memory Use Changes (Binary): " << cyan << convertMemoryToHumanReadable(binaSearchVTime) << endl;
+		cout << yellow << "RAM Use Changes (Binary): " << cyan << convertMemoryToHumanReadable(binaSearchPTime) << endl << endl;
+		cout << yellow << "Number of Critical Instructions (Binary): " << cyan << criticalInstructionsBin << endl;
 	}
 	
 	
