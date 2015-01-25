@@ -394,6 +394,13 @@ namespace sortedArr {
 				memoryVSeqSearchMCounter.resize(i);
 				break;
 			}
+			else if (musIfo.getTid() > target)
+			{
+				break;
+				timingSeqSearchMCounter.resize(i);
+				memoryPSeqSearchMCounter.resize(i);
+				memoryVSeqSearchMCounter.resize(i);
+			}
 		}
 		if (!found){
 			cout << endl << dark_red << "Unable to find a music file matching the search term" << endl;
