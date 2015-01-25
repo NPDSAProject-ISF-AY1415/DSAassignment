@@ -411,6 +411,7 @@ namespace sortedArr {
 
 		cout << endl << green << "Doing Binary Search Now..." << endl;
 		bool found2 = false;
+		bool verboseMode = false;
 		int first = 0;
 		int last = list.getLength() -1;
 		while (first <= last)
@@ -420,9 +421,8 @@ namespace sortedArr {
 			timingBinaSearchMCounter.push_back(calculateElapsed(startBina, clock()));
 			memoryPBinaSearchMCounter.push_back((double)(getPMUsed() - bPMemBina));
 			memoryVBinaSearchMCounter.push_back((double)(getVMUsed() - bVMemBina));
-			cout << mid << endl;
+			if (verboseMode == true){ cout << mid << endl; }
 			criticalInstructionsBin++;
-
 			if (musInf.getTid() == target)
 			{
 				bool found2 = true;
