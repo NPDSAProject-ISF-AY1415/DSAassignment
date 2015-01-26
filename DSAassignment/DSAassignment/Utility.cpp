@@ -1,3 +1,13 @@
+/*
+Utility.cpp
+Class File for all the Utilities functions
+Team Name: Wat.jpg
+Team Member 1: Soh Yan Quan, Kenneth (S10147249G)
+Team Member 2: Soh Hak Wee (S10146869K)
+Features to Highlight: Center string and double, Check if its number, Determine whether to plot a point or not,
+convert string to Song item, calculate difference in clock time
+*/
+
 #include "Utility.h"
 
 using namespace std;
@@ -50,7 +60,7 @@ namespace utility {
 	}
 
 	/*
-	Parses a music info string and return a music object from it
+	Parses a Song info string and return a Song(Music) object from it
 	@param music Music Info String
 	@return Music Object
 	*/

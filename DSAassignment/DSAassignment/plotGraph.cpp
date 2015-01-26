@@ -1,3 +1,12 @@
+/*
+plotGraph.cpp
+Class File that plots out the graph into gnuplot with a vector of Graph objects
+Team Name: Wat.jpg
+Team Member 1: Soh Yan Quan, Kenneth (S10147249G)
+Team Member 2: Soh Hak Wee (S10146869K)
+Features to Highlight: Graph plot
+*/
+
 #include "plotGraph.h"
 
 //Command is something that goes

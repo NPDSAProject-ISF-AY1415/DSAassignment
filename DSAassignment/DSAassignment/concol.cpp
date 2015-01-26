@@ -1,3 +1,11 @@
+/*
+concol.cpp
+Utility Class File for Console Classes (Functions are in the header)
+Team Name: Wat.jpg
+Team Member 1: Soh Yan Quan, Kenneth (S10147249G)
+Team Member 2: Soh Hak Wee (S10146869K)
+*/
+
 #include "concol.h"
 
 using namespace consolecolors;

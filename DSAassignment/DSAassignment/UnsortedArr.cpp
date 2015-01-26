@@ -1,3 +1,12 @@
+/*
+UnsortedArr.cpp
+Class File for Unsorted Array-based List Implementation
+Team Name: Wat.jpg
+Team Member 1: Soh Yan Quan, Kenneth (S10147249G)
+Team Member 2: Soh Hak Wee (S10146869K)
+Features to Highlight: Add into list, Display list, Remove list, Sequential Search
+*/
+
 #include "UnsortedArr.h"
 
 using namespace std;
