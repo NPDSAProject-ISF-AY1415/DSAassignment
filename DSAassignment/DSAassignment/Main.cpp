@@ -70,7 +70,8 @@ void parseLyrics(){
 
 	initFilesLoadbar(progressCounter, progressCounter, beginClock, bPMem, bVMem);
 	cout << endl;
-	cout << "Length of Vector: " << lyricDataset.size() << endl;	//DEBUG Code
+	if (verboseMode)
+		cout << "Length of Vector: " << lyricDataset.size() << endl;	//DEBUG Code
 }
 
 /*
@@ -102,7 +103,8 @@ void parseSong(){
 	}
 	initFilesLoadbar(progressCounter, progressCounter, beginClock, bPMem, bVMem);
 	cout << endl;
-	cout << "Length of Vector: " << songDataset.size() << endl;	//DEBUG Code
+	if (verboseMode)
+		cout << "Length of Vector: " << songDataset.size() << endl;	//DEBUG Code
 }
 
 
@@ -145,7 +147,8 @@ void parseWords(){
 	}
 	initFilesLoadbar(progressCounter, progressCounter, beginClock, bPMem, bVMem);
 	cout << endl;
-	cout << "Length of Vector: " << wordDataset.size() << endl;	//DEBUG Code
+	if (verboseMode)
+		cout << "Length of Vector: " << wordDataset.size() << endl;	//DEBUG Code
 }
 
 //START OF GRAPH GENERATION METHODS
