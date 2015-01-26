@@ -490,9 +490,7 @@ namespace unsortedptr {
 			return;
 		}
 
-		//TODO Start the clock here
 		Music toRemove = parseMusicItem(list.get(stoi(indexToRemove)));
-		//TODO Pause the clock here
 
 		cout << red << "Are you sure you wish to remove the following music data from the list? " << endl;
 		toRemove.printMusicInfo();
@@ -502,7 +500,6 @@ namespace unsortedptr {
 		cout << endl;
 		if (confirm[0] == 'y' || confirm[0] == 'Y'){
 
-			//TODO Resume clock here
 			//Confirmed Remove
 			clock_t start = clock();
 			//Get Start Memory (Virtual, Physical)

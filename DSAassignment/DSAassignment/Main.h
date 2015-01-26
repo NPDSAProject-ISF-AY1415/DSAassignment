@@ -10,11 +10,12 @@
 #include "DblLinkList.h"
 #include "Table.h"
 
-extern vector<string> wordDataset, songDataset, lyricDataset;
+extern vector<string> wordDataset, songDataset, lyricDataset, sortedSongDataset;
 
 static inline void initFilesLoadbar(unsigned int x, unsigned int n, clock_t beginClock, SIZE_T beginPMem, SIZE_T beginVMem, unsigned int w);
 void parseLyrics();
 void parseSong();
+void parseSortedSong();
 void parseWords();
 void initFileParse();
 void mainMenu();

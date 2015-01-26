@@ -117,7 +117,17 @@ namespace sortedArr {
 		memoryPAddLCounter.clear(), memoryPAddMCounter.clear(), memoryPAddWCounter.clear();
 		memoryVAddLCounter.clear(), memoryVAddMCounter.clear(), memoryVAddWCounter.clear();
 		printMemoryInfo();
-		cout << pink << "How many lines to read in Music File? (-1 to read all): ";
+		int sortOption;
+		while (true){
+			cout << pink << "What kind of sort do you want? (1- Insertion Sort, 2 - Read pre-sorted): ";
+			settextcolor(cyan);
+			cin >> sortOption;
+			if (sortOption == 1 || sortOption == 2){
+				break;
+			}
+			cout << endl << dark_red << "Invalid Option." << endl;
+		}
+		cout << endl << pink << "How many lines to read in Music File? (-1 to read all): ";
 		settextcolor(cyan);
 		int count;
 		cin >> count;
@@ -132,7 +142,10 @@ namespace sortedArr {
 			memoryVAddMCounter.reserve(SONG_DATASET_LENGTH);
 		}
 		printMenuTitle("Parsing Text Files...");
-		readMatchFile2(musInfoList, count);
+		if (sortOption == 1)
+			readMatchFile2(musInfoList, count);
+		else
+			readMatchFile(musInfoList, count);
 		readTopWords(wordList);
 		cout << pink << "How many lines to read in Lyric Count File? (-1 to read all): ";
 		settextcolor(cyan);
@@ -260,6 +273,62 @@ namespace sortedArr {
 
 	/*
 	Reads the 779k Match Text File
+	@param &list Linked list to store the music data lines in
+	@param count How many lines in the text file to process
+	*/
+	void readMatchFile(ListArray &list, int count){
+		bool verboseMode = false; //Enable Verbose Mode
+
+		int internalCounter = 0, progressCounter = count;
+		settextcolor(white);
+		if (count > SONG_DATASET_LENGTH || count <= -1){
+			cout << "Lines to read specified exceeds lines in file. Defaulting to read all" << endl;
+			count = -1;
+		}
+		if (count == -1){
+			progressCounter = SONG_DATASET_LENGTH;
+			cout << "As the file is extremely large, this may take a while..." << endl;
+		}
+		printMenuTitle("Parsing Song Information...");
+
+		//Get Start Memory (Virtual, Physical) and CPU Time
+		clock_t beginClock = clock();
+		SIZE_T bVMem = getVMUsed(), bPMem = getPMUsed();
+
+		for (string &str : sortedSongDataset){
+			if (internalCounter >= progressCounter)	break;
+			if (verboseMode) cout << str << endl;
+			if (str[0] == '#') continue; 	//Check if string is a comment
+
+			list.add(str);	//Parse Music Details Line
+
+			//Log Memory and CPU Time
+			timingAddMCounter.push_back(calculateElapsed(beginClock, clock()));
+			memoryPAddMCounter.push_back((double)(getPMUsed() - bPMem));
+			memoryVAddMCounter.push_back((double)(getVMUsed() - bVMem));
+
+			loadbar(internalCounter, progressCounter, beginClock, bPMem, bVMem);
+			internalCounter++;	//Increment counter
+		}
+
+		loadbar(progressCounter, progressCounter, beginClock, bPMem, bVMem);
+
+		//Calculate Memory Used (Virtual, Physical) and CPU Time
+		addMPTime = (getPMUsed() - bPMem);
+		addMVTime = (getVMUsed() - bVMem);
+		addMElapsed = calculateElapsed(beginClock, clock());
+
+		settextcolor(yellow);
+		cout << endl << "Finished Parsing and Adding Song Information." << endl;
+		cout << yellow << "Elapsed Time to add: " << cyan << setprecision(2) << fixed << addMElapsed << " seconds" << endl;
+		cout << yellow << "Total Lines Read: " << cyan << internalCounter << endl;
+		cout << yellow << "Total Music List Length: " << cyan << list.getLength() << endl;
+		cout << yellow << "Page Memory Use: " << cyan << convertMemoryToHumanReadable(addMPTime) << endl;
+		cout << yellow << "RAM Use: " << cyan << convertMemoryToHumanReadable(addMVTime) << endl << endl;
+	}
+
+	/*
+	Insertion Sort the 779k Match Text File
 	@param &list Linked list to store the music data lines in
 	@param count How many lines in the text file to process
 	*/
@@ -571,9 +640,7 @@ namespace sortedArr {
 				return;
 			}
 
-			//TODO Start the clock here
 			Music toRemove = parseMusicItem(list.get(stoi(indexToRemove)));
-			//TODO Pause the clock here
 
 			cout << red << "Are you sure you wish to remove the following music data from the list? " << endl;
 			toRemove.printMusicInfo();
@@ -583,7 +650,6 @@ namespace sortedArr {
 			cout << endl;
 			if (confirm[0] == 'y' || confirm[0] == 'Y'){
 
-				//TODO Resume clock here
 				//Confirmed Remove
 				clock_t start = clock();
 				//Get Start Memory (Virtual, Physical)

@@ -58,6 +58,7 @@ namespace sortedArr {
 	void parseFiles(ListArray &musInfoList, ListArray &wordList, ListArray &lyricList, bool soUn);
 	void readTopWords(ListArray &list);
 	void readMatchFile(ListArray &list, int count);
+	void readMatchFile2(ListArray &list, int count);
 	void readSongLyricCount(ListArray &list, int count);
 	void mainPtrArrMenu();
 	void searchSong(ListArray &list);

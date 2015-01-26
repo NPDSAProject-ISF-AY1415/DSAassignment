@@ -8,6 +8,7 @@ using namespace consolecolors;
 vector<string> wordDataset(0);
 vector<string> songDataset(0);
 vector<string> lyricDataset(0);
+vector<string> sortedSongDataset(0);
 
 
 /* An Inline Progress Bar
@@ -75,7 +76,7 @@ void parseLyrics(){
 }
 
 /*
-Stores the Song Dataset into a vector
+Stores the Unsorted Song Dataset into a vector
 PUSH_BACK Estimated Time: ~73.80 secs (~1 min 13.80 secs)
 RESERVE Estimated Time: ~71.06 secs (~1 min 11.06 secs)
 */
@@ -84,7 +85,7 @@ void parseSong(){
 	string str;
 	int internalCounter = 0, progressCounter = SONG_DATASET_LENGTH;
 	ifstream file("mxm_779k_matches.txt");
-	printMenuTitle("Initializing Song Data...");
+	printMenuTitle("Initializing Unsorted Song Data...");
 	songDataset.reserve(SONG_DATASET_LENGTH);
 
 	//Get Start Memory (Virtual, Physical)
@@ -105,6 +106,39 @@ void parseSong(){
 	cout << endl;
 	if (verboseMode)
 		cout << "Length of Vector: " << songDataset.size() << endl;	//DEBUG Code
+}
+
+/*
+Stores the Sorted Song Dataset into a vector
+PUSH_BACK Estimated Time: ~73.80 secs (~1 min 13.80 secs)
+RESERVE Estimated Time: ~71.06 secs (~1 min 11.06 secs)
+*/
+void parseSortedSong(){
+	bool verboseMode = false; //Enable Verbose Mode
+	string str;
+	int internalCounter = 0, progressCounter = SONG_DATASET_LENGTH;
+	ifstream file("mxm_779k_matches_sorted.txt");
+	printMenuTitle("Initializing Sorted Song Data...");
+	sortedSongDataset.reserve(SONG_DATASET_LENGTH);
+
+	//Get Start Memory (Virtual, Physical)
+	clock_t beginClock = clock();
+	SIZE_T bVMem = getVMUsed(), bPMem = getPMUsed();
+
+	while (getline(file, str)){
+		if (internalCounter >= progressCounter) break;
+		if (verboseMode) cout << str << endl;
+		//Ignore Comments
+		if (str[0] == '#') continue;
+		//Parse Music Details Line
+		sortedSongDataset.push_back(str);
+		initFilesLoadbar(internalCounter, progressCounter, beginClock, bPMem, bVMem);
+		internalCounter++;
+	}
+	initFilesLoadbar(progressCounter, progressCounter, beginClock, bPMem, bVMem);
+	cout << endl;
+	if (verboseMode)
+		cout << "Length of Vector: " << sortedSongDataset.size() << endl;	//DEBUG Code
 }
 
 
@@ -586,13 +620,14 @@ void plotTableMenu(){
 /*
 Calls all the 3 methods to load the dataset into the vectors
 PUSH_BACK Estimated Time: ~156.33 secs (~2 mins 36.33 secs)
-RESERVE Estimated Time: ~153.04 secs (~2 mins 33.04 secs)
+RESERVE Estimated Time: ~153.04 secs (~2 mins 33.04 secs) + 71 secs
 */
 void initFileParse(){
 	printMemoryInfo();
-	printMenuTitle("Initializing and loading text files to temp vector buffer");
-	cout << magenta << "It will take about 2.5 minutes to load the data into the vectors..." << endl << "Please wait..." << endl;
+	printMenuTitle("Initializing and loading text files to temp vector buffers");
+	cout << magenta << "It will take about 3.5 minutes to load the data into the vectors..." << endl << "Please wait..." << endl;
 	parseSong();
+	parseSortedSong();
 	parseLyrics();
 	parseWords();
 	printMenuTitle("Load Completed");
