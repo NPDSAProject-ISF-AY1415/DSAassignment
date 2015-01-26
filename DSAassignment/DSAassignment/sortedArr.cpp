@@ -477,7 +477,7 @@ namespace sortedArr {
 				memoryVSeqSearchMCounter.resize(i);
 				break;
 			}
-			else if (musIfo.getTid() > target)
+			else if (musIfo.getTid() > target)   //end sequential search once it is greater than target
 			{
 				break;
 				timingSeqSearchMCounter.resize(i);
@@ -490,7 +490,7 @@ namespace sortedArr {
 			cout << endl << dark_red << "Unable to find a music file matching the search term" << endl;
 			cout << yellow << "Number of Critical Instructions: " << cyan << criticalInstructionsSeq << endl;
 		}
-
+		//binary search
 		cout << endl << green << "Doing Binary Search Now..." << endl;
 		bool found2 = false;
 		bool verboseMode = false;
