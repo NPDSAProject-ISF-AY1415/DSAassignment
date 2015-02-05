@@ -1,3 +1,11 @@
+/*
+Lyric.cpp
+Lyric Object Class File
+Team Name: Wat.jpg
+Team Member 1: Soh Yan Quan, Kenneth (S10147249G)
+Team Member 2: Soh Hak Wee (S10146869K)
+*/
+
 #include "Lyric.h"
 
 using namespace std;
